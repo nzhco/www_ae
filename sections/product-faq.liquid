@@ -1,0 +1,426 @@
+{{ 'product-faq.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'product-faq.js' | asset_url }}" defer="defer"></script>
+{% if product.metafields.custom.product_faq_hide != true %}
+  <div class="c-container">
+    <div class="c-product-faq__content">
+      {%- if section.settings.image_text != blank -%}
+        <div class="c-product-faq__image-text">
+          <img
+            srcset="
+              {%- if section.settings.image_text.width >= 165 -%}{{ section.settings.image_text | image_url: width: 330 }} 165w,{%- endif -%}
+              {%- if section.settings.image_text.width >= 360 -%}{{ section.settings.image_text | image_url: width: 720 }} 360w,{%- endif -%}
+              {%- if section.settings.image_text.width >= 533 -%}{{ section.settings.image_text | image_url: width: 1128 }} 533w,{%- endif -%}
+              {%- if section.settings.image_text.width >= 720 -%}{{ section.settings.image_text | image_url: width: 1128 }} 720w,{%- endif -%}
+              {%- if section.settings.image_text.width >= 940 -%}{{ section.settings.image_text | image_url: width: 1128 }} 940w,{%- endif -%}
+              {%- if section.settings.image_text.width >= 1066 -%}{{ section.settings.image_text | image_url: width: 1128 }} 1066w,{%- endif -%}
+              {{ section.settings.image_text | image_url }} {{ section.settings.image_text.width }}w
+            "
+            src="{{ section.settings.image_text | image_url: width: 800 }}"
+            sizes="(min-width: 500px) {{ 1600 | minus: 500 | divided_by: 3 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+            alt="{{ section.settings.image_text.alt | escape }}"
+            loading="lazy"
+            width="{{ section.settings.image_text.width }}"
+            height="{{ section.settings.image_text.height }}"
+          >
+        </div>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="c-product-faq__heading">
+          {{ section.settings.heading }}
+        </h2>
+      {%- endif -%}
+      <div class="c-product-faq__row">
+        <div class="c-product-faq__left">
+          {%- if section.settings.image_one != blank -%}
+            <div class="c-product-faq__image-one">
+              <img
+                srcset="
+                  {%- if section.settings.image_one.width >= 165 -%}{{ section.settings.image_one | image_url: width: 330 }} 165w,{%- endif -%}
+                  {%- if section.settings.image_one.width >= 360 -%}{{ section.settings.image_one | image_url: width: 720 }} 360w,{%- endif -%}
+                  {%- if section.settings.image_one.width >= 533 -%}{{ section.settings.image_one | image_url: width: 1128 }} 533w,{%- endif -%}
+                  {%- if section.settings.image_one.width >= 720 -%}{{ section.settings.image_one | image_url: width: 1128 }} 720w,{%- endif -%}
+                  {%- if section.settings.image_one.width >= 940 -%}{{ section.settings.image_one | image_url: width: 1128 }} 940w,{%- endif -%}
+                  {%- if section.settings.image_one.width >= 1066 -%}{{ section.settings.image_one | image_url: width: 1128 }} 1066w,{%- endif -%}
+                  {{ section.settings.image_one | image_url }} {{ section.settings.image_one.width }}w
+                "
+                src="{{ section.settings.image_one | image_url: width: 800 }}"
+                sizes="(min-width: 500px) {{ 1600 | minus: 500 | divided_by: 3 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                alt="{{ section.settings.image_one.alt | escape }}"
+                loading="lazy"
+                width="{{ section.settings.image_one.width }}"
+                height="{{ section.settings.image_one.height }}"
+              >
+              {%- if section.settings.image_background != blank -%}
+                <div class="c-product-faq__image__background">
+                  <img
+                    srcset="
+                      {%- if section.settings.image_background.width >= 165 -%}{{ section.settings.image_background | image_url: width: 330 }} 165w,{%- endif -%}
+                      {%- if section.settings.image_background.width >= 360 -%}{{ section.settings.image_background | image_url: width: 720 }} 360w,{%- endif -%}
+                      {%- if section.settings.image_background.width >= 533 -%}{{ section.settings.image_background | image_url: width: 1128 }} 533w,{%- endif -%}
+                      {%- if section.settings.image_background.width >= 720 -%}{{ section.settings.image_background | image_url: width: 1128 }} 720w,{%- endif -%}
+                      {%- if section.settings.image_background.width >= 940 -%}{{ section.settings.image_background | image_url: width: 1128 }} 940w,{%- endif -%}
+                      {%- if section.settings.image_background.width >= 1066 -%}{{ section.settings.image_background | image_url: width: 1128 }} 1066w,{%- endif -%}
+                      {{ section.settings.image_background | image_url }} {{ section.settings.image_background.width }}w
+                    "
+                    src="{{ section.settings.image_background | image_url: width: 800 }}"
+                    sizes="(min-width: 500px) {{ 1600 | minus: 500 | divided_by: 3 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                    alt="{{ section.settings.image_background.alt | escape }}"
+                    loading="lazy"
+                    width="{{ section.settings.image_background.width }}"
+                    height="{{ section.settings.image_background.height }}"
+                  >
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+          {%- if section.settings.image_two != blank -%}
+            <div class="c-product-faq__image-two">
+              <img
+                srcset="
+                  {%- if section.settings.image_two.width >= 165 -%}{{ section.settings.image_two | image_url: width: 330 }} 165w,{%- endif -%}
+                  {%- if section.settings.image_two.width >= 360 -%}{{ section.settings.image_two | image_url: width: 720 }} 360w,{%- endif -%}
+                  {%- if section.settings.image_two.width >= 533 -%}{{ section.settings.image_two | image_url: width: 1128 }} 533w,{%- endif -%}
+                  {%- if section.settings.image_two.width >= 720 -%}{{ section.settings.image_two | image_url: width: 1128 }} 720w,{%- endif -%}
+                  {%- if section.settings.image_two.width >= 940 -%}{{ section.settings.image_two | image_url: width: 1128 }} 940w,{%- endif -%}
+                  {%- if section.settings.image_two.width >= 1066 -%}{{ section.settings.image_two | image_url: width: 1128 }} 1066w,{%- endif -%}
+                  {{ section.settings.image_two | image_url }} {{ section.settings.image_two.width }}w
+                "
+                src="{{ section.settings.image_two | image_url: width: 800 }}"
+                sizes="(min-width: 500px) {{ 1600 | minus: 500 | divided_by: 3 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                alt="{{ section.settings.image_two.alt | escape }}"
+                loading="lazy"
+                width="{{ section.settings.image_two.width }}"
+                height="{{ section.settings.image_two.height }}"
+              >
+              {%- if section.settings.image_background != blank -%}
+                <div class="c-product-faq__image__background">
+                  <img
+                    srcset="
+                      {%- if section.settings.image_background.width >= 165 -%}{{ section.settings.image_background | image_url: width: 330 }} 165w,{%- endif -%}
+                      {%- if section.settings.image_background.width >= 360 -%}{{ section.settings.image_background | image_url: width: 720 }} 360w,{%- endif -%}
+                      {%- if section.settings.image_background.width >= 533 -%}{{ section.settings.image_background | image_url: width: 1128 }} 533w,{%- endif -%}
+                      {%- if section.settings.image_background.width >= 720 -%}{{ section.settings.image_background | image_url: width: 1128 }} 720w,{%- endif -%}
+                      {%- if section.settings.image_background.width >= 940 -%}{{ section.settings.image_background | image_url: width: 1128 }} 940w,{%- endif -%}
+                      {%- if section.settings.image_background.width >= 1066 -%}{{ section.settings.image_background | image_url: width: 1128 }} 1066w,{%- endif -%}
+                      {{ section.settings.image_background | image_url }} {{ section.settings.image_background.width }}w
+                    "
+                    src="{{ section.settings.image_background | image_url: width: 800 }}"
+                    sizes="(min-width: 500px) {{ 1600 | minus: 500 | divided_by: 3 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                    alt="{{ section.settings.image_background.alt | escape }}"
+                    loading="lazy"
+                    width="{{ section.settings.image_background.width }}"
+                    height="{{ section.settings.image_background.height }}"
+                  >
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+        <div class="c-product-faq__right">
+          {%- if section.settings.title != blank -%}
+            <h3 class="c-product-faq__title">{{ section.settings.title }}</h3>
+          {%- endif -%}
+          {%- if section.settings.description != blank -%}
+            <p class="c-product-faq__description">{{ section.settings.description }}</p>
+          {%- endif -%}
+          {%- if section.blocks != blank -%}
+            <div class="c-product-faq__items">
+              {%- for block in section.blocks -%}
+                <div class="c-product-faq__item">
+                  {%- if block.settings.title != blank and block.settings.description != blank -%}
+                    <div class="c-product-faq__item__title">
+                      <h3>{{ block.settings.title | escape }}</h3>
+                      {%- render 'icon-arrow', type: '' -%}
+                    </div>
+                    <div class="c-product-faq__item__description">
+                      {{ block.settings.description }}
+                    </div>
+                  {%- endif -%}
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+{% else %}
+  <div class="c-container">
+    <div class="c-product-faq__content">
+      {%- if product.metafields.custom.product_faq_image_title != blank -%}
+        <div class="c-product-faq__image-text">
+          <img
+            srcset="
+              {%- if product.metafields.custom.product_faq_image_title.width >= 165 -%}{{ product.metafields.custom.product_faq_image_title | image_url: width: 330 }} 165w,{%- endif -%}
+              {%- if product.metafields.custom.product_faq_image_title.width >= 360 -%}{{ product.metafields.custom.product_faq_image_title | image_url: width: 720 }} 360w,{%- endif -%}
+              {%- if product.metafields.custom.product_faq_image_title.width >= 533 -%}{{ product.metafields.custom.product_faq_image_title | image_url: width: 1128 }} 533w,{%- endif -%}
+              {%- if product.metafields.custom.product_faq_image_title.width >= 720 -%}{{ product.metafields.custom.product_faq_image_title | image_url: width: 1128 }} 720w,{%- endif -%}
+              {%- if product.metafields.custom.product_faq_image_title.width >= 940 -%}{{ product.metafields.custom.product_faq_image_title | image_url: width: 1128 }} 940w,{%- endif -%}
+              {%- if product.metafields.custom.product_faq_image_title.width >= 1066 -%}{{ product.metafields.custom.product_faq_image_title | image_url: width: 1128 }} 1066w,{%- endif -%}
+              {{ product.metafields.custom.product_faq_image_title | image_url }} {{ product.metafields.custom.product_faq_image_title.width }}w
+            "
+            src="{{ product.metafields.custom.product_faq_image_title | image_url: width: 800 }}"
+            sizes="(min-width: 500px) {{ 1600 | minus: 500 | divided_by: 3 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+            alt="{{ product.metafields.custom.product_faq_image_title.alt | escape }}"
+            loading="lazy"
+            width="{{ product.metafields.custom.product_faq_image_title.width }}"
+            height="{{ product.metafields.custom.product_faq_image_title.height }}"
+          >
+        </div>
+      {%- endif -%}
+      {%- if product.metafields.custom.product_faq_sub_title != blank -%}
+        <h2 class="c-product-faq__heading">
+          {{ product.metafields.custom.product_faq_sub_title }}
+        </h2>
+      {%- endif -%}
+      <div class="c-product-faq__row">
+        <div class="c-product-faq__left">
+          {%- if product.metafields.custom.product_faq_image_1 != blank -%}
+            <div class="c-product-faq__image-one">
+              <img
+                srcset="
+                  {%- if product.metafields.custom.product_faq_image_1.width >= 165 -%}{{ product.metafields.custom.product_faq_image_1 | image_url: width: 330 }} 165w,{%- endif -%}
+                  {%- if product.metafields.custom.product_faq_image_1.width >= 360 -%}{{ product.metafields.custom.product_faq_image_1 | image_url: width: 720 }} 360w,{%- endif -%}
+                  {%- if product.metafields.custom.product_faq_image_1.width >= 533 -%}{{ product.metafields.custom.product_faq_image_1 | image_url: width: 1128 }} 533w,{%- endif -%}
+                  {%- if product.metafields.custom.product_faq_image_1.width >= 720 -%}{{ product.metafields.custom.product_faq_image_1 | image_url: width: 1128 }} 720w,{%- endif -%}
+                  {%- if product.metafields.custom.product_faq_image_1.width >= 940 -%}{{ product.metafields.custom.product_faq_image_1 | image_url: width: 1128 }} 940w,{%- endif -%}
+                  {%- if product.metafields.custom.product_faq_image_1.width >= 1066 -%}{{ product.metafields.custom.product_faq_image_1 | image_url: width: 1128 }} 1066w,{%- endif -%}
+                  {{ product.metafields.custom.product_faq_image_1 | image_url }} {{ product.metafields.custom.product_faq_image_1.width }}w
+                "
+                src="{{ product.metafields.custom.product_faq_image_1 | image_url: width: 800 }}"
+                sizes="(min-width: 500px) {{ 1600 | minus: 500 | divided_by: 3 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                alt="{{ product.metafields.custom.product_faq_image_1.alt | escape }}"
+                loading="lazy"
+                width="{{ product.metafields.custom.product_faq_image_1.width }}"
+                height="{{ product.metafields.custom.product_faq_image_1.height }}"
+              >
+              {%- if product.metafields.custom.product_faq_background != blank -%}
+                <div class="c-product-faq__image__background">
+                  <img
+                    srcset="
+                      {%- if product.metafields.custom.product_faq_background.width >= 165 -%}{{ product.metafields.custom.product_faq_background | image_url: width: 330 }} 165w,{%- endif -%}
+                      {%- if product.metafields.custom.product_faq_background.width >= 360 -%}{{ product.metafields.custom.product_faq_background | image_url: width: 720 }} 360w,{%- endif -%}
+                      {%- if product.metafields.custom.product_faq_background.width >= 533 -%}{{ product.metafields.custom.product_faq_background | image_url: width: 1128 }} 533w,{%- endif -%}
+                      {%- if product.metafields.custom.product_faq_background.width >= 720 -%}{{ product.metafields.custom.product_faq_background | image_url: width: 1128 }} 720w,{%- endif -%}
+                      {%- if product.metafields.custom.product_faq_background.width >= 940 -%}{{ product.metafields.custom.product_faq_background | image_url: width: 1128 }} 940w,{%- endif -%}
+                      {%- if product.metafields.custom.product_faq_background.width >= 1066 -%}{{ product.metafields.custom.product_faq_background | image_url: width: 1128 }} 1066w,{%- endif -%}
+                      {{ product.metafields.custom.product_faq_background | image_url }} {{ product.metafields.custom.product_faq_background.width }}w
+                    "
+                    src="{{ product.metafields.custom.product_faq_background | image_url: width: 800 }}"
+                    sizes="(min-width: 500px) {{ 1600 | minus: 500 | divided_by: 3 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                    alt="{{ product.metafields.custom.product_faq_background.alt | escape }}"
+                    loading="lazy"
+                    width="{{ product.metafields.custom.product_faq_background.width }}"
+                    height="{{ product.metafields.custom.product_faq_background.height }}"
+                  >
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+          {%- if product.metafields.custom.product_faq_image_2 != blank -%}
+            <div class="c-product-faq__image-two">
+              <img
+                srcset="
+                  {%- if product.metafields.custom.product_faq_image_2.width >= 165 -%}{{ product.metafields.custom.product_faq_image_2 | image_url: width: 330 }} 165w,{%- endif -%}
+                  {%- if product.metafields.custom.product_faq_image_2.width >= 360 -%}{{ product.metafields.custom.product_faq_image_2 | image_url: width: 720 }} 360w,{%- endif -%}
+                  {%- if product.metafields.custom.product_faq_image_2.width >= 533 -%}{{ product.metafields.custom.product_faq_image_2 | image_url: width: 1128 }} 533w,{%- endif -%}
+                  {%- if product.metafields.custom.product_faq_image_2.width >= 720 -%}{{ product.metafields.custom.product_faq_image_2 | image_url: width: 1128 }} 720w,{%- endif -%}
+                  {%- if product.metafields.custom.product_faq_image_2.width >= 940 -%}{{ product.metafields.custom.product_faq_image_2 | image_url: width: 1128 }} 940w,{%- endif -%}
+                  {%- if product.metafields.custom.product_faq_image_2.width >= 1066 -%}{{ product.metafields.custom.product_faq_image_2 | image_url: width: 1128 }} 1066w,{%- endif -%}
+                  {{ product.metafields.custom.product_faq_image_2 | image_url }} {{ product.metafields.custom.product_faq_image_2.width }}w
+                "
+                src="{{ product.metafields.custom.product_faq_image_2 | image_url: width: 800 }}"
+                sizes="(min-width: 500px) {{ 1600 | minus: 500 | divided_by: 3 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                alt="{{ product.metafields.custom.product_faq_image_2.alt | escape }}"
+                loading="lazy"
+                width="{{ product.metafields.custom.product_faq_image_2.width }}"
+                height="{{ product.metafields.custom.product_faq_image_2.height }}"
+              >
+              {%- if product.metafields.custom.product_faq_background != blank -%}
+                <div class="c-product-faq__image__background">
+                  <img
+                    srcset="
+                      {%- if product.metafields.custom.product_faq_background.width >= 165 -%}{{ product.metafields.custom.product_faq_background | image_url: width: 330 }} 165w,{%- endif -%}
+                      {%- if product.metafields.custom.product_faq_background.width >= 360 -%}{{ product.metafields.custom.product_faq_background | image_url: width: 720 }} 360w,{%- endif -%}
+                      {%- if product.metafields.custom.product_faq_background.width >= 533 -%}{{ product.metafields.custom.product_faq_background | image_url: width: 1128 }} 533w,{%- endif -%}
+                      {%- if product.metafields.custom.product_faq_background.width >= 720 -%}{{ product.metafields.custom.product_faq_background | image_url: width: 1128 }} 720w,{%- endif -%}
+                      {%- if product.metafields.custom.product_faq_background.width >= 940 -%}{{ product.metafields.custom.product_faq_background | image_url: width: 1128 }} 940w,{%- endif -%}
+                      {%- if product.metafields.custom.product_faq_background.width >= 1066 -%}{{ product.metafields.custom.product_faq_background | image_url: width: 1128 }} 1066w,{%- endif -%}
+                      {{ product.metafields.custom.product_faq_background | image_url }} {{ product.metafields.custom.product_faq_background.width }}w
+                    "
+                    src="{{ product.metafields.custom.product_faq_background | image_url: width: 800 }}"
+                    sizes="(min-width: 500px) {{ 1600 | minus: 500 | divided_by: 3 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                    alt="{{ product.metafields.custom.product_faq_background.alt | escape }}"
+                    loading="lazy"
+                    width="{{ product.metafields.custom.product_faq_background.width }}"
+                    height="{{ product.metafields.custom.product_faq_background.height }}"
+                  >
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+        <div class="c-product-faq__right">
+          {%- if product.metafields.custom.product_faq_section_heading != blank -%}
+            <h3 class="c-product-faq__title">{{ product.metafields.custom.product_faq_section_heading }}</h3>
+          {%- endif -%}
+          {%- if product.metafields.custom.product_faq_section_description != blank -%}
+            <p class="c-product-faq__description">{{ product.metafields.custom.product_faq_section_description }}</p>
+          {%- endif -%}
+          {%- if product.metafields.custom.accordion_heading_1 != blank
+            or product.metafields.custom.accordion_heading_2 != blank
+            or product.metafields.custom.accordion_heading_3 != blank
+            or product.metafields.custom.accordion_heading_4 != blank
+            or product.metafields.custom.accordion_heading_1 != blank
+          -%}
+            <div class="c-product-faq__items">
+              {%- if product.metafields.custom.accordion_heading_1 != blank
+                and product.metafields.custom.accordion_text_1 != blank
+              -%}
+                <div class="c-product-faq__item">
+                  <div class="c-product-faq__item__title">
+                    <h3>{{ product.metafields.custom.accordion_heading_1 | escape }}</h3>
+                    {%- render 'icon-arrow', type: '' -%}
+                  </div>
+                  <div class="c-product-faq__item__description">
+                    {{ product.metafields.custom.accordion_text_1 }}
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if product.metafields.custom.accordion_heading_2 != blank
+                and product.metafields.custom.accordion_text_2 != blank
+              -%}
+                <div class="c-product-faq__item">
+                  <div class="c-product-faq__item__title">
+                    <h3>{{ product.metafields.custom.accordion_heading_2 | escape }}</h3>
+                    {%- render 'icon-arrow', type: '' -%}
+                  </div>
+                  <div class="c-product-faq__item__description">
+                    {{ product.metafields.custom.accordion_text_2 }}
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if product.metafields.custom.accordion_heading_3 != blank
+                and product.metafields.custom.accordion_text_3 != blank
+              -%}
+                <div class="c-product-faq__item">
+                  <div class="c-product-faq__item__title">
+                    <h3>{{ product.metafields.custom.accordion_heading_3 | escape }}</h3>
+                    {%- render 'icon-arrow', type: '' -%}
+                  </div>
+                  <div class="c-product-faq__item__description">
+                    {{ product.metafields.custom.accordion_text_3 }}
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if product.metafields.custom.accordion_heading_4 != blank
+                and product.metafields.custom.accordion_text_4 != blank
+              -%}
+                <div class="c-product-faq__item">
+                  <div class="c-product-faq__item__title">
+                    <h3>{{ product.metafields.custom.accordion_heading_4 | escape }}</h3>
+                    {%- render 'icon-arrow', type: '' -%}
+                  </div>
+                  <div class="c-product-faq__item__description">
+                    {{ product.metafields.custom.accordion_text_4 }}
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if product.metafields.custom.accordion_heading_5 != blank
+                and product.metafields.custom.accordion_text_5 != blank
+              -%}
+                <div class="c-product-faq__item">
+                  <div class="c-product-faq__item__title">
+                    <h3>{{ product.metafields.custom.accordion_heading_5 | escape }}</h3>
+                    {%- render 'icon-arrow', type: '' -%}
+                  </div>
+                  <div class="c-product-faq__item__description">
+                    {{ product.metafields.custom.accordion_text_5 }}
+                  </div>
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if request.path contains '/ar' %}
+   <div>{% render 'comp-table-product-ar' %}</div>
+{% else %}
+   <div>{% render 'comp-table-product' %}</div>
+{% endif %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Product FAQ",
+  "tag": "section",
+  "class": "c-product-faq",
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Methylglyoxal (MGO)"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>The antibacterial powerhouse</p>"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "TRACEABLE TO THE SOURCE"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "We know that the energy of our environments is captured in our honey."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "This is why it is so important to us that our honey is pure, ethically sourced and safe for you and your family. "
+    },
+    {
+      "type": "image_picker",
+      "id": "image_text",
+      "label": "Image Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_one",
+      "label": "Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_two",
+      "label": "Image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_background",
+      "label": "Image Background"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product FAQ"
+    }
+  ]
+}
+{% endschema %}

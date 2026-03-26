@@ -1,0 +1,156 @@
+{{ 'reviews.css' | asset_url | stylesheet_tag }}
+<div class="c-container">
+  <div class="c-reviews__content">
+    {%- if section.settings.title_text != blank -%}
+      <h2>{{ section.settings.title_text | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.title_sub != blank -%}
+      <p>{{ section.settings.title_sub }}</p>
+    {%- endif -%}
+    {%- if section.blocks != blank -%}
+      <div class="c-reviews__row">
+        {%- for block in section.blocks -%}
+          <div
+            class="c-review"
+            {% if block.settings.product != blank %}
+              {%- if block.settings.product.metafields.custom.color != blank %}
+                style="--product-color:{{ block.settings.product.metafields.custom.color }}"
+              {%- endif -%}
+            {% endif %}
+          >
+            <div class="c-review__content">
+              {% if block.settings.product != blank %}
+                <div class="c-review__image">
+                  <a href="{{ block.settings.product.url }}" rel="bookmark" class="u-absolute-fill">
+                    {%- if block.settings.product.featured_media -%}
+                      <img
+                        srcset="
+                          {%- if block.settings.product.featured_media.width >= 165 -%}{{ block.settings.product.featured_media | image_url: width: 330 }} 165w,{%- endif -%}
+                          {%- if block.settings.product.featured_media.width >= 360 -%}{{ block.settings.product.featured_media | image_url: width: 720 }} 360w,{%- endif -%}
+                          {%- if block.settings.product.featured_media.width >= 533 -%}{{ block.settings.product.featured_media | image_url: width: 1128 }} 533w,{%- endif -%}
+                          {%- if block.settings.product.featured_media.width >= 720 -%}{{ block.settings.product.featured_media | image_url: width: 1128 }} 720w,{%- endif -%}
+                          {%- if block.settings.product.featured_media.width >= 940 -%}{{ block.settings.product.featured_media | image_url: width: 1128 }} 940w,{%- endif -%}
+                          {%- if block.settings.product.featured_media.width >= 1066 -%}{{ block.settings.product.featured_media | image_url: width: 1128 }} 1066w,{%- endif -%}
+                          {{ block.settings.product.featured_media | image_url }} {{ block.settings.product.featured_media.width }}w
+                        "
+                        src="{{ block.settings.product.featured_media | image_url: width: 800 }}"
+                        sizes="(min-width: 500px) {{ 1600 | minus: 500 | divided_by: 3 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                        alt="{{ block.settings.product.featured_media.alt | escape }}"
+                        class="u-absolute-fill"
+                        loading="lazy"
+                        width="{{ block.settings.product.featured_media.width }}"
+                        height="{{ block.settings.product.featured_media.height }}"
+                      >
+                    {%- endif -%}
+                  </a>
+                </div>
+              {%- endif -%}
+              {%- if block.settings.name != blank -%}
+                <p class="c-review__author">{{ block.settings.name | escape }}</p>
+              {%- endif -%}
+              {%- if block.settings.location != blank -%}
+                <div class="c-review__location">{{ block.settings.location }}</div>
+              {%- endif -%}
+              <div class="c-review__rating">
+                {% for star in (1..5) %}
+                  {%- render 'icon-heart', state: 'active' -%}
+                {% endfor %}
+              </div>
+              {%- if block.settings.review != blank -%}
+                <div class="c-review__text">{{ block.settings.review }}</div>
+              {%- endif -%}
+              {% if block.settings.product != blank %}
+                <div class="c-review__link">
+                  <a
+                    class="c-button"
+                    href="{{ block.settings.product.url }}"
+                    rel="bookmark"
+                  >
+                    {{- 'sections.reviews.read_more' | t -}}
+                  </a>
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+    {%- if section.settings.button_link != blank and section.settings.button_label != blank -%}
+      <p>
+        <a class="c-button" href="{{ section.settings.button_link }}" rel="bookmark">
+          {{- section.settings.button_label | escape -}}
+        </a>
+      </p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "tag": "section",
+  "class": "c-reviews",
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Scott A."
+        },
+        {
+          "type": "text",
+          "id": "location",
+          "label": "Location",
+          "default": "New Zealand"
+        },
+        {
+          "type": "richtext",
+          "id": "review",
+          "label": "Review",
+          "default": "<p>The Best Honey!</p><p>I’ve been missing out, apparently.</p><p>I love honey, in general whether it’s for consumption or…</p>"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title_text",
+      "label": "Section Title",
+      "default": "The buzz on the street"
+    },
+    {
+      "type": "text",
+      "id": "title_sub",
+      "label": "Sub Title",
+      "default": "CUSTOMER REVIEWS"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "View all reviews"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,112 @@
+<script src="{{ 'login.js' | asset_url }}" defer="defer"></script>
+<div class="customer login login-page hide-reset">
+  <div class="login__reset-password">
+    <h1 id="recover" tabindex="-1">{{ 'sections.login.reset_password' | t }}</h1>
+    <div>
+      <p>{{ 'sections.login.reset_description' | t }}</p>
+
+      {%- form 'recover_customer_password' -%}
+        {% assign recover_success = form.posted_successfully? %}
+        <div class="field">
+          <input
+            type="email"
+            value=""
+            name="email"
+            id="RecoverEmail"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            {% if form.errors %}
+              aria-invalid="true"
+              aria-describedby="RecoverEmail-email-error"
+              autofocus
+            {% endif %}
+            placeholder="{{ 'sections.login.email' | t }}"
+          >
+          <label for="RecoverEmail"> {{ 'sections.login.email' | t }} </label>
+        </div>
+        {%- if form.errors -%}
+          <small id="RecoverEmail-email-error" class="form__message--field">
+            {{ form.errors.messages.form }}
+          </small>
+        {%- endif -%}
+
+        <div class="form-bottom-row">
+          <button>{{ 'sections.login.submit' | t }}</button>
+
+          <a class="show-login-form" href="#login"> {{ 'sections.login.cancel' | t }} </a>
+        </div>
+      {%- endform -%}
+    </div>
+  </div>
+  <div class="login__sign-in">
+    <h1 id="login" tabindex="-1">{{ 'sections.login.login' | t }}</h1>
+    <div>
+      {%- if recover_success == true -%}
+        <h3 class="form__message">{{ 'sections.login.login_description' | t }}</h3>
+      {%- endif -%}
+      {%- form 'customer_login', novalidate: 'novalidate' -%}
+        {%- if form.errors -%}
+          <h2 class="form__message">
+            <span class="visually-hidden">{{ 'sections.login.error' | t }}</span>
+            {{ 'sections.login.message' | t }}
+          </h2>
+          {{ form.errors | default_errors }}
+        {%- endif -%}
+
+        <div class="field">
+          <input
+            type="email"
+            name="customer[email]"
+            id="CustomerEmail"
+            autocomplete="email"
+            autocorrect="off"
+            autocapitalize="off"
+            {% if form.errors contains 'form' %}
+              aria-invalid="true"
+            {% endif %}
+            placeholder="{{ 'sections.login.email' | t }}"
+          >
+          <label for="CustomerEmail"> {{ 'sections.login.email' | t }} </label>
+        </div>
+
+        {%- if form.password_needed -%}
+          <div class="field">
+            <input
+              type="password"
+              value=""
+              name="customer[password]"
+              id="CustomerPassword"
+              autocomplete="current-password"
+              {% if form.errors contains 'form' %}
+                aria-invalid="true"
+              {% endif %}
+              placeholder="{{ 'sections.login.password' | t }}"
+            >
+            <label for="CustomerPassword"> {{ 'sections.login.password' | t }} </label>
+          </div>
+          <div class="form-bottom-row">
+            <a class="show-forget-password" href="#recover"> {{ 'sections.login.forget' | t }} </a>
+            <button>{{ 'sections.login.sign_in' | t }}</button>
+          </div>
+        {%- else -%}
+          <button>{{ 'sections.login.sign_in' | t }}</button>
+        {%- endif -%}
+        <p class="create-account-link">
+          <a href="{{ routes.account_register_url }}"> {{ 'sections.login.create_account' | t }} </a>
+        </p>
+      {%- endform -%}
+    </div>
+
+    {%- if shop.checkout.guest_login -%}
+      <div>
+        <hr>
+        <h2>{{ 'sections.login.guest' | t }}</h2>
+
+        {%- form 'guest_login' -%}
+          <button>{{ 'sections.login.continue' | t }}</button>
+        {%- endform -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>

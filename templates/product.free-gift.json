@@ -1,0 +1,357 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "custom_css": [
+        "div#productForm {display: none !important;}"
+      ],
+      "settings": {
+        "title": "We are dedicated to transparency",
+        "umf_title": "UMF™ scale",
+        "product_list": [
+          "manuka-honey-umf-5",
+          "manuka-honey-umf-10",
+          "manuka-honey-umf-15",
+          "manuka-honey-umf-20-mgo-829",
+          "manuka-honey-umf-24-mgo-1122",
+          "manuka-honey-umf-26-mgo-1282",
+          "manuka-honey-umf-28-mgo-1450"
+        ],
+        "scale_title": "Taste Profile",
+        "scale_start": "Clean & Sweet",
+        "scale_end": "Bold & Intense",
+        "product_content": "short"
+      }
+    },
+    "173828340851837dd7": {
+      "type": "apps",
+      "settings": {}
+    },
+    "1660538641809f543a": {
+      "type": "apps",
+      "settings": {}
+    },
+    "1664797767b4c57d4d": {
+      "type": "apps",
+      "settings": {}
+    },
+    "f884a421-d80a-42f9-b9e7-6b5b0045679a": {
+      "type": "accreditations",
+      "blocks": {
+        "6a1036bb-5372-4adf-9b95-5e7a7873a6b4": {
+          "type": "accreditation",
+          "settings": {
+            "logo": "shopify://shop_images/umf.webp",
+            "title": "UMF",
+            "description": "The UMF Grading system appraises natural markers found in manuka honey and assures purity and quality."
+          }
+        },
+        "b482a171-74e2-48ed-a1b9-a1cb0f75760e": {
+          "type": "accreditation",
+          "settings": {
+            "logo": "shopify://shop_images/Non-GMO-Manuka-Honey.webp",
+            "title": "Non-GMO",
+            "description": "Our honey is certified and in compliance with the Non-GMO Project Standard."
+          }
+        },
+        "db163af1-5492-4fbc-9d26-01e5050630bd": {
+          "type": "accreditation",
+          "settings": {
+            "logo": "shopify://shop_images/Glyphosate-Free-Manuka-Honey.webp",
+            "title": "Glyphosate free",
+            "description": "Every batch of our honey is tested in independent laboratories to ensure it is glyphosate free."
+          }
+        },
+        "de4d431b-7b4e-44c1-8339-cceb16003de6": {
+          "type": "accreditation",
+          "settings": {
+            "logo": "shopify://shop_images/Halal-Manuka-Honey_db3746fe-8b17-4ecf-a583-33cdc9dbb0ae.webp",
+            "title": "Halal",
+            "description": "Certified by FIANZ, The Federation of Islamic Associations of New Zealand (Inc)."
+          }
+        },
+        "4739f85c-e897-4d78-9acc-cec467bf7c4e": {
+          "type": "accreditation",
+          "settings": {
+            "logo": "shopify://shop_images/nz-license.webp",
+            "title": "Fernmark",
+            "description": "We are Fernmark accredited and approved by the NZ Government as a trusted exporter."
+          }
+        },
+        "4715ec7a-d79e-44d9-848c-8fb5407350df": {
+          "type": "accreditation",
+          "settings": {
+            "logo": "shopify://shop_images/MGO-Manuka-Honey-NZ-Bl.webp",
+            "title": "MGO Certified",
+            "description": "Our independent certification shows you the exact MGO levels in our manuka honey"
+          }
+        }
+      },
+      "block_order": [
+        "6a1036bb-5372-4adf-9b95-5e7a7873a6b4",
+        "b482a171-74e2-48ed-a1b9-a1cb0f75760e",
+        "db163af1-5492-4fbc-9d26-01e5050630bd",
+        "de4d431b-7b4e-44c1-8339-cceb16003de6",
+        "4739f85c-e897-4d78-9acc-cec467bf7c4e",
+        "4715ec7a-d79e-44d9-848c-8fb5407350df"
+      ],
+      "settings": {
+        "section_title": "ACCREDITATIONS & QUALITY ASSURANCE",
+        "button_label": "Find out more",
+        "button_link": "shopify://pages/new-zealand-honey-co-credentials"
+      }
+    },
+    "972ecf9d-8d76-4f00-8e65-88685f41d784": {
+      "type": "manuka-features",
+      "settings": {
+        "title": "{{ product.metafields.custom.section_title.value }}",
+        "description": "<p>{{ product.metafields.custom.section_content | metafield_tag }}</p>",
+        "image_text": "{{ product.metafields.custom.curved_image.value }}",
+        "image_1": "{{ product.metafields.custom.section_image_1.value }}",
+        "image_2": "{{ product.metafields.custom.section_image_2.value }}",
+        "image_3": "{{ product.metafields.custom.section_image_3.value }}"
+      }
+    },
+    "2ff829f5-4e5a-49e1-b445-f951735d3c10": {
+      "type": "product-bar",
+      "settings": {}
+    },
+    "2711e048-36b5-423e-b0ac-e3f84e7dfdb4": {
+      "type": "product-features",
+      "blocks": {
+        "1b0f4d7b-f8d8-41eb-b115-2b929445358f": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Methylglyoxal (MGO)",
+            "description": "The antibacterial powerhouse",
+            "image": "shopify://shop_images/MGO_molecule.webp",
+            "image_description": "Gives manuka its effective antibacterial, antimicrobial and antioxidant properties."
+          }
+        },
+        "e8fbea25-6c6e-4c21-9162-4a088407f921": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Leptosperin",
+            "description": "The authenticity factor",
+            "image": "shopify://shop_images/Lepto_molecule.webp",
+            "image_description": "The most accurate means to measure\nmanuka honey authenticity."
+          }
+        },
+        "48f5209e-f5d4-4882-af20-4f6e1f3df275": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Dihydroxyacetone (DHA)",
+            "description": "The unique quality factor",
+            "image": "shopify://shop_images/dihydrox_molecule.webp",
+            "image_description": "The DHA concentration is how the maximum concentration of MGO can be determined."
+          }
+        },
+        "aeb7bc6e-3472-441b-8850-44a843443982": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Hydroxymethylfurfural (HMF)",
+            "description": "The freshness factor",
+            "image": "shopify://shop_images/hydroxymethyl.webp",
+            "image_description": "HMF is an organic compound derived from the dehydration of certain sugars."
+          }
+        }
+      },
+      "block_order": [
+        "1b0f4d7b-f8d8-41eb-b115-2b929445358f",
+        "e8fbea25-6c6e-4c21-9162-4a088407f921",
+        "48f5209e-f5d4-4882-af20-4f6e1f3df275",
+        "aeb7bc6e-3472-441b-8850-44a843443982"
+      ],
+      "settings": {
+        "title_one": "Over 2000 natural compounds",
+        "title_two": "making this honey potent and powerful",
+        "title": "UMF™",
+        "description": "We test the levels of these four natural markers as a guarantee of the UMF™ standard, ensuring the purity and quality of our Manuka Honey.  To view the UMF™ certificate specific to your jar of authentic manuka honey, scan the QR code on the lid of the jar with your mobile phone."
+      }
+    },
+    "0c83d57b-5bb8-4507-9782-87b1d4e22715": {
+      "type": "product-features",
+      "blocks": {
+        "3ee2f4d2-ba9b-4d3c-9623-d7be670add89": {
+          "type": "testimonial",
+          "settings": {
+            "title": "3-Phenyllactic acid",
+            "description": "",
+            "image": "shopify://shop_images/3-p_molecule.webp",
+            "image_description": ""
+          }
+        },
+        "9f7857a2-35a3-4915-8f19-09b304e7f96d": {
+          "type": "testimonial",
+          "settings": {
+            "title": "2’-Methoxyacetophenone",
+            "description": "",
+            "image": "shopify://shop_images/2_molecule.webp",
+            "image_description": ""
+          }
+        },
+        "b9ab5cfa-5155-4ac4-8bb5-8effa15aaf51": {
+          "type": "testimonial",
+          "settings": {
+            "title": "2-Methoxybenzoic acid",
+            "description": "",
+            "image": "shopify://shop_images/2-methoxybenzoic_acid.webp",
+            "image_description": ""
+          }
+        },
+        "ef3c6d65-1508-4eda-abe8-2186f33bab30": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Methylglyoxal (MGO)",
+            "description": "",
+            "image": "shopify://shop_images/4-H_molecule.webp",
+            "image_description": ""
+          }
+        }
+      },
+      "block_order": [
+        "3ee2f4d2-ba9b-4d3c-9623-d7be670add89",
+        "9f7857a2-35a3-4915-8f19-09b304e7f96d",
+        "b9ab5cfa-5155-4ac4-8bb5-8effa15aaf51",
+        "ef3c6d65-1508-4eda-abe8-2186f33bab30"
+      ],
+      "settings": {
+        "title_one": "",
+        "title_two": "",
+        "title": "World Class Quality",
+        "description": "We use independent scientific testing facilities to test the levels of these four natural markers in every batch of our manuka honey, ensuring its authenticity, before it's delivered to you."
+      }
+    },
+    "3b87d4bb-4c59-4446-8633-65c34afd8927": {
+      "type": "product-faq",
+      "blocks": {
+        "a83dfeba-8390-4c07-9677-bf8b9b89dd6d": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Produced In Aotearoa New Zealand",
+            "description": "<p>Produced In Aotearoa New Zealand: all our honey is foraged, harvested, packed, labelled and tested in New Zealand, meaning that what you are receiving is 100% genuine, as stated on the jar.</p>"
+          }
+        },
+        "e73bf960-757b-4872-bdea-076daf1c6ae9": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Pure Monofloral Manuka Honey",
+            "description": "<p>Our manuka honey is predominantly foraged by bees from the manuka flower.  As bees make their journeys to and from the hive, they can encounter a number of floral varieties.  This is why we test every batch of our honey, to ensure it contains the natural markers that make manuka honey so sought after. Our manuka honey is an organic, natural living food. This means that it still contains all the natural pollen and enzymes produced by the bees. Made by nature. Every pot is tested for agrichemicals and other impurities. We’re Non-GMO verified, members of the Detox Project, glyphosate residue-free, Kosher and Halal certified.</p>"
+          }
+        },
+        "afe2be0b-9322-45a7-9583-091073cfe919": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Sustainably Curated in Partnership with Nature",
+            "description": "<p>Manuka is an indigenous tree of New Zealand that plays an important role in regenerating forests and supporting local ecosystems. Manuka honey can only be sourced from our beautiful country. \n\nApproximately 95% of our packaging comes from recycled materials – with a commitment to improving wherever we can. We currently use 100% recyclable PETE 1 packaging, free from BPA. This is one of the most widely accepted plastics for recycling around the world.  Our card paper is from sustainably managed forests and controlled sources.\n\nWe are continually investigating more sustainable packaging that focuses on a reduction of virgin materials. This is an immediate goal for us. \n\nPlease reuse or recycle in accordance with your local recycling centre processes.</p>"
+          }
+        },
+        "b1c4a778-1496-4df4-a997-e575fcef67fc": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Traceable to the Source",
+            "description": "<p>Just scan the QR code on the label to see the UMF™ certificate and find out exactly where in New Zealand it came from!  \n\nAll our manuka honey is tested in independent government-approved laboratories. Your certificate will indicate the UMF™ grading, MGO levels and more.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "a83dfeba-8390-4c07-9677-bf8b9b89dd6d",
+        "e73bf960-757b-4872-bdea-076daf1c6ae9",
+        "afe2be0b-9322-45a7-9583-091073cfe919",
+        "b1c4a778-1496-4df4-a997-e575fcef67fc"
+      ],
+      "settings": {
+        "heading": "Traceable to the Source",
+        "title": "We know that the energy of our environment is captured in our honey",
+        "description": "This is why it is so important to us that our honey is pure, ethically sourced and safe for you and your family.",
+        "image_text": "shopify://shop_images/Eyes_on_the_hives.webp",
+        "image_one": "shopify://shop_images/Beekeeper-Manuka-Honey-New-Zealand.webp",
+        "image_two": "shopify://shop_images/Manuka-Honeycomb-NZ.webp",
+        "image_background": "shopify://shop_images/product-faq-background.webp"
+      }
+    },
+    "1668019349490076ca": {
+      "type": "apps",
+      "blocks": {
+        "stamped_product_reviews_ugc_main_widget_QffXaz": {
+          "type": "shopify://apps/stamped-reviews/blocks/main-widget/a103faaf-2125-4b0e-89fa-de5149736723",
+          "settings": {
+            "animation": true,
+            "tags_exclude": "",
+            "tags_include": "",
+            "search": "",
+            "linkify": true,
+            "use_metafields": false,
+            "sku_tagtype": "handle"
+          }
+        }
+      },
+      "block_order": [
+        "stamped_product_reviews_ugc_main_widget_QffXaz"
+      ],
+      "settings": {}
+    },
+    "fa13f689-4c23-457e-88da-1207c5999c85": {
+      "type": "stamped-reviews",
+      "disabled": true,
+      "settings": {
+        "title_text": "The buzz on the street",
+        "title_sub": "CUSTOMER REVIEWS",
+        "show_title": true,
+        "min_rating": 5,
+        "type": "all",
+        "collection": ""
+      }
+    },
+    "loox-product-reviews-app-section": {
+      "type": "apps",
+      "settings": {}
+    },
+    "1667961285ab4a37e7": {
+      "type": "apps",
+      "blocks": {
+        "klaviyo_email_marketing_sms_form_embed_block_byz9D4": {
+          "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/form-embed-block/2632fe16-c075-4321-a88b-50b567f42507",
+          "settings": {
+            "formId": "Ry7EXG"
+          }
+        }
+      },
+      "block_order": [
+        "klaviyo_email_marketing_sms_form_embed_block_byz9D4"
+      ],
+      "disabled": true,
+      "settings": {}
+    },
+    "16925861060b9357ce": {
+      "type": "apps",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main-product",
+    "173828340851837dd7",
+    "1660538641809f543a",
+    "1664797767b4c57d4d",
+    "f884a421-d80a-42f9-b9e7-6b5b0045679a",
+    "972ecf9d-8d76-4f00-8e65-88685f41d784",
+    "2ff829f5-4e5a-49e1-b445-f951735d3c10",
+    "2711e048-36b5-423e-b0ac-e3f84e7dfdb4",
+    "0c83d57b-5bb8-4507-9782-87b1d4e22715",
+    "3b87d4bb-4c59-4446-8633-65c34afd8927",
+    "1668019349490076ca",
+    "fa13f689-4c23-457e-88da-1207c5999c85",
+    "loox-product-reviews-app-section",
+    "1667961285ab4a37e7",
+    "16925861060b9357ce"
+  ]
+}

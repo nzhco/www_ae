@@ -1,0 +1,2 @@
+"use strict";function productFeatures(){var featuresSlider=document.querySelectorAll(".c-product-features__slider");featuresSlider&&featuresSlider.forEach(function(featureSlider){var swiper=new Swiper(featureSlider,{spaceBetween:30,slidesPerView:1,breakpoints:{350:{slidesPerView:1},500:{slidesPerView:2,spaceBetween:20},768:{slidesPerView:3},1200:{slidesPerView:4}},navigation:{prevEl:".swiper-button-prev",nextEl:".swiper-button-next"}})})}productFeatures();
+//# sourceMappingURL=/s/files/1/0071/9755/6794/t/24/assets/product-features.js.map?v=1675308732

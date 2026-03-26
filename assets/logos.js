@@ -1,0 +1,2 @@
+"use strict";function logos(){var sliderLogos=document.querySelector(".c-logos--mobile");if(sliderLogos)var logosSwiper=new Swiper(sliderLogos,{slidesPerView:1,spaceBetween:10,autoplay:!0,loop:!0,breakpoints:{380:{slidesPerView:2},560:{slidesPerView:3}},pagination:{el:".swiper-pagination",type:"bullets",clickable:!0}})}logos();
+//# sourceMappingURL=/s/files/1/0071/9755/6794/t/24/assets/logos.js.map?v=1686187031

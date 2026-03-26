@@ -1,0 +1,102 @@
+{{ 'accreditations.css' | asset_url | stylesheet_tag }}
+<div class="c-container">
+  <div class="c-accreditations__content">
+    {%- if section.settings.section_title != blank -%}
+      <h2>{{ section.settings.section_title | escape }}</h2>
+    {%- endif -%}
+    {%- if section.blocks != blank -%}
+      <div class="c-accreditations__row">
+        {%- for block in section.blocks -%}
+          <div class="c-accreditation">
+            <div class="c-accreditation__content">
+              {%- if block.settings.logo != blank -%}
+                <div class="c-accreditation__logo">
+                  {%- assign image_size = 200 | append: 'x' -%}
+                  <img
+                    srcset="{{ block.settings.logo | image_url: width: image_size }} 1x, {{ block.settings.logo | image_url: width: block.settings.logo.width }} 2x"
+                    src="{{ block.settings.logo | image_url: width: image_size }}"
+                    loading="lazy"
+                    class="u-absolute-fill"
+                    width="{{ block.settings.logo.width }}"
+                    height="{{ block.settings.logo.height }}"
+                    alt="{{ block.settings.logo.alt | default: block.settings.title | escape }}"
+                  >
+                </div>
+              {%- endif -%}
+              {%- if block.settings.title != blank -%}
+                <h3>{{ block.settings.title | escape }}</h3>
+              {%- endif -%}
+              {%- if block.settings.description != blank -%}
+                <p>{{ block.settings.description | escape }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+    {%- if section.settings.button_label != blank and section.settings.button_link -%}
+      <div class="c-accreditations__bottom">
+        <a href="{{ section.settings.button_link }}" class="c-button c-button--white" rel="bookmark">
+          {{- section.settings.button_label -}}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Accreditations",
+  "tag": "section",
+  "class": "c-accreditations",
+  "blocks": [
+    {
+      "type": "accreditation",
+      "name": "Accreditation",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "UMF",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "The UMFHA stringently test manuka honey to certify manuka honey purity."
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "OUR ACCREDITATIONS"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Text",
+      "default": "Find out more"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Accreditations"
+    }
+  ]
+}
+{% endschema %}

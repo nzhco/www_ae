@@ -1,0 +1,266 @@
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+{{ 'manuka-features.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'manuka-features.js' | asset_url }}" defer="defer"></script>
+<div class="c-container">
+  <div class="c-manuka-features__content">
+    <div class="c-manuka-features__left">
+      {%- if section.settings.title != blank -%}
+        <h2>{{ section.settings.title | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        {{ section.settings.description }}
+      {%- endif -%}
+    </div>
+    <div class="c-manuka-features__right">
+      {%- if section.settings.image_text != blank -%}
+        <img
+          class="c-manuka-features__image--text"
+          srcset="{%- if section.settings.image_text.width >= 375 -%}{{ section.settings.image_text | image_url: width: 750 }} 375w,{%- endif -%} {%- if section.settings.image_text.width >= 550 -%}{{ section.settings.image_text | image_url: width: 1100 }} 550w,{%- endif -%} {%- if section.settings.image_text.width >= 750 -%}{{ section.settings.image_text | image_url: width: 1500 }} 750w,{%- endif -%} {%- if section.settings.image_text.width >= 1100 -%}{{ section.settings.image_text | image_url: width: 2200 }} 1100w,{%- endif -%} {%- if section.settings.image_text.width >= 1500 -%}{{ section.settings.image_text | image_url: width: 3000 }} 1500w,{%- endif -%} {%- if section.settings.image_text.width >= 1780 -%}{{ section.settings.image_text | image_url: width: 3540 }} 1780w,{%- endif -%} {%- if section.settings.image_text.width >= 2000 -%}{{ section.settings.image_text | image_url: width: 2000 }} 2000w,{%- endif -%} {%- if section.settings.image_text.width >= 3000 -%}{{ section.settings.image_text | image_url: width: 3000 }} 3000w,{%- endif -%} {%- if section.settings.image_text.width >= 3840 -%}{{ section.settings.image_text | image_url: width: 3840 }} 3840w,{%- endif -%} {{ section.settings.image_text | image_url }} {{ section.settings.image_text.width }}w"
+          sizes="100vw"
+          src="{{ section.settings.image_text | image_url: width: 1500 }}"
+          loading="lazy"
+          alt="{{ section.settings.image_text.alt | escape }}"
+          width="{{ section.settings.image_text.width }}"
+          height="{{ section.settings.image_text.width | divided_by: section.settings.image_text.aspect_ratio }}"
+        >
+      {%- endif -%}
+      {%- if section.settings.image_1 != blank
+        and section.settings.image_2 != blank
+        and section.settings.image_3 != blank
+      -%}
+        <div class="c-manuka-features__images">
+          <div class="c-manuka-features__image__col">
+            <div class="c-manuka-features__image">
+              <img
+                class="c-manuka-features__img"
+                srcset="{%- if section.settings.image_1.width >= 375 -%}{{ section.settings.image_1 | image_url: width: 750 }} 375w,{%- endif -%} {%- if section.settings.image_1.width >= 550 -%}{{ section.settings.image_1 | image_url: width: 1100 }} 550w,{%- endif -%} {%- if section.settings.image_1.width >= 750 -%}{{ section.settings.image_1 | image_url: width: 1500 }} 750w,{%- endif -%} {%- if section.settings.image_1.width >= 1100 -%}{{ section.settings.image_1 | image_url: width: 2200 }} 1100w,{%- endif -%} {%- if section.settings.image_1.width >= 1500 -%}{{ section.settings.image_1 | image_url: width: 3000 }} 1500w,{%- endif -%} {%- if section.settings.image_1.width >= 1780 -%}{{ section.settings.image_1 | image_url: width: 3540 }} 1780w,{%- endif -%} {%- if section.settings.image_1.width >= 2000 -%}{{ section.settings.image_1 | image_url: width: 2000 }} 2000w,{%- endif -%} {%- if section.settings.image_1.width >= 3000 -%}{{ section.settings.image_1 | image_url: width: 3000 }} 3000w,{%- endif -%} {%- if section.settings.image_1.width >= 3840 -%}{{ section.settings.image_1 | image_url: width: 3840 }} 3840w,{%- endif -%} {{ section.settings.image_1 | image_url }} {{ section.settings.image_1.width }}w"
+                sizes="100vw"
+                src="{{ section.settings.image_1 | image_url: width: 1500 }}"
+                loading="lazy"
+                alt="{{ section.settings.image_1.alt | escape }}"
+                width="{{ section.settings.image_1.width }}"
+                height="{{ section.settings.image_1.width | divided_by: section.settings.image_1.aspect_ratio }}"
+              >
+            </div>
+            {%- if product.metafields.custom.feature_1_image != blank
+              or product.metafields.custom.feature_2_icon != blank
+              or product.metafields.custom.feature_3_icon != blank
+            -%}
+              <div class="c-manuka-features__icons is-desktop">
+                {%- if product.metafields.custom.feature_1_image != blank
+                  and product.metafields.custom.feature_1_description != blank
+                -%}
+                  <div class="c-manuka-features__icons__item">
+                    <div class="c-manuka-features__icons__image">
+                      {%- assign image_size = 75 | append: 'x' -%}
+                      <img
+                        srcset="{{ product.metafields.custom.feature_1_image | image_url: width: image_size }} 1x, {{ product.metafields.custom.feature_1_image | image_url: width: product.metafields.custom.feature_1_image.width }} 2x"
+                        src="{{ product.metafields.custom.feature_1_image | image_url: width: image_size }}"
+                        loading="lazy"
+                        class="c-header__branding__img"
+                        width="{{ product.metafields.custom.feature_1_image.width }}"
+                        height="{{ product.metafields.custom.feature_1_image.height }}"
+                        alt="{{ product.metafields.custom.feature_1_image.alt | default: product.metafields.custom.feature_1_description | escape }}"
+                      >
+                    </div>
+                    <div class="c-manuka-features__icons__description">
+                      <span>{{ product.metafields.custom.feature_1_description | escape }}</span>
+                    </div>
+                  </div>
+                {%- endif -%}
+                {%- if product.metafields.custom.feature_2_icon != blank
+                  and product.metafields.custom.feature_2_description != blank
+                -%}
+                  <div class="c-manuka-features__icons__item">
+                    <div class="c-manuka-features__icons__image">
+                      {%- assign image_size = 75 | append: 'x' -%}
+                      <img
+                        srcset="{{ product.metafields.custom.feature_2_icon | image_url: width: image_size }} 1x, {{ product.metafields.custom.feature_2_icon | image_url: width: product.metafields.custom.feature_2_icon.width }} 2x"
+                        src="{{ product.metafields.custom.feature_2_icon | image_url: width: image_size }}"
+                        loading="lazy"
+                        class="c-header__branding__img"
+                        width="{{ product.metafields.custom.feature_2_icon.width }}"
+                        height="{{ product.metafields.custom.feature_2_icon.height }}"
+                        alt="{{ product.metafields.custom.feature_2_icon.alt | default: product.metafields.custom.feature_2_description | escape }}"
+                      >
+                    </div>
+                    <div class="c-manuka-features__icons__description">
+                      <span>{{ product.metafields.custom.feature_2_description | escape }}</span>
+                    </div>
+                  </div>
+                {%- endif -%}
+                {%- if product.metafields.custom.feature_3_icon != blank
+                  and product.metafields.custom.feature_3_description != blank
+                -%}
+                  <div class="c-manuka-features__icons__item">
+                    <div class="c-manuka-features__icons__image">
+                      {%- assign image_size = 75 | append: 'x' -%}
+                      <img
+                        srcset="{{ product.metafields.custom.feature_3_icon | image_url: width: image_size }} 1x, {{ product.metafields.custom.feature_3_icon | image_url: width: product.metafields.custom.feature_3_icon.width }} 2x"
+                        src="{{ product.metafields.custom.feature_3_icon | image_url: width: image_size }}"
+                        loading="lazy"
+                        class="c-header__branding__img"
+                        width="{{ product.metafields.custom.feature_3_icon.width }}"
+                        height="{{ product.metafields.custom.feature_3_icon.height }}"
+                        alt="{{ product.metafields.custom.feature_3_icon.alt | default: product.metafields.custom.feature_3_description | escape }}"
+                      >
+                    </div>
+                    <div class="c-manuka-features__icons__description">
+                      <span>{{ product.metafields.custom.feature_3_description | escape }}</span>
+                    </div>
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+          <div class="c-manuka-features__image__col">
+            <div class="c-manuka-features__image">
+              <img
+                class="c-manuka-features__img"
+                srcset="{%- if section.settings.image_2.width >= 375 -%}{{ section.settings.image_2 | image_url: width: 750 }} 375w,{%- endif -%} {%- if section.settings.image_2.width >= 550 -%}{{ section.settings.image_2 | image_url: width: 1100 }} 550w,{%- endif -%} {%- if section.settings.image_2.width >= 750 -%}{{ section.settings.image_2 | image_url: width: 1500 }} 750w,{%- endif -%} {%- if section.settings.image_2.width >= 1100 -%}{{ section.settings.image_2 | image_url: width: 2200 }} 1100w,{%- endif -%} {%- if section.settings.image_2.width >= 1500 -%}{{ section.settings.image_2 | image_url: width: 3000 }} 1500w,{%- endif -%} {%- if section.settings.image_2.width >= 1780 -%}{{ section.settings.image_2 | image_url: width: 3540 }} 1780w,{%- endif -%} {%- if section.settings.image_2.width >= 2000 -%}{{ section.settings.image_2 | image_url: width: 2000 }} 2000w,{%- endif -%} {%- if section.settings.image_2.width >= 3000 -%}{{ section.settings.image_2 | image_url: width: 3000 }} 3000w,{%- endif -%} {%- if section.settings.image_2.width >= 3840 -%}{{ section.settings.image_2 | image_url: width: 3840 }} 3840w,{%- endif -%} {{ section.settings.image_2 | image_url }} {{ section.settings.image_2.width }}w"
+                sizes="100vw"
+                src="{{ section.settings.image_2 | image_url: width: 1500 }}"
+                loading="lazy"
+                alt="{{ section.settings.image_2.alt | escape }}"
+                width="{{ section.settings.image_2.width }}"
+                height="{{ section.settings.image_2.width | divided_by: section.settings.image_2.aspect_ratio }}"
+              >
+            </div>
+            <div class="c-manuka-features__image">
+              <img
+                class="c-manuka-features__img"
+                srcset="{%- if section.settings.image_3.width >= 375 -%}{{ section.settings.image_3 | image_url: width: 750 }} 375w,{%- endif -%} {%- if section.settings.image_3.width >= 550 -%}{{ section.settings.image_3 | image_url: width: 1100 }} 550w,{%- endif -%} {%- if section.settings.image_3.width >= 750 -%}{{ section.settings.image_3 | image_url: width: 1500 }} 750w,{%- endif -%} {%- if section.settings.image_3.width >= 1100 -%}{{ section.settings.image_3 | image_url: width: 2200 }} 1100w,{%- endif -%} {%- if section.settings.image_3.width >= 1500 -%}{{ section.settings.image_3 | image_url: width: 3000 }} 1500w,{%- endif -%} {%- if section.settings.image_3.width >= 1780 -%}{{ section.settings.image_3 | image_url: width: 3540 }} 1780w,{%- endif -%} {%- if section.settings.image_3.width >= 2000 -%}{{ section.settings.image_3 | image_url: width: 2000 }} 2000w,{%- endif -%} {%- if section.settings.image_3.width >= 3000 -%}{{ section.settings.image_3 | image_url: width: 3000 }} 3000w,{%- endif -%} {%- if section.settings.image_3.width >= 3840 -%}{{ section.settings.image_3 | image_url: width: 3840 }} 3840w,{%- endif -%} {{ section.settings.image_3 | image_url }} {{ section.settings.image_3.width }}w"
+                sizes="100vw"
+                src="{{ section.settings.image_3 | image_url: width: 1500 }}"
+                loading="lazy"
+                alt="{{ section.settings.image_3.alt | escape }}"
+                width="{{ section.settings.image_3.width }}"
+                height="{{ section.settings.image_3.width | divided_by: section.settings.image_3.aspect_ratio }}"
+              >
+            </div>
+          </div>
+        </div>
+      {%- else -%}
+        <p>{{ 'sections.manuka_features.warning' | t }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+  {%- if product.metafields.custom.feature_1_image != blank
+    or product.metafields.custom.feature_2_icon != blank
+    or product.metafields.custom.feature_3_icon != blank
+  -%}
+    <div class="c-manuka-features__icons is-mobile">
+      {%- if product.metafields.custom.feature_1_image != blank
+        and product.metafields.custom.feature_1_description != blank
+      -%}
+        <div class="c-manuka-features__icons__item">
+          <div class="c-manuka-features__icons__image">
+            {%- assign image_size = 75 | append: 'x' -%}
+            <img
+              srcset="{{ product.metafields.custom.feature_1_image | image_url: width: image_size }} 1x, {{ product.metafields.custom.feature_1_image | image_url: width: product.metafields.custom.feature_1_image.width }} 2x"
+              src="{{ product.metafields.custom.feature_1_image | image_url: width: image_size }}"
+              loading="lazy"
+              class="c-header__branding__img"
+              width="{{ product.metafields.custom.feature_1_image.width }}"
+              height="{{ product.metafields.custom.feature_1_image.height }}"
+              alt="{{ product.metafields.custom.feature_1_image.alt | default: product.metafields.custom.feature_1_description | escape }}"
+            >
+          </div>
+          <div class="c-manuka-features__icons__description">
+            <span>{{ product.metafields.custom.feature_1_description | escape }}</span>
+          </div>
+        </div>
+      {%- endif -%}
+      {%- if product.metafields.custom.feature_2_icon != blank
+        and product.metafields.custom.feature_2_description != blank
+      -%}
+        <div class="c-manuka-features__icons__item">
+          <div class="c-manuka-features__icons__image">
+            {%- assign image_size = 75 | append: 'x' -%}
+            <img
+              srcset="{{ product.metafields.custom.feature_2_icon | image_url: width: image_size }} 1x, {{ product.metafields.custom.feature_2_icon | image_url: width: product.metafields.custom.feature_2_icon.width }} 2x"
+              src="{{ product.metafields.custom.feature_2_icon | image_url: width: image_size }}"
+              loading="lazy"
+              class="c-header__branding__img"
+              width="{{ product.metafields.custom.feature_2_icon.width }}"
+              height="{{ product.metafields.custom.feature_2_icon.height }}"
+              alt="{{ product.metafields.custom.feature_2_icon.alt | default: product.metafields.custom.feature_2_description | escape }}"
+            >
+          </div>
+          <div class="c-manuka-features__icons__description">
+            <span>{{ product.metafields.custom.feature_2_description | escape }}</span>
+          </div>
+        </div>
+      {%- endif -%}
+      {%- if product.metafields.custom.feature_3_icon != blank
+        and product.metafields.custom.feature_3_description != blank
+      -%}
+        <div class="c-manuka-features__icons__item">
+          <div class="c-manuka-features__icons__image">
+            {%- assign image_size = 75 | append: 'x' -%}
+            <img
+              srcset="{{ product.metafields.custom.feature_3_icon | image_url: width: image_size }} 1x, {{ product.metafields.custom.feature_3_icon | image_url: width: product.metafields.custom.feature_3_icon.width }} 2x"
+              src="{{ product.metafields.custom.feature_3_icon | image_url: width: image_size }}"
+              loading="lazy"
+              class="c-header__branding__img"
+              width="{{ product.metafields.custom.feature_3_icon.width }}"
+              height="{{ product.metafields.custom.feature_3_icon.height }}"
+              alt="{{ product.metafields.custom.feature_3_icon.alt | default: product.metafields.custom.feature_3_description | escape }}"
+            >
+          </div>
+          <div class="c-manuka-features__icons__description">
+            <span>{{ product.metafields.custom.feature_3_description | escape }}</span>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Manuka Features",
+  "tag": "section",
+  "class": "c-manuka-features",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Power your day with UMF™ 5+ Manuka Honey"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>We are amplifying the vibrancy of nature for a happier, healthier you.</p><p> Great for children and families, this mouth-watering treat is packed with nutrients and natural energy for a boost when you need it, or as part of your daily wellness rituals.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_text",
+      "label": "Image Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image 3"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Manuka Features"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,202 @@
+<script src="{{ 'infinite-scroll.pkgd.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'blog.js' | asset_url }}" defer="defer"></script>
+{{ 'c-blog.css' | asset_url | stylesheet_tag }}
+<div class="c-container">
+  <div class="c-search__header">
+    {%- if search.performed -%}
+      <h1 class="c-search__title">{{ 'sections.main_search.search_results' | t }}</h1>
+    {%- else -%}
+      <h1 class="c-search__title">{{ 'sections.main_search.search' | t }}</h1>
+    {%- endif -%}
+    <div class="c-search__form">
+      <form action="{{ routes.search_url }}" method="get" role="search" class="search">
+        <div class="field">
+          <input
+            class="search__input field__input"
+            id="Search-In-Template"
+            type="search"
+            name="q"
+            value="{{ search.terms | escape }}"
+            placeholder="Search"
+            {%- if settings.predictive_search_enabled -%}
+              role="combobox"
+              aria-expanded="false"
+              aria-owns="predictive-search-results-list"
+              aria-controls="predictive-search-results-list"
+              aria-haspopup="listbox"
+              aria-autocomplete="list"
+              autocorrect="off"
+              autocomplete="off"
+              autocapitalize="off"
+              spellcheck="false"
+            {%- endif -%}
+          >
+          <label class="field__label" for="Search-In-Template">{{ 'sections.main_search.search' | t }}</label>
+          <input name="options[prefix]" type="hidden" value="last">
+          <button type="submit" class="search__button field__button" aria-label="Search">
+            <svg
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              stroke="currentColor"
+              stroke-width="2"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="css-i6dzq1"
+            >
+              <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {%- if search.results.size == 0 -%}
+    <div class="c-search__no-results">
+      <p>{{ 'sections.main_search.no_products_found' | t }}</p>
+    </div>
+  {%- else -%}
+    {% paginate search.results by 24 %}
+      <div class="c-blog__posts">
+        {%- for item in search.results -%}
+          {%- case item.object_type -%}
+            {%- when 'product' -%}
+              <div class="c-blog__post">
+                {% if item.featured_media != blank %}
+                  <div
+                    class="c-blog__post__image c-blog__post__image--product"
+                    {% if item.metafields.custom.color != blank %}
+                      style="--product-color: {{ item.metafields.custom.color | escape }};"
+                    {% endif %}
+                  >
+                    <a href="{{ item.url }}" rel="bookmark">
+                      {{
+                        item.featured_media
+                        | image_url: width: 900
+                        | image_tag:
+                          height: item.featured_media.height,
+                          alt: item.featured_media.alt,
+                          class: 'u-absolute-fill',
+                          loading: 'lazy'
+                      }}
+                    </a>
+                  </div>
+                {% endif %}
+                <div class="c-blog__post__content">
+                  <h3 class="mb-small">
+                    <a href="{{ item.url }}" rel="bookmark">
+                      {% liquid
+                        if item.metafields.custom.product_name != blank
+                          echo item.metafields.custom.product_name | escape
+                        elsif item.title != blank
+                          echo item.title | escape
+                        else
+                          echo item.title
+                        endif
+                      %}
+                    </a>
+                  </h3>
+                  {%- if item.metafields.custom.umf_score != blank or item.metafields.custom.mgo_score != blank -%}
+                    <div class="c-side-cart__item__score-info">
+                      {%- if item.metafields.custom.umf_score != blank -%}
+                        <div class="c-side-cart__item__score c-side-cart__item__score--umf">
+                          <span class="c-side-cart__item__score__name">{{ 'sections.main_search.umf_html' | t }}</span>
+                          <span class="c-side-cart__item__score__value">
+                            {{- item.metafields.custom.umf_score | escape -}}
+                          </span>
+                        </div>
+                      {%- endif -%}
+                      {%- if item.metafields.custom.mgo_score != blank -%}
+                        <div class="c-side-cart__item__score c-side-cart__item__score--mgo">
+                          <span class="c-side-cart__item__score__name">{{ 'sections.main_search.mgo' | t }}</span>
+                          <span class="c-side-cart__item__score__value">
+                            {{- item.metafields.custom.mgo_score | escape -}}
+                          </span>
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                  <div class="c-blog__post__excerpt">
+                    {% if item.excerpt != blank %}
+                      {{ item.excerpt | strip_html | truncate: 200 }}
+                    {% else %}
+                      {{ item.excerpt_or_content | strip_html | truncate: 200 }}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {%- when 'article' -%}
+              <div class="c-blog__post">
+                {% if item.image != blank %}
+                  <div class="c-blog__post__image">
+                    <a href="{{ item.url }}" rel="bookmark">
+                      {{
+                        item.image
+                        | image_url: width: 900
+                        | image_tag:
+                          height: item.image.height,
+                          alt: item.image.alt,
+                          class: 'u-absolute-fill',
+                          loading: 'lazy'
+                      }}
+                    </a>
+                  </div>
+                {% endif %}
+                <div class="c-blog__post__content">
+                  <div class="c-blog__post__tag">{{ item.tags | first }}</div>
+                  <h3>
+                    <a href="{{ item.url }}" rel="bookmark">{{ item.title }}</a>
+                  </h3>
+                  <div class="c-blog__post__excerpt">
+                    {% if item.excerpt != blank %}
+                      {{ item.excerpt | strip_html | truncate: 200 }}
+                    {% else %}
+                      {{ item.excerpt_or_content | strip_html | truncate: 200 }}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {%- when 'page' -%}
+              <div class="c-blog__post c-blog__post--page">
+                <div class="c-blog__post__content">
+                  <h3>
+                    <a href="{{ item.url }}" rel="bookmark">{{ item.title }}</a>
+                  </h3>
+                  <div class="c-blog__post__excerpt">
+                    {% if item.content != blank %}
+                      {{ item.content | strip_html | truncate: 200 }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="c-blog__post__view">
+                  <a href="{{ item.url }}" rel="bookmark">{{ 'sections.main_search.view_page' | t }}</a>
+                </div>
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 and paginate.next -%}
+        <div class="c-blog__pagination">
+          <a class="c-button c-blog__pagination__link" href="{{ paginate.next.url }}{{ anchor }}">
+            {{- 'sections.main_search.load_more' | t -}}
+          </a>
+        </div>
+      {%- endif -%}
+    {% endpaginate %}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Main Search",
+  "tag": "section",
+  "class": "c-search c-blog",
+  "presets": [
+    {
+      "name": "Main Search"
+    }
+  ]
+}
+{% endschema %}

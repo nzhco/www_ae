@@ -1,0 +1,203 @@
+<script src="{{ 'clamp.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'stamped-reviews.js' | asset_url }}" defer="defer"></script>
+{{ 'reviews.css' | asset_url | stylesheet_tag }}
+{% if section.settings.show_title == false %}
+  {%- if settings.public_api != blank -%}
+    <div class="c-container" id="ratings">
+      <style>
+        --product-color: #f1b434;
+      </style>
+      <div
+        class="c-reviews__content c-reviews--stamped"
+        data-api="{{ settings.public_api }}"
+        data-domain="{{ shop.domain }}"
+        data-min="{{ section.settings.min_rating }}"
+        {%- if section.settings.type == 'current' -%}
+          data-product-id="{{ product.id }}"
+          data-type="current"
+        {%- else -%}
+          data-type="all"
+        {%- endif -%}
+      >
+        {%- if section.settings.title_text != blank -%}
+          <h2>{{ section.settings.title_text | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.title_sub != blank -%}
+          <p>{{ section.settings.title_sub }}</p>
+        {%- endif -%}
+        {%- if section.settings.type == 'current' -%}
+          <div class="c-reviews__top">
+            <div class="c-reviews__score c-reviews__score--hidden">
+              <div class="c-reviews__rating">
+                <div class="c-reviews__rating__info"></div>
+                <div class="c-reviews__rating__stars">
+                  <span class="c-reviews__rating__star">
+                    <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                    </svg>
+                    <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                    </svg>
+                    <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                    </svg>
+                    <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                    </svg>
+                    <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                    </svg>
+                  </span>
+                  <span class="c-reviews__rating__star--background">
+                    <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                    </svg>
+                    <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                    </svg>
+                    <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                    </svg>
+                    <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                    </svg>
+                    <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="c-reviews__sort">
+              <label for="reviewsSort">{{ 'sections.stamped_reviews.sort_by' | t }}</label>
+              <select name="reviewsSort" id="reviewsSort">
+                <option value="">{{ 'sections.stamped_reviews.most_recent' | t }}</option>
+                <option value="featured">{{ 'sections.stamped_reviews.featured' | t }}</option>
+                <option value="highest-rating">{{ 'sections.stamped_reviews.higest_rating' | t }}</option>
+                <option value="most-votes">{{ 'sections.stamped_reviews.most_votes' | t }}</option>
+              </select>
+            </div>
+          </div>
+        {%- else -%}
+          <div class="c-reviews__sort">
+            <label for="reviewsSort">{{ 'sections.stamped_reviews.sort_by' | t }}</label>
+            <select name="reviewsSort" id="reviewsSort">
+              <option value="">{{ 'sections.stamped_reviews.most_recent' | t }}</option>
+              <option value="featured">{{ 'sections.stamped_reviews.featured' | t }}</option>
+              <option value="highest-rating">{{ 'sections.stamped_reviews.higest_rating' | t }}</option>
+              <option value="most-votes">{{ 'sections.stamped_reviews.most_votes' | t }}</option>
+            </select>
+          </div>
+        {%- endif -%}
+        <div class="c-reviews__row"></div>
+        <p>
+          <a class="c-reviews__loadmore c-button" href="#" rel="bookmark">
+            {{- 'sections.stamped_reviews.load_more' | t -}}
+          </a>
+        </p>
+        <div class="hidden c-reviews__hidden">
+          {%- for product in section.settings.collection.products -%}
+            <div
+              class="c-review__hidden__info"
+              data-id="{{ product.id }}"
+              {% if product.metafields.custom.color != blank %}
+                data-color="{{ product.metafields.custom.color | escape }};"
+              {% endif %}
+            ></div>
+          {%- endfor -%}
+          <div class="c-review__rating__svg">
+            <svg
+              width="19"
+              height="16"
+              viewBox="0 0 19 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="c-home-product__content__reviews__icon c-home-product__content__reviews__icon--active"
+            >
+              <path d="M17.5915 1.3918C15.7136 -0.463932 12.6791 -0.463932 10.8126 1.3918L9.35829 2.59123L8.1903 1.43706C6.31234 -0.41867 3.27784 -0.41867 1.39988 1.43706C-0.466627 3.28147 -0.466627 6.29137 1.39988 8.13578L9.35829 16L15.4846 9.94625L17.5915 7.86421C19.4695 6.00849 19.4695 3.24752 17.5915 1.3918Z" fill="#CE0F69"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  {%- else -%}
+    <div class="c-container">
+      <p>{{ 'sections.stamped_reviews.api_message' | t }}</p>
+    </div>
+  {%- endif -%}
+{%- else -%}
+  <div class="c-container" id="ratings">
+    <div class="c-reviews__content">
+      {%- if section.settings.title_text != blank -%}
+        <h2>{{ section.settings.title_text | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.title_sub != blank -%}
+        <p>{{ section.settings.title_sub }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Stamped Reviews",
+  "tag": "section",
+  "class": "c-reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title_text",
+      "label": "Section Title",
+      "default": "The buzz on the street"
+    },
+    {
+      "type": "text",
+      "id": "title_sub",
+      "label": "Sub Title",
+      "default": "CUSTOMER REVIEWS"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Show only title",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "min_rating",
+      "min": 3,
+      "max": 5,
+      "step": 1,
+      "label": "Minimun Rating",
+      "default": 5
+    },
+    {
+      "type": "select",
+      "id": "type",
+      "label": "Type",
+      "options": [
+        {
+          "value": "all",
+          "label": "All Reviews"
+        },
+        {
+          "value": "current",
+          "label": "Current Product Reivews"
+        }
+      ],
+      "default": "all"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Product Collection",
+      "info": "Please select the collection includes all products."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Stamped.io Reviews"
+    }
+  ]
+}
+{% endschema %}

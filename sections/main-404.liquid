@@ -1,0 +1,19 @@
+{{ '404.css' | asset_url | stylesheet_tag }}
+
+<div class="c-container">
+  <p class="c-404__text">{{ 'sections.main_404.text' | t }}</p>
+  <h1 class="c-404__title">{{ 'sections.main_404.title' | t }}</h1>
+  <p class="c-404__message">
+    {{ 'sections.main_404.message' | t }}
+  </p>
+  <p>
+    <a href="{{ routes.all_products_collection_url }}" class="c-button">{{ 'sections.main_404.button' | t }}</a>
+  </p>
+</div>
+{% schema %}
+{
+  "name": "Not Found",
+  "tag": "section",
+  "class": "c-404"
+}
+{% endschema %}

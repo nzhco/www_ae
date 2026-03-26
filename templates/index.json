@@ -1,0 +1,464 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "powerful_hone_banner_dztwgQ": {
+      "type": "powerful-hone-banner",
+      "disabled": true,
+      "name": "Responsive Banner Slider",
+      "settings": {
+        "banner_link": "shopify://pages/top-pick-by-consumerlab-com-a-testament-to-our-manuka-honey-s-purity",
+        "banner_link2": "shopify://pages/winter-wellness-natural-manuka-honey-for-health",
+        "desktop_image_1": "shopify://shop_images/Digital_Banner_opt_3b-desktop-en.jpg",
+        "desktop_image_2": "shopify://shop_images/Homepage_Banners_UAE-_opt_1_-_1920_x_705.jpg",
+        "mobile_image_1": "shopify://shop_images/Digital_Banner_opt_3b_-_Mobile-en.jpg",
+        "mobile_image_2": "shopify://shop_images/Homepage_Banners_UAE_-_mobile_-_800_x_1201.jpg"
+      }
+    },
+    "single_image_slider_HiKXGJ": {
+      "type": "single-image-slider",
+      "name": "Single Image Banner",
+      "settings": {
+        "banner_link": "shopify://pages/top-pick-by-consumerlab-com-a-testament-to-our-manuka-honey-s-purity",
+        "desktop_image": "shopify://shop_images/Digital_Banner_opt_3b-desktop-en.jpg",
+        "mobile_image": "shopify://shop_images/Digital_Banner_opt_3b_-_Mobile-en.jpg"
+      }
+    },
+    "uae_row_gcc_specific_banner_QzNAXq": {
+      "type": "uae-row-gcc-specific-banner",
+      "disabled": true,
+      "name": "UAE ROW Specific Banner",
+      "settings": {
+        "banner_link": "shopify://pages/winter-wellness-natural-manuka-honey-for-health",
+        "banner_link2": "shopify://pages/winter-wellness-natural-manuka-honey-for-health",
+        "desktop_image_1": "shopify://shop_images/1._AED_FREE_Manuka_15_1920_x_700_1.jpg",
+        "desktop_image_2": "shopify://shop_images/Homepage_Banners_UAE-_opt_1_-_1920_x_705.jpg",
+        "mobile_image_1": "shopify://shop_images/1._AED_FREE_Manuka_15_1200_x_800_Mobile_1_4a927766-4182-4d49-9180-04d460212cdf.jpg",
+        "mobile_image_2": "shopify://shop_images/Homepage_Banners_UAE_-_mobile_-_800_x_1201.jpg"
+      }
+    },
+    "166079753738f5763f": {
+      "type": "home-banner",
+      "disabled": true,
+      "settings": {
+        "bg_image": "shopify://shop_images/honey_co_banner-home_1.jpg",
+        "bg_video": "https://www.youtube.com/watch?v=r4wNFNe1k-s",
+        "bg_image_mobile": "shopify://shop_images/honey_co_banner-mobile_1.jpg",
+        "hide_image_text": false,
+        "title": "On a health buzz",
+        "text_1": "Our Manuka Honey",
+        "button_1_label": "SHOP NOW",
+        "button_1_link": "shopify://collections/manuka-honey",
+        "text_2": "Which Manuka is for me?",
+        "button_2_label": "TAKE OUR QUIZ",
+        "button_2_link": "shopify://pages/which-manuka-honey-is-right-for-you-en",
+        "global_reviews_text": "25,455+ Verified Global Reviews"
+      }
+    },
+    "16607975855c377dc5": {
+      "type": "slider",
+      "settings": {
+        "products": [
+          "manuka-honey-umf-10",
+          "manuka-honey-umf-15",
+          "manuka-honey-umf-20-mgo-829",
+          "manuka-honey-umf-24-mgo-1122",
+          "manuka-honey-umf-26-mgo-1282",
+          "manuka-honey-umf-28-mgo-1450",
+          "manuka-honey-umf™-30-mgo-1620"
+        ],
+        "title": "SHOW ME THE HONEY"
+      }
+    },
+    "16607976110a9221bd": {
+      "type": "accreditations",
+      "blocks": {
+        "24542657-b791-4898-b46b-a761258a3e10": {
+          "type": "accreditation",
+          "settings": {
+            "logo": "shopify://shop_images/umf.webp",
+            "title": "UMF™",
+            "description": "The UMF Grading system appraises natural markers found in manuka honey and assures purity and quality."
+          }
+        },
+        "e6418c63-33fa-4f19-a5a5-8d5b04c5f27f": {
+          "type": "accreditation",
+          "settings": {
+            "logo": "shopify://shop_images/Non-GMO-Manuka-Honey.webp",
+            "title": "Non-GMO",
+            "description": "Our honey is certified and in compliance with the Non-GMO Project Standard."
+          }
+        },
+        "f043fa7e-89d4-4dd2-b478-11987fa412fd": {
+          "type": "accreditation",
+          "settings": {
+            "logo": "shopify://shop_images/Glyphosate-Free-Manuka-Honey.webp",
+            "title": "Glyphosate free",
+            "description": "Every batch of our honey is tested in independent laboratories to ensure it is glyphosate free."
+          }
+        },
+        "3a3abbd9-4771-4073-9b87-b991ec66c717": {
+          "type": "accreditation",
+          "settings": {
+            "logo": "shopify://shop_images/Halal-Manuka-Honey_db3746fe-8b17-4ecf-a583-33cdc9dbb0ae.webp",
+            "title": "Halal",
+            "description": "Certified by FIANZ, The Federation of Islamic Associations of New Zealand (Inc)."
+          }
+        },
+        "3a9a75b9-ee55-4e80-a7db-1ad6b7624ddc": {
+          "type": "accreditation",
+          "settings": {
+            "logo": "shopify://shop_images/nz-license.webp",
+            "title": "Fernmark",
+            "description": "We are Fernmark accredited and approved by the NZ Government as a trusted exporter."
+          }
+        },
+        "fadbe513-4650-4653-873e-f746bd33cd1a": {
+          "type": "accreditation",
+          "settings": {
+            "logo": "shopify://shop_images/MGO-Manuka-Honey-NZ-Bl.webp",
+            "title": "MGO",
+            "description": "Our independent certification shows you the exact MGO levels in our manuka honey"
+          }
+        }
+      },
+      "block_order": [
+        "24542657-b791-4898-b46b-a761258a3e10",
+        "e6418c63-33fa-4f19-a5a5-8d5b04c5f27f",
+        "f043fa7e-89d4-4dd2-b478-11987fa412fd",
+        "3a3abbd9-4771-4073-9b87-b991ec66c717",
+        "3a9a75b9-ee55-4e80-a7db-1ad6b7624ddc",
+        "fadbe513-4650-4653-873e-f746bd33cd1a"
+      ],
+      "settings": {
+        "section_title": "ACCREDITATIONS & QUALITY ASSURANCE",
+        "button_label": "Find out more",
+        "button_link": "shopify://pages/new-zealand-honey-co-credentials"
+      }
+    },
+    "1660797686cbd18848": {
+      "type": "testimonials",
+      "blocks": {
+        "e8f89998-c2ae-41d2-8523-0e8e96472731": {
+          "type": "testimonial",
+          "settings": {
+            "image_1": "shopify://shop_images/testimonials-1-1.webp",
+            "image_2": "shopify://shop_images/DSC_1334_10_UMF.jpg",
+            "image_3": "shopify://shop_images/testimonials-1-bg.webp",
+            "title": "Daily dose of natural energy for your family’s immunity & vitality",
+            "content": "<p>“Excellent choice to stay healthy. We as a family noticed a huge difference, as the immunity has increased and the number of colds and other diseases that usually occur in the winter have been reduced. I recommend everyone use it”.</p>",
+            "footer": "VERIFIED BUYER, UMF™ 10+",
+            "color": "#e87722"
+          }
+        },
+        "e8d4a644-0f5b-49ca-b725-ba5f16087b0f": {
+          "type": "testimonial",
+          "settings": {
+            "image_1": "shopify://shop_images/testimonials-2-1.webp",
+            "image_2": "shopify://shop_images/testimonials-2-2.webp",
+            "image_3": "shopify://shop_images/testimonials-2-bg.webp",
+            "title": "Powerful anti-inflammatory, anti-bacterial manuka honey from New Zealand",
+            "content": "<p>“<strong>Excellent for stomach issues</strong>. I have fought acid reflux for years. This is the only product that actually gives me relief. Thank you for such a wonderful product”.</p>",
+            "footer": "ROBBIN J. VERIFIED BUYER, UMF™ 15+",
+            "color": "#c23e3f"
+          }
+        },
+        "8787adbb-aed2-4f63-8956-683d296af5ad": {
+          "type": "testimonial",
+          "settings": {
+            "image_1": "shopify://shop_images/testimonials-3-1.webp",
+            "image_2": "shopify://shop_images/testimonials-3-2.webp",
+            "image_3": "shopify://shop_images/testimonials-3-bg.webp",
+            "title": "Get that honey glow",
+            "content": "<p>“This honey is amazing. I use this honey from wounds to face masks to illness and its amazing. I can tell the quality is definitely pure. I'll be back for more!”</p>",
+            "footer": "VERIFIED BUYER, UMF™ 20+",
+            "color": "#b4376d"
+          }
+        }
+      },
+      "block_order": [
+        "e8f89998-c2ae-41d2-8523-0e8e96472731",
+        "e8d4a644-0f5b-49ca-b725-ba5f16087b0f",
+        "8787adbb-aed2-4f63-8956-683d296af5ad"
+      ],
+      "settings": {
+        "title_text": "Live life in full colors"
+      }
+    },
+    "166080023405542752": {
+      "type": "quality-guide",
+      "settings": {
+        "heading": "How to spot quality",
+        "paragraph": "AUTHENTIC MANUKA HONEY",
+        "image": "shopify://shop_images/how-to-spot-quality-desktop-optimized.webp"
+      }
+    },
+    "16608264124bc0564e": {
+      "type": "transparency",
+      "blocks": {
+        "1db65cfe-2d56-4c75-8738-9f0eafc3a90f": {
+          "type": "content",
+          "settings": {
+            "title": "Tracked from Hive to Home",
+            "description": "<p>We are able to track our manuka honey from the hive all the way to your home; just scan the QR code on your jar to view the region of origin, UMF™ certificate, official test results, and credentials for your jar of manuka honey. </p>"
+          }
+        },
+        "5ff54994-0b24-4cb1-bc28-8cbfc4bf9ee8": {
+          "type": "content",
+          "settings": {
+            "title": "UMF™",
+            "description": "<p>All New Zealand Honey Co. Manuka Honey is independently tested and certified by the UMFHA to guarantee the UMF™ grading displayed on the label.</p>"
+          }
+        },
+        "4fdb50e7-6a31-468c-9922-9e138d4a2b7f": {
+          "type": "content",
+          "settings": {
+            "title": "Non-GMO",
+            "description": "<p>Our honey has completed a comprehensive third-party verification ensuring its compliance with the Non-GMO Project Standard.</p>"
+          }
+        },
+        "09e41212-a723-4c32-ba67-e3216dbb7685": {
+          "type": "content",
+          "settings": {
+            "title": "Glyphosate Residue Free",
+            "description": "<p>Every batch of our honey is tested in independent laboratories to ensure it is glyphosate free. We are certified members of the Detox Project.</p>"
+          }
+        },
+        "6925d535-bec3-4d75-a1a2-a85b72e594dc": {
+          "type": "content",
+          "settings": {
+            "title": "No Antibiotics",
+            "description": "<p>Our partner beekeepers never give antibiotics to their bees, instead dealing with ensuring their wellness in more natural ways.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "1db65cfe-2d56-4c75-8738-9f0eafc3a90f",
+        "5ff54994-0b24-4cb1-bc28-8cbfc4bf9ee8",
+        "4fdb50e7-6a31-468c-9922-9e138d4a2b7f",
+        "09e41212-a723-4c32-ba67-e3216dbb7685",
+        "6925d535-bec3-4d75-a1a2-a85b72e594dc"
+      ],
+      "settings": {
+        "title": "We are dedicated to transparency",
+        "description": "<p>We put the power in your hands with each and every jar.</p>",
+        "footer": "<p>To view the UMF™ certificate specific to your jar of authentic manuka honey, scan the QR code on the lid of the jar with your mobile phone.</p>",
+        "button_label": "Find out more",
+        "button_link": "shopify://pages/new-zealand-honey-co-credentials",
+        "right_image": "shopify://shop_images/nz-manuka-honey-beekeeper_2e7dba43-56ee-4829-9140-626b5ba0e1d1.webp"
+      }
+    },
+    "reviews_PCXQKE": {
+      "type": "reviews",
+      "settings": {
+        "title_text": "The buzz on the street",
+        "title_sub": "CUSTOMER REVIEWS",
+        "button_label": "View all reviews",
+        "button_link": ""
+      }
+    },
+    "1726196770330a017b": {
+      "type": "apps",
+      "blocks": {
+        "growave_loyalty_wishlist_block_index_custom_liquid_LcU7nG": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.index.customLiquid/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "custom_liquid": "<div\n    class=\"gw-rv-reviews-page-widget-placeholder\"\n    data-gw-reviews-per-page=\"15\"\n    style=\"display: block\"\n></div>\n<style>\n\n</style>",
+            "custom_css": ".gw-rv-reviews-page__title {\n    display: none !important;\n}"
+          }
+        }
+      },
+      "block_order": [
+        "growave_loyalty_wishlist_block_index_custom_liquid_LcU7nG"
+      ],
+      "settings": {}
+    },
+    "166084527500743aa5": {
+      "type": "2-columns",
+      "settings": {
+        "image_1": "shopify://shop_images/our-manuka-honey.webp",
+        "text_1": "Our Manuka Honey",
+        "button_1_label": "SHOP NOW",
+        "button_1_link": "shopify://collections/manuka-honey",
+        "image_2": "shopify://shop_images/which-manuka-for-me.webp",
+        "text_2": "Which Manuka is for me?",
+        "button_2_label": "TAKE OUR QUIZ",
+        "button_2_link": "shopify://pages/which-manuka-honey-is-right-for-you-en"
+      }
+    },
+    "5ed326b3-6dff-4264-90a0-67714f86b858": {
+      "type": "logos",
+      "blocks": {
+        "2776888d-a7ac-4175-baba-29489cd6040a": {
+          "type": "logo",
+          "disabled": true,
+          "settings": {
+            "logo_image": "shopify://shop_images/real-simple.png",
+            "logo_link": ""
+          }
+        },
+        "2ef0d460-b520-4908-aa8e-4a8e06482502": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/Good_House_keeping_Pink_logo.png",
+            "logo_link": ""
+          }
+        },
+        "96b24381-88c0-4420-b8b5-ed5da51d7f47": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/logos-3.png",
+            "logo_link": ""
+          }
+        },
+        "d1432393-0cb4-40d6-a82e-1589192a0464": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/Daytime_Chicago_Logo_Inverse.png",
+            "logo_link": ""
+          }
+        },
+        "c281baba-34aa-47f3-b38a-ad2f22b93f70": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/logo_7.png",
+            "logo_link": ""
+          }
+        },
+        "6830cbd1-a749-42cf-ad6d-5ca5cee3c23a": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/logos-6.png",
+            "logo_link": ""
+          }
+        },
+        "fbdec50c-8e8d-4357-8d5d-fcf6ebb79a09": {
+          "type": "logo",
+          "disabled": true,
+          "settings": {
+            "logo_image": "shopify://shop_images/Food_Network_logo_svg.png",
+            "logo_link": ""
+          }
+        },
+        "11a0f095-052d-48d2-8c22-8318f7dc84ce": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/the-pioneer-woman_pink_2c3aec9f-6dad-4d84-9546-785812cabfc7.png",
+            "logo_link": ""
+          }
+        },
+        "608191da-7d23-4a93-9c87-c3997d6eda09": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/Food_Network_logo.png",
+            "logo_link": ""
+          }
+        },
+        "4552ec56-9b96-4e02-a18e-89a9743fef16": {
+          "type": "logo",
+          "disabled": true,
+          "settings": {
+            "logo_image": "shopify://shop_images/WG9.png",
+            "logo_link": ""
+          }
+        },
+        "6cbe440b-de43-40f5-956b-041941c00296": {
+          "type": "logo",
+          "disabled": true,
+          "settings": {
+            "logo_image": "shopify://shop_images/the-pioneer-woman_pink.png",
+            "logo_link": ""
+          }
+        },
+        "2843fc36-4e42-44c0-a4ca-6dbd85a44d03": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/logos-8.png",
+            "logo_link": ""
+          }
+        },
+        "724f9d76-1710-43f8-a50e-1a8af589f261": {
+          "type": "logo",
+          "disabled": true,
+          "settings": {
+            "logo_image": "shopify://shop_images/logos-1_0747caae-b0b3-4c4e-8896-e4d60581ba21.png",
+            "logo_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "2776888d-a7ac-4175-baba-29489cd6040a",
+        "2ef0d460-b520-4908-aa8e-4a8e06482502",
+        "96b24381-88c0-4420-b8b5-ed5da51d7f47",
+        "d1432393-0cb4-40d6-a82e-1589192a0464",
+        "c281baba-34aa-47f3-b38a-ad2f22b93f70",
+        "6830cbd1-a749-42cf-ad6d-5ca5cee3c23a",
+        "fbdec50c-8e8d-4357-8d5d-fcf6ebb79a09",
+        "11a0f095-052d-48d2-8c22-8318f7dc84ce",
+        "608191da-7d23-4a93-9c87-c3997d6eda09",
+        "4552ec56-9b96-4e02-a18e-89a9743fef16",
+        "6cbe440b-de43-40f5-956b-041941c00296",
+        "2843fc36-4e42-44c0-a4ca-6dbd85a44d03",
+        "724f9d76-1710-43f8-a50e-1a8af589f261"
+      ],
+      "settings": {
+        "title": "As seen in:"
+      }
+    },
+    "166049338011f064cc": {
+      "type": "newsletter",
+      "disabled": true,
+      "settings": {
+        "paragraph": "Enter your email to receive 20% off your next order and be the first to know about our sales, news and events!",
+        "success": "Thanks for subscribing",
+        "bg_color": "#fbf9f6"
+      }
+    },
+    "1711335827a7855063": {
+      "type": "apps",
+      "blocks": {
+        "klaviyo_email_marketing_sms_form_embed_block_V7TKJ9": {
+          "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/form-embed-block/2632fe16-c075-4321-a88b-50b567f42507",
+          "disabled": true,
+          "settings": {
+            "formId": "Ry7EXG"
+          }
+        }
+      },
+      "block_order": [
+        "klaviyo_email_marketing_sms_form_embed_block_V7TKJ9"
+      ],
+      "disabled": true,
+      "settings": {}
+    },
+    "166798465388cc4423": {
+      "type": "apps",
+      "settings": {}
+    }
+  },
+  "order": [
+    "single_image_slider_HiKXGJ",
+    "powerful_hone_banner_dztwgQ",
+    "uae_row_gcc_specific_banner_QzNAXq",
+    "166079753738f5763f",
+    "16607975855c377dc5",
+    "16607976110a9221bd",
+    "1660797686cbd18848",
+    "166080023405542752",
+    "16608264124bc0564e",
+    "reviews_PCXQKE",
+    "1726196770330a017b",
+    "166084527500743aa5",
+    "5ed326b3-6dff-4264-90a0-67714f86b858",
+    "166049338011f064cc",
+    "1711335827a7855063",
+    "166798465388cc4423"
+  ]
+}

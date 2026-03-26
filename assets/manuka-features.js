@@ -1,0 +1,2 @@
+"use strict";function manukaFeatures(){var featuresSlider=document.querySelectorAll(".c-manuka-features__images--slider");featuresSlider&&featuresSlider.forEach(function(featureSlider){new Swiper(featureSlider,{spaceBetween:80,sliderPerView:"auto",autoplay:!0,navigation:{nextEl:".c-manuka-features__images--slider__nav--next",prevEl:".c-manuka-features__images--slider__nav--prev"}})})}manukaFeatures();
+//# sourceMappingURL=/s/files/1/0071/9755/6794/t/24/assets/manuka-features.js.map?v=1675308731

@@ -1,0 +1,302 @@
+{% include 'shogun-content-handler' %}
+<!doctype html>
+<html class="no-js font-base font-normal font-body text-base text-black" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_button }}">
+    <meta name="google-site-verification" content="UAZ5z-2m5C6xRLk4QJe1cR09itNNMqjfwlzr35U4THM">
+    <meta name="facebook-domain-verification" content="zmnzvgtmocta3vw2vt37i060wkutq1">
+    <meta name="p:domain_verify" content="dd9d23b996519357d26f89770cd0d3b0">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.shopifycdn.com">
+    <link rel="dns-prefetch" href="https://productreviews.shopifycdn.com">
+    <link rel="dns-prefetch" href="https://ajax.googleapis.com">
+    <link rel="dns-prefetch" href="https://maps.googleapis.com">
+    <link rel="dns-prefetch" href="https://maps.gstatic.com">
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {% render 'meta-tags' %}
+    {{ content_for_header }}
+    <!-- Fonts -->
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+
+    <script type="application/json" data-ajax-cart-initial-state>
+      {{ cart | json }}
+    </script>
+
+    <script type="module">
+      import '{{ "liquid-ajax-cart-v1.10.3.js" | asset_url }}';
+    </script>
+
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+      if (Shopify.designMode) {
+        document.documentElement.classList.add('shopify-design-mode');
+      }
+    </script>
+    <!-- Google Tag Manager MP -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-WGQ4SD7');
+    </script>
+    <!-- End Google Tag Manager -->
+    {% render 'shogun-head' %}
+    {% render 'edt_p' %}
+    <!-- Global site tag (gtag.js) - Google Ads: 810671561 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-810671561"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'AW-810671561', { allow_enhanced_conversions: true });
+    </script>
+    <!-- Start VWO Async SmartCode -->
+    <script type="text/javascript" id="vwoCode">
+      window._vwo_code =
+        window._vwo_code ||
+        (function () {
+          var account_id = 711926,
+            version = 1.5,
+            settings_tolerance = 2000,
+            library_tolerance = 2500,
+            use_existing_jquery = false,
+            is_spa = 1,
+            hide_element = 'body',
+            hide_element_style = 'opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important',
+            /* DO NOT EDIT BELOW THIS LINE */
+            f = false,
+            d = document,
+            vwoCodeEl = d.querySelector('#vwoCode'),
+            code = {
+              use_existing_jquery: function () {
+                return use_existing_jquery;
+              },
+              library_tolerance: function () {
+                return library_tolerance;
+              },
+              hide_element_style: function () {
+                return '{' + hide_element_style + '}';
+              },
+              finish: function () {
+                if (!f) {
+                  f = true;
+                  var e = d.getElementById('_vis_opt_path_hides');
+                  if (e) e.parentNode.removeChild(e);
+                }
+              },
+              finished: function () {
+                return f;
+              },
+              load: function (e) {
+                var t = d.createElement('script');
+                t.fetchPriority = 'high';
+                t.src = e;
+                t.type = 'text/javascript';
+                t.onerror = function () {
+                  _vwo_code.finish();
+                };
+                d.getElementsByTagName('head')[0].appendChild(t);
+              },
+              getVersion: function () {
+                return version;
+              },
+              getMatchedCookies: function (e) {
+                var t = [];
+                if (document.cookie) {
+                  t = document.cookie.match(e) || [];
+                }
+                return t;
+              },
+              getCombinationCookie: function () {
+                var e = code.getMatchedCookies(/(?:^|;)\s?(_vis_opt_exp_\d+_combi=[^;$]*)/gi);
+                e = e.map(function (e) {
+                  try {
+                    var t = decodeURIComponent(e);
+                    if (!/_vis_opt_exp_\d+_combi=(?:\d+,?)+\s*$/.test(t)) {
+                      return '';
+                    }
+                    return t;
+                  } catch (e) {
+                    return '';
+                  }
+                });
+                var i = [];
+                e.forEach(function (e) {
+                  var t = e.match(/([\d,]+)/g);
+                  t && i.push(t.join('-'));
+                });
+                return i.join('|');
+              },
+              init: function () {
+                if (d.URL.indexOf('__vwo_disable__') > -1) return;
+                window.settings_timer = setTimeout(function () {
+                  _vwo_code.finish();
+                }, settings_tolerance);
+                var e = d.createElement('style'),
+                  t = hide_element ? hide_element + '{' + hide_element_style + '}' : '',
+                  i = d.getElementsByTagName('head')[0];
+                e.setAttribute('id', '_vis_opt_path_hides');
+                vwoCodeEl && e.setAttribute('nonce', vwoCodeEl.nonce);
+                e.setAttribute('type', 'text/css');
+                if (e.styleSheet) e.styleSheet.cssText = t;
+                else e.appendChild(d.createTextNode(t));
+                i.appendChild(e);
+                var n = this.getCombinationCookie();
+                this.load(
+                  'https://dev.visualwebsiteoptimizer.com/j.php?a=' +
+                    account_id +
+                    '&u=' +
+                    encodeURIComponent(d.URL) +
+                    '&f=' +
+                    +is_spa +
+                    '&vn=' +
+                    version +
+                    (n ? '&c=' + n : '')
+                );
+                return settings_timer;
+              },
+            };
+          window._vwo_settings_timer = code.init();
+          return code;
+        })();
+    </script>
+    <!-- End VWO Async SmartCode -->
+  </head>
+  {% liquid
+    assign body_class = ''
+    if template == 'article' or template == 'page.shogun.default'
+      assign body_class = ' body-bg-white'
+      if page.id == 96654983416 or page.id == 97919664376
+        assign body_class = ''
+      endif
+    endif
+  %}
+  <body class="c-body{{ body_class }}">
+    <a class="skip-to-content-link button visually-hidden sr-only" href="#MainContent">Skip content</a>
+    {% section 'announcement-main' %}
+    {% section 'header' %}
+    <div class="c-header-spacing"></div>
+    <main id="MainContent" class="content-for-layout" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+    {% section 'footer' %}
+    {% section 'cart' %}
+    <!-- Google Tag Manager (noscript) MP -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-WGQ4SD7"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div style="display:none;" id="af_hidepp_btn">
+      <div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>
+    </div>
+
+    {% include 'smile-initializer' %}
+
+    <!-- Start Stamped.io code -->
+    <script
+      async
+      type="text/javascript"
+      id="stamped-script-widget"
+      data-api-key="pubkey-2X5qdx5h6GBk4lOfd9gp2N02M6lDGR"
+      src="https://cdn1.stamped.io/files/widget.min.js"
+    ></script>
+    <!-- Stamped - End script -->
+
+    {% include 'stamped-rewards-init' %}
+    <div style="display:none;" id="af_hidepp_btn">
+      <div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>
+    </div>
+    <div style="display:none;" id="af_hidepp_btn">
+      <div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>
+    </div>
+  </body>
+</html>
+<!-- Begin Shopify-Afterpay JavaScript Snippet (v1.1.4) -->
+{% if cart.currency.iso_code == shop.currency %}
+  <script type="text/javascript">
+    // Overrides:
+    // var afterpay_min = 1.00;       // As per your Afterpay contract.
+    // var afterpay_max = 2000.00;    // As per your Afterpay contract.
+    // var afterpay_msg_size = 'sm';  // Can be 'xs', 'sm', 'md' or 'lg'.
+    // var afterpay_logo_theme = 'colour';  // Can be 'colour', 'black' or 'white'.
+    // var afterpay_modal_open_icon = true;
+    // var afterpay_hide_upper_limit = false;
+    // var afterpay_hide_lower_limit = true;
+    // var afterpay_show_if_outside_limits = true;
+    // var afterpay_cbt_enabled = false;
+
+    var afterpay_product_integration_enabled = true;
+    var afterpay_product_selector = '#product-price-selector';
+    var afterpay_variable_price_fallback = false;
+    var afterpay_variable_price_fallback_selector = '';
+    // var afterpay_variable_price_fallback_method = 'mutation';  // Can be 'mutation' or 'interval'.
+
+    // var afterpay_cart_integration_enabled = true;
+    // var afterpay_cart_static_selector = '#cart-subtotal-selector';
+    // var afterpay_variable_subtotal_fallback = false;
+    // var afterpay_variable_subtotal_fallback_selector = '';
+    // var afterpay_variable_subtotal_fallback_method = 'mutation'; // Can be 'mutation' or 'interval'.
+    // var afterpay_cart_dynamic_integration_enabled = false;
+
+    // var afterpay_footer_logo_enabled = true;
+    // var afterpay_footer_logo_format = 'icon';  // Can be 'icon', 'stacked' or 'logo'.
+    // var afterpay_footer_logo_theme = 'colour'; // Can be 'colour', 'black' or 'white'.
+    // var afterpay_footer_logo_background = 'border';  // Can be 'border' or 'transparent'.
+    var afterpay_footer_logo_container = '.c-footer__payment';
+    var afterpay_footer_logo_template = '<span class="c-footer__bottom__payment__item"><object data="{logo_path}" type="image/svg+xml"></object></span>';
+
+    // Non-editable fields:
+    var afterpay_js_language = {{ localization.language.iso_code | slice: 0, 2 | json }};
+    var afterpay_js_country = {{ localization.country.iso_code | json }};
+    var afterpay_shop_currency = {{ shop.currency | json }};
+    var afterpay_cart_currency = {{ cart.currency.iso_code | json }};
+    var afterpay_shop_money_format = {{ shop.money_format | json }};
+    var afterpay_shop_permanent_domain = {{ shop.permanent_domain | json }};
+    var afterpay_theme_name = {{ theme.name | json }};
+    var afterpay_product = {{ product | json }};
+    var afterpay_current_variant = {{ product.selected_or_first_available_variant | json }};
+    var afterpay_cart_total_price = {{ cart.total_price | json }};
+    var afterpay_js_snippet_version = '1.1.4';
+  </script>
+  <script type="text/javascript" src="https://static.afterpay.com/shopify-afterpay-javascript.js"></script>
+{% else %}
+  <!-- Afterpay disabled: {{ cart.currency.iso_code }} != {{ shop.currency }} -->
+{% endif %}
+<!-- End Shopify-Afterpay JavaScript Snippet (v1.1.4) -->

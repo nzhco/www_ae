@@ -1,0 +1,168 @@
+{% include 'shogun-content-handler' %}
+<!doctype html>
+<html class="no-js font-base font-normal font-body text-base text-black" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_button }}">
+    <meta name="google-site-verification" content="UAZ5z-2m5C6xRLk4QJe1cR09itNNMqjfwlzr35U4THM">
+    <meta name="facebook-domain-verification" content="zmnzvgtmocta3vw2vt37i060wkutq1">
+    <meta name="p:domain_verify" content="dd9d23b996519357d26f89770cd0d3b0">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.shopifycdn.com">
+    <link rel="dns-prefetch" href="https://productreviews.shopifycdn.com">
+    <link rel="dns-prefetch" href="https://ajax.googleapis.com">
+    <link rel="dns-prefetch" href="https://maps.googleapis.com">
+    <link rel="dns-prefetch" href="https://maps.gstatic.com">
+    {%- assign supported_locales = "en,ar" | split: "," -%}
+{%- assign current_path = request.path | remove_first: '/ar' -%}
+
+{%- comment -%} Canonical URL - always points to default English market {%- endcomment -%}
+<link rel="canonical" href="https://newzealandhoneyco.ae{{ current_path }}" />
+
+{%- comment -%} Alternate URLs for English and Arabic {%- endcomment -%}
+{%- for locale in supported_locales -%}
+  {%- if locale == 'en' -%}
+    <link rel="alternate" href="https://newzealandhoneyco.ae{{ current_path }}" hreflang="en-AE" />
+  {%- else -%}
+    <link rel="alternate" href="https://newzealandhoneyco.ae/{{ locale }}{{ current_path }}" hreflang="ar-AE" />
+  {%- endif -%}
+{%- endfor -%}
+
+{%- comment -%} x-default points to default English page {%- endcomment -%}
+<link rel="alternate" href="https://newzealandhoneyco.ae{{ current_path }}" hreflang="x-default" />
+
+{%- comment -%} Preload featured image on product pages {%- endcomment -%}
+{% if template.name == 'product' %}
+  <link rel="preload" as="image" href="{{ product.featured_image | image_url: width: 800 }}">
+{% endif %}
+
+{%- comment -%} Favicon {%- endcomment -%}
+{%- if settings.favicon != blank -%}
+  <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+{%- endif -%}
+
+{%- comment -%} Preconnect to Shopify fonts if using custom fonts {%- endcomment -%}
+{%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
+  <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+{%- endunless -%}
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {% render 'meta-tags' %}
+    {{ content_for_header }}
+    <!-- Fonts -->
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+
+    <script type="application/json" data-ajax-cart-initial-state>
+      {{ cart | json }}
+    </script>
+
+    <script type="module">
+      import '{{ "liquid-ajax-cart-v1.10.3.js" | asset_url }}';
+    </script>
+
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+      if (Shopify.designMode) {
+        document.documentElement.classList.add('shopify-design-mode');
+      }
+    </script>
+
+    {% render 'shogun-head' %}
+ <!-- Start VWO Async SmartCode -->
+<link rel="preconnect" href="https://dev.visualwebsiteoptimizer.com" />
+<script type='text/javascript' id='vwoCode'>
+window._vwo_code || (function() {
+var account_id=711926,
+version=2.1,
+settings_tolerance=2000,
+hide_element='body',
+hide_element_style = 'opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;transition:none !important;',
+/* DO NOT EDIT BELOW THIS LINE */
+f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+'_settings',cc={};try{var c=JSON.parse(localStorage.getItem('_vwo_'+account_id+'_config'));cc=c&&typeof c==='object'?c:{}}catch(e){}var stT=cc.stT==='session'?w.sessionStorage:w.localStorage;code={nonce:v&&v.nonce,use_existing_jquery:function(){return typeof use_existing_jquery!=='undefined'?use_existing_jquery:undefined},library_tolerance:function(){return typeof library_tolerance!=='undefined'?library_tolerance:undefined},settings_tolerance:function(){return cc.sT||settings_tolerance},hide_element_style:function(){return'{'+(cc.hES||hide_element_style)+'}'},hide_element:function(){if(performance.getEntriesByName('first-contentful-paint')[0]){return''}return typeof cc.hE==='string'?cc.hE:hide_element},getVersion:function(){return version},finish:function(e){if(!f){f=true;var t=d.getElementById('_vis_opt_path_hides');if(t)t.parentNode.removeChild(t);if(e)(new Image).src='https://dev.visualwebsiteoptimizer.com/ee.gif?a='+account_id+e}},finished:function(){return f},addScript:function(e){var t=d.createElement('script');t.type='text/javascript';if(e.src){t.src=e.src}else{t.text=e.text}v&&t.setAttribute('nonce',v.nonce);d.getElementsByTagName('head')[0].appendChild(t)},load:function(e,t){var n=this.getSettings(),i=d.createElement('script'),r=this;t=t||{};if(n){i.textContent=n;d.getElementsByTagName('head')[0].appendChild(i);if(!w.VWO||VWO.caE){stT.removeItem(cK);r.load(e)}}else{var o=new XMLHttpRequest;o.open('GET',e,true);o.withCredentials=!t.dSC;o.responseType=t.responseType||'text';o.onload=function(){if(t.onloadCb){return t.onloadCb(o,e)}if(o.status===200||o.status===304){_vwo_code.addScript({text:o.responseText})}else{_vwo_code.finish('&e=loading_failure:'+e)}};o.onerror=function(){if(t.onerrorCb){return t.onerrorCb(e)}_vwo_code.finish('&e=loading_failure:'+e)};o.send()}},getSettings:function(){try{var e=stT.getItem(cK);if(!e){return}e=JSON.parse(e);if(Date.now()>e.e){stT.removeItem(cK);return}return e.s}catch(e){return}},init:function(){if(d.URL.indexOf('__vwo_disable__')>-1)return;var e=this.settings_tolerance();w._vwo_settings_timer=setTimeout(function(){_vwo_code.finish();stT.removeItem(cK)},e);var t;if(this.hide_element()!=='body'){t=d.createElement('style');var n=this.hide_element(),i=n?n+this.hide_element_style():'',r=d.getElementsByTagName('head')[0];t.setAttribute('id','_vis_opt_path_hides');v&&t.setAttribute('nonce',v.nonce);t.setAttribute('type','text/css');if(t.styleSheet)t.styleSheet.cssText=i;else t.appendChild(d.createTextNode(i));r.appendChild(t)}else{t=d.getElementsByTagName('head')[0];var i=d.createElement('div');i.style.cssText='z-index: 2147483647 !important;position: fixed !important;left: 0 !important;top: 0 !important;width: 100% !important;height: 100% !important;background: white !important;display: block !important;';i.setAttribute('id','_vis_opt_path_hides');i.classList.add('_vis_hide_layer');t.parentNode.insertBefore(i,t.nextSibling)}var o=window._vis_opt_url||d.URL,s='https://dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(o)+'&vn='+version;if(w.location.search.indexOf('_vwo_xhr')!==-1){this.addScript({src:s})}else{this.load(s+'&x=true')}}};w._vwo_code=code;code.init();})();
+</script>
+<!-- End VWO Async SmartCode -->
+	{{ shop.metafields.loox["global_html_head"] }}
+
+
+  {% comment %} OPUS CUSTOM {% endcomment %}
+  <script>
+    const currentURL = window.location.href;
+
+    if (currentURL.includes("/cart")) {
+      localStorage.setItem('opusOpenCustom', 'true');
+      window.location.replace('https://newzealandhoneyco.ae');
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      if (localStorage.getItem('opusOpenCustom')) {
+        localStorage.removeItem('opusOpenCustom');
+        setTimeout(() => {
+          if (typeof window.opusOpen === "function") {
+            window.opusOpen();
+          }
+        }, 1000);
+      }
+    });
+
+  </script>
+</head>
+  {% liquid
+    assign body_class = ''
+    if template == 'article' or template == 'page.shogun.default'
+      assign body_class = ' body-bg-white'
+      if page.id == 96654983416 or page.id == 97919664376
+        assign body_class = ''
+      endif
+    endif
+  %}
+  <body class="c-body{{ body_class }}">
+    <a class="skip-to-content-link button visually-hidden sr-only" href="#MainContent">Skip content</a>
+    {% section 'announcement-main' %}
+    {% section 'header' %}
+    <div class="c-header-spacing"></div>
+    <main id="MainContent" class="content-for-layout" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+    {% section 'footer' %}
+    {% section 'cart' %}
+
+
+    <div style="display:none;" id="af_hidepp_btn">
+      <div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>
+    </div>
+    <!-- Start Stamped.io code -->
+<!-- Stamped --> <script async type="text/javascript" data-api-key="69205928-715c-45c0-b3dc-4c1fddf43848" id="stamped-script-widget" src="https://cdn1.stamped.io/files/widget.min.js"></script> <!-- End Stamped -->
+    <!-- Stamped - End script -->
+
+    {% include 'stamped-rewards-init' %}
+    <div style="display:none;" id="af_hidepp_btn">
+      <div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>
+    </div>
+    <div style="display:none;" id="af_hidepp_btn">
+      <div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>
+    </div>
+  
+	{{ shop.metafields.loox["global_html_body"] }}
+{{'tiny-img-link-preloader.js' | asset_url | script_tag }}
+</body>
+</html>

@@ -1,0 +1,77 @@
+<div id="predictive-search-results">
+  <div class="predictive-search-top">
+    {%- if predictive_search.resources.products.size > 0 -%}
+      <h3 id="predictive-search-products" class="predictive-search__heading">
+        {{ 'sections.predictive_search.products' | t }}
+      </h3>
+    {%- endif -%}
+    <ul
+      id="predictive-search-results-list"
+      class="predictive-search__results-list"
+      role="listbox"
+      aria-labelledby="predictive-search-products"
+    >
+      {%- for product in predictive_search.resources.products -%}
+        <li class="predictive-search__list-item" role="option">
+          <div
+            class="c-side-cart__item"
+            {% if product.metafields.custom.color != blank %}
+              style="--product-color: {{ product.metafields.custom.color | escape }};"
+            {% endif %}
+          >
+            <a href="{{ product.url }}" class="c-side-cart__item__image">
+              {%- if product.featured_media != blank -%}
+                <img
+                  class="u-absolute-fill"
+                  src="{{ product.featured_media | image_url: width: 214 }}"
+                  loading="lazy"
+                  alt="{{ product.title }}"
+                  height="300"
+                  width="300"
+                >
+              {%- endif -%}
+            </a>
+            <div class="c-side-cart__item__info">
+              <a class="c-side-cart__item__title" href="{{ product.url }}">
+                {% liquid
+                  if product.metafields.custom.product_name != blank
+                    echo product.metafields.custom.product_name | escape
+                  elsif product.title != blank
+                    echo product.title | escape
+                  else
+                    echo product.title
+                  endif
+                %}
+              </a>
+              {%- if product.metafields.custom.umf_score != blank or product.metafields.custom.mgo_score != blank -%}
+                <div class="c-side-cart__item__score-info">
+                  {%- if product.metafields.custom.umf_score != blank -%}
+                    <div class="c-side-cart__item__score c-side-cart__item__score--umf">
+                      <span class="c-side-cart__item__score__name">
+                        {{- 'sections.predictive_search.umf_html' | t -}}
+                      </span>
+                      <span class="c-side-cart__item__score__value">
+                        {{- product.metafields.custom.umf_score | escape -}}
+                      </span>
+                    </div>
+                  {%- endif -%}
+                  {%- if product.metafields.custom.mgo_score != blank -%}
+                    <div class="c-side-cart__item__score c-side-cart__item__score--mgo">
+                      <span class="c-side-cart__item__score__name">{{ 'sections.predictive_search.mgo' | t }}</span>
+                      <span class="c-side-cart__item__score__value">
+                        {{- product.metafields.custom.mgo_score | escape -}}
+                      </span>
+                    </div>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+  <button class="predictive-search-bottom" tabindex="-1">
+    {{ 'sections.predictive_search.button' | t: terms: predictive_search.terms }}
+  </button>
+</div>

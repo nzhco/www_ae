@@ -1,0 +1,2 @@
+"use strict";function sideCart(){var sidecartForm=document.querySelector(".c-side-cart__form");if(sidecartForm){var checkoutButton=sidecartForm.querySelector("button");checkoutButton.addEventListener("click",function(e){sidecartForm.submit()})}}sideCart(),"liquidAjaxCart"in window&&liquidAjaxCart.subscribeToCartAjaxRequests(function(requestState,subscribeToResult){sideCart()});
+//# sourceMappingURL=/s/files/1/0071/9755/6794/t/24/assets/sidecart.js.map?v=1675308733

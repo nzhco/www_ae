@@ -1,0 +1,88 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "shogun-above": {
+      "type": "shogun-above",
+      "settings": {}
+    },
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "image": "shopify://shop_images/honey_co_banner-home_1.jpg",
+        "video": "https://www.youtube.com/watch?v=r4wNFNe1k-s",
+        "heading": "Your authentic, certified NZ Manuka Honey for beauty, immunity and vitality.",
+        "paragraph": "Take the quiz",
+        "button_label": "WHICH HONEY IS FOR ME?",
+        "button_link": "shopify://pages/which-manuka-honey-is-right-for-you"
+      }
+    },
+    "custom_collection_grid_gQBnTP": {
+      "type": "custom-collection-grid",
+      "name": "Styled Collection Grid",
+      "settings": {
+        "product_handles": "manuka-honey-umf-10,manuka-honey-umf-15,manuka-honey-umf-20-mgo-829,manuka-honey-umf-24-mgo-1122,manuka-honey-umf-26-mgo-1282,manuka-honey-umf-28-mgo-1450,manuka-honey-umf™-30-mgo-1620,new-zealand-honey-co-daily-spoon"
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "disabled": true,
+      "settings": {
+        "heading": "Meet our honey",
+        "hide_umf": true,
+        "hide_title": false,
+        "product_content": "short",
+        "product_list": [
+          "manuka-honey-umf-10",
+          "manuka-honey-umf-15",
+          "manuka-honey-umf-20-mgo-829",
+          "manuka-honey-umf-24-mgo-1122",
+          "manuka-honey-umf-26-mgo-1282",
+          "manuka-honey-umf-28-mgo-1450",
+          "manuka-honey-umf™-30-mgo-1620",
+          "new-zealand-honey-co-daily-spoon"
+        ]
+      }
+    },
+    "shogun-below": {
+      "type": "shogun-below",
+      "disabled": true,
+      "settings": {}
+    },
+    "17114963867464cb51": {
+      "type": "apps",
+      "blocks": {
+        "klaviyo_email_marketing_sms_form_embed_block_kcVHFa": {
+          "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/form-embed-block/2632fe16-c075-4321-a88b-50b567f42507",
+          "settings": {
+            "formId": "Ry7EXG"
+          }
+        }
+      },
+      "block_order": [
+        "klaviyo_email_marketing_sms_form_embed_block_kcVHFa"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "shogun-above",
+    "hero",
+    "custom_collection_grid_gQBnTP",
+    "main",
+    "shogun-below",
+    "17114963867464cb51"
+  ]
+}

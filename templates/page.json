@@ -1,0 +1,38 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "title": false,
+        "wide": false,
+        "container": false
+      }
+    },
+    "1738284106c61dc708": {
+      "type": "apps",
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "paragraph": "Enter your email to receive 20% off your next order and be the first to know about our sales, news and events!",
+        "success": "Thanks for subscribing",
+        "bg_color": "#fbf9f6"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1738284106c61dc708",
+    "newsletter"
+  ]
+}

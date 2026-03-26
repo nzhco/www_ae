@@ -1,0 +1,42 @@
+{{ 'product-bar.css' | asset_url | stylesheet_tag }}
+<div class="c-container">
+  <div class="c-product__bar__content">
+    <div>
+      <span>
+        {%- if product.metafields.custom.product_name != blank -%}
+          {{ product.metafields.custom.product_name | escape }}
+        {%- elsif product.title != blank -%}
+          {{ product.title | escape }}
+        {%- else -%}
+          {{ 'sections.product_bar.manuka_honey' | t }}
+        {%- endif -%}
+      </span>
+      {%- if product.metafields.custom.umf_score != blank -%}
+        <span>
+          {{- 'sections.product_bar.umf' | t }}
+          {{ product.metafields.custom.umf_score | escape -}}
+        </span>
+      {%- endif -%}
+      {%- if product.metafields.custom.mgo_score != blank -%}
+        <span>
+          {{- 'sections.product_bar.mgo' | t }}
+          {{ product.metafields.custom.mgo_score | escape -}}
+        </span>
+      {%- endif -%}
+    </div>
+    <a class="c-button c-product__bar__button" href="#">{{ 'sections.product_bar.add_to_cart' | t }}</a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Bar",
+  "tag": "div",
+  "class": "c-product__bar",
+  "presets": [
+    {
+      "name": "Product Bar"
+    }
+  ]
+}
+{% endschema %}

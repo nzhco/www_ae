@@ -1,0 +1,2 @@
+"use strict";function homeBanner(){jarallaxVideo();var videos=document.querySelector(".c-home-banner__video");if(videos){var videoUrl=videos.dataset.url;jarallax(videos,{speed:1,videoSrc:videoUrl,onVideoWorkerInit:function(videoObject){videoObject.isValid()&&videoObject.on("started",function(event){var parent=videoObject.$video.parentNode;parent.classList.add("show-video")})}})}}homeBanner();
+//# sourceMappingURL=/s/files/1/0071/9755/6794/t/24/assets/home-banner.js.map?v=1675308730

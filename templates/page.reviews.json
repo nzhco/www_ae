@@ -1,0 +1,41 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "1738284106c61dc708": {
+      "type": "apps",
+      "blocks": {
+        "growave_loyalty_wishlist_block_index_custom_liquid_izCxwj": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.index.customLiquid/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "custom_liquid": "<section class=\"customer-reviews\">\n  <div class=\"reviews-inner\">\n    {% if request.locale.iso_code == 'ar' %}\n      <h2 dir=\"rtl\">آراء العملاء</h2>\n      <p dir=\"rtl\">\n        اكتشف لماذا يثق الآلاف في شركة عسل نيوزيلندا —\n        اطّلع على أكثر من <strong>25,455+</strong> تقييمًا عالميًا موثوقًا\n        من عملاء سعداء يشاركون تجاربهم مع عسل المانوكا الفاخر.\n      </p>\n    {% else %}\n      <h2>Customer Reviews</h2>\n      <p>\n        Discover why thousands trust New Zealand Honey Co. —\n        read <strong>25,455+</strong> verified global reviews from happy customers\n        sharing feedback on their premium Manuka honey.\n      </p>\n    {% endif %}\n  </div>\n</section>\n\n<style>\n.customer-reviews {\n  padding: 20px 20px;\n  text-align: center;\n}\n\n.reviews-inner {\n  max-width: 800px;\n  margin: 0 auto;\n}\n\n.customer-reviews h2 {\n  font-size: 42px;\n  font-weight: 500;\n  color: #1f1f1f;\n  margin-bottom: 20px;\n  letter-spacing: 0.3px;\n}\n\n.customer-reviews p {\n  font-size: 18px;\n  line-height: 1.6;\n  color: #4a4a4a;\n  margin: 0;\n}\n\n/* Arabic / RTL support */\nhtml[lang=\"ar\"] .customer-reviews {\n  direction: rtl;\n  text-align: center;\n}\n\n/* Responsive */\n@media (max-width: 768px) {\n  .customer-reviews {\n    padding: 60px 16px;\n  }\n\n  .customer-reviews h2 {\n    font-size: 32px;\n  }\n\n  .customer-reviews p {\n    font-size: 16px;\n  }\n}\n</style>\n\n<div\n    class=\"gw-rv-reviews-page-widget-placeholder\"\n    data-gw-reviews-per-page=\"15\"\n    style=\"display: block\"\n></div>",
+            "custom_css": ".gw-rv-reviews-page__title {\n  \n    display: none !important;\n}"
+          }
+        }
+      },
+      "block_order": [
+        "growave_loyalty_wishlist_block_index_custom_liquid_izCxwj"
+      ],
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "paragraph": "Enter your email to receive 20% off your next order and be the first to know about our sales, news and events!",
+        "success": "Thanks for subscribing",
+        "bg_color": "#fbf9f6"
+      }
+    }
+  },
+  "order": [
+    "1738284106c61dc708",
+    "newsletter"
+  ]
+}

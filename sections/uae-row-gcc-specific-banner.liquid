@@ -1,0 +1,153 @@
+{% schema %}
+{
+  "name": "UAE ROW Specific Banner1",
+  "settings": [
+    {
+      "type": "url",
+      "id": "banner_link",
+      "label": "Banner Link (UAE)"
+    },
+    {
+      "type": "url",
+      "id": "banner_link2",
+      "label": "Banner Link (ROW)"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image_1",
+      "label": "Desktop Banner Image (UAE)"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image_2",
+      "label": "Desktop Banner Image (ROW)"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image_1",
+      "label": "Mobile Banner Image (UAE)"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image_2",
+      "label": "Mobile Banner Image (ROW)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "UAE ROW Specific Banner"
+    }
+  ]
+}
+{% endschema %}
+
+<div id="banner-container">
+  <!-- Content will load dynamically based on user country -->
+</div>
+
+<style>
+  #banner-container {
+    max-width: 1920px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  #banner-container img {
+    width: 100%;
+    height: auto;
+    display: none;
+  }
+
+  #banner-container .desktop-image {
+    display: block;
+  }
+
+  #banner-container .mobile-image {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    #banner-container .desktop-image {
+      display: none;
+    }
+    #banner-container .mobile-image {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const container = document.getElementById("banner-container");
+
+    // Detect user country
+    fetch("https://ipapi.co/json/")
+      .then(res => res.json())
+      .then(data => {
+        let country = data.country; // e.g., "AE"
+
+        if (country === "AE") {
+          // Show UAE Banner (1)
+          container.innerHTML = `
+            <a href="{{ section.settings.banner_link }}" aria-label="uae-banner">
+              <img 
+                src="{{ section.settings.desktop_image_1 | image_url: width: 1900 }}" 
+                alt="Desktop Banner UAE" 
+                loading="eager"
+                fetchpriority="high"
+                class="desktop-image"
+              >
+              <img 
+                src="{{ section.settings.mobile_image_1 | image_url: width: 800 }}" 
+                alt="Mobile Banner UAE" 
+                loading="eager"
+                fetchpriority="high"
+                class="mobile-image"
+              >
+            </a>
+          `;
+        } else {
+          // Show ROW Banner (2)
+          container.innerHTML = `
+            <a href="{{ section.settings.banner_link2 }}" aria-label="row-banner">
+              <img 
+                src="{{ section.settings.desktop_image_2 | image_url: width: 1900 }}" 
+                alt="Desktop Banner ROW" 
+                loading="eager"
+                fetchpriority="high"
+                class="desktop-image"
+              >
+              <img 
+                src="{{ section.settings.mobile_image_2 | image_url: width: 800 }}" 
+                alt="Mobile Banner ROW" 
+                loading="eager"
+                fetchpriority="high"
+                class="mobile-image"
+              >
+            </a>
+          `;
+        }
+      })
+      .catch(() => {
+        // Fallback: Show ROW Banner (if country detection fails)
+        container.innerHTML = `
+          <a href="{{ section.settings.banner_link2 }}" aria-label="row-banner">
+            <img 
+              src="{{ section.settings.desktop_image_2 | image_url: width: 1900 }}" 
+              alt="Desktop Banner ROW" 
+              loading="eager"
+              fetchpriority="high"
+              class="desktop-image"
+            >
+            <img 
+              src="{{ section.settings.mobile_image_2 | image_url: width: 800 }}" 
+              alt="Mobile Banner ROW" 
+              loading="eager"
+              fetchpriority="high"
+              class="mobile-image"
+            >
+          </a>
+        `;
+      });
+  });
+</script>

@@ -1,0 +1,2 @@
+"use strict";function hero(){jarallaxVideo();var videos=document.querySelector(".c-hero__video");if(videos){var videoUrl=videos.dataset.url;jarallax(videos,{speed:1,videoSrc:videoUrl,onVideoWorkerInit:function(videoObject){videoObject.isValid()&&videoObject.on("started",function(event){var parent=videoObject.$video.parentNode;parent.classList.add("show-video")})}})}}hero();
+//# sourceMappingURL=/s/files/1/0071/9755/6794/t/24/assets/hero.js.map?v=1675308729

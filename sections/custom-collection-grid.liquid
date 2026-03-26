@@ -1,0 +1,337 @@
+{% schema %}
+{
+  "name": "Custom Collection Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "product_handles",
+      "label": "Product Handles (comma-separated)",
+      "default": "manuka-honey-250g,manuka-honey-500g,manuka-honey-1000g"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Styled Collection Grid",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}
+
+{% if section.settings.product_handles != blank %}
+  {% assign custom_product_handles = section.settings.product_handles | split: "," %}
+  <div class="custom-collection-grid-wrapper">
+    <div class="custom-collection-grid">
+      {% for handle in custom_product_handles %}
+        {% assign handle = handle | strip %}
+        {% assign product = all_products[handle] %}
+        {% if product != nil %}
+          <div class="product-card">
+            {% assign second_image = product.images[1] | default: product.featured_image %}
+            <div class="product-image-wrapper">
+              <a href="{{ product.url }}">
+                <img 
+                  src="{{ product.images[1] | img_url: '600x600' }}" 
+                  alt="{{ product.title }}" 
+                  data-second="{{ product.images[1] | img_url: '600x600' }}"
+                  data-third="{{ product.images[2] | img_url: '600x600' }}"
+                  class="hover-swap-image"
+                >
+              </a>
+
+              {% if product.tags contains 'Best Seller' %}
+                <div class="product-badge">Best Seller</div>
+              {% elsif product.tags contains 'Customer Favorite' %}
+                <div class="product-badge">Customer Favorite</div>
+              {% elsif product.tags contains 'Top Pick' %}
+                <div class="product-badge">Top Pick</div>
+              {% endif %}
+              <div class="gift-strip">Free Gifts Included</div>
+          
+            </div>
+
+            <div class="product-info">
+              <div class="info-box-collection">
+                <div
+                  class="stamped-product-reviews-badge"
+                  data-id="{{ product.id }}"
+                  data-product-title="{{ product.title | escape }}"
+                  data-product-type="{{ product.type | escape }}"
+                  data-product-url="{{ shop.url }}{{ product.url }}"
+                  data-product-image-url="{{ product.featured_image | img_url: 'large' }}"
+                  data-product-description="{{ product.description | strip_html | escape }}"
+                ></div>
+
+                <div class="product-title">
+                  {% if product.metafields.custom.home_slider_features != blank or product.metafields.custom.home_slider_features2 != blank %}
+                    <h3>
+                      {% if product.metafields.custom.home_slider_features != blank %}
+                        {{ product.metafields.custom.home_slider_features }}
+                      {% endif %}
+                      {% if product.metafields.custom.home_slider_features2 != blank %}
+                        {{ product.metafields.custom.home_slider_features2 }}
+                      {% endif %}
+                    </h3>
+                  {% endif %}
+                </div>
+
+                <p class="mgo-score-btn">
+                  MGO {{ product.metafields.custom.mgo_score }}
+                </p>
+
+                <div class="product-price">
+                  {% if product.compare_at_price > product.price %}
+                    <span class="price-sale">from {{ product.price | money }}</span>
+                    <span class="price-compare">{{ product.compare_at_price | money }}</span>
+                  {% else %}
+                    <span class="price-normal">from {{ product.price | money }}</span>
+                  {% endif %}
+                </div>
+
+                <div class="product-benefit">
+                  {% if product.tags contains 'Inflammation Balance' %}
+                    Inflammation Balance
+                  {% else %}
+                    Digestive & Immune
+                  {% endif %}
+                </div>
+
+                <a href="{{ product.url }}" class="shop-now-btn">Shop Now</a>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+{% else %}
+  <p style="text-align:center; padding: 2rem;">Please enter product handles in the section settings.</p>
+{% endif %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const wrappers = document.querySelectorAll('.product-image-wrapper');
+
+    wrappers.forEach(wrapper => {
+      const img = wrapper.querySelector('.hover-swap-image');
+      if (!img) return;
+
+      const secondImage = img.getAttribute('data-second');
+      const thirdImage = img.getAttribute('data-third');
+
+      wrapper.addEventListener('mouseenter', () => {
+        img.src = thirdImage;
+      });
+
+      wrapper.addEventListener('mouseleave', () => {
+        img.src = secondImage;
+      });
+    });
+  });
+</script>
+<style>
+  .stamped-product-reviews-badge {
+    padding: 10px 0px;
+}
+  .info-box-collection {
+    padding: 0px 15px;
+}
+.mgo-score-btn {
+      margin: 0.8rem 0;
+    display: inline-block;
+    color: #FFFFFF;
+    background-color: #E87733;
+    padding: 5px 15px;
+    text-align: center;
+    cursor: default;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+
+
+  .custom-collection-grid-wrapper {
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.custom-collection-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+@media screen and (max-width: 767px) {
+  .custom-collection-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+.product-card {
+  background:#F4F2ECFF;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-image-wrapper {
+  position: relative;
+  text-align: center;
+  background: #f9f9f9;
+}
+
+.product-image-wrapper img {
+  max-width: 100%;
+}
+
+.product-badge {
+  position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #fff;
+    color: #313131;
+    font-size: 1.5rem;
+    padding: 0.7rem 2rem;
+    border-radius: 9999px;
+    font-weight: 400;
+}
+
+.product-info {
+  text-align: left;
+}
+
+.gift-strip {
+  position: absolute;
+    bottom: 0px;
+    /* right: 10px; */
+    background: #313131;
+    color: #ffffff;
+    font-size: 1.5rem;
+    padding: 0.7rem 2rem;
+    /* border-radius: 9999px; */
+    font-weight: 400;
+    width: 100%;
+    opacity: 0.8;
+}
+
+.rating {
+  color: #facc15;
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+
+.review-count {
+  color: #555;
+}
+
+.product-title {
+  font-weight: 500;
+  font-size: 2rem;
+  margin: 0.4rem 0;
+  color: #313131;
+  letter-spacing: normal;
+  height: 5rem;
+
+
+}
+.product-title h3 {
+    margin: 0px;
+}
+  .product-title span {
+    font-size: 2rem !important;
+}
+.mgo-tag {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.mgo-tag.black {
+  background-color: #000;
+  color: #fff;
+}
+
+.mgo-tag.red {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #b91c1c;
+}
+
+.product-price {
+  margin-bottom: 1rem;
+    margin-top: 1rem;
+
+}
+
+.price-sale {
+  color: #d97706;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.price-compare {
+  color: #999;
+  text-decoration: line-through;
+  font-size: 0.9rem;
+}
+
+.price-normal {
+  font-weight: 400;
+  color: #222;
+}
+
+.product-benefit {
+  color: #666;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+.variant-dropdown {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.shop-now-btn {
+  color: #313131;
+    cursor: pointer;
+    display: flex
+;
+    overflow: hidden;
+    font-size: 20px;
+    align-self: stretch;
+    flex-basis: auto;
+    text-align: center;
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    align-items: center;
+    flex-shrink: 0;
+    font-weight: 500;
+    line-height: 20px;
+    padding-top: 15px;
+    padding-left: 32px;
+    padding-right: 32px;
+    letter-spacing: 2px;
+    padding-bottom: 15px;
+    justify-content: center;
+    text-align-last: center;
+    background-color: #f1b434;
+   margin-left: 20px;
+  margin-right:20px;
+  border-radius: 999px;
+  margin-bottom: 20px;
+}
+
+.shop-now-btn:hover {
+  background: #313131;
+  color: #ffffff;
+}
+</style>

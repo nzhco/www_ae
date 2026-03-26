@@ -1,0 +1,68 @@
+<!-- headline-reviews.liquid -->
+{% schema %}
+{
+  "name": "Headline - Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Heading",
+      "default": "Our Accreditations"
+    },
+    {
+      "type": "text",
+      "id": "subheading_text",
+      "label": "Subheading",
+      "default": "We are recognised by leading industry standards."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Headline - Reviews",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="headline-reviews-section">
+  <div class="shogun-heading-component1">
+    <h2>{{ section.settings.heading_text }}</h2>
+    <p>{{ section.settings.subheading_text }}</p>
+  </div>
+</div>
+
+<style>
+  .headline-reviews-section {
+    margin-top:100px;
+    padding: 20px;
+    text-align: center;
+  }
+  .shogun-heading-component1 h2 {
+    font-size: 90px;
+    font-weight: 500;
+    margin-bottom: 10px; /* Adjusted to fit the paragraph better */
+    line-height: 1.1;
+    text-align: center;
+    color: #333;
+  }
+  .shogun-heading-component1 p {
+    font-size: 16px;
+    margin-top: 0;
+    color: #333;
+    text-transform: uppercase;
+    font-weight: 400;
+    text-align: center;
+    letter-spacing: 2px;
+  }
+  @media only screen and (max-width: 575px) {
+    .shogun-heading-component1 h2 {
+        font-size: 42px;
+        margin-bottom: 8px;
+    }
+    .shogun-heading-component1 p {
+        font-size: 16px;
+      
+    }
+  }
+</style>

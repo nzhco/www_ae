@@ -1,0 +1,179 @@
+{{ 'side-cart.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'sidecart.js' | asset_url }}" defer="defer"></script>
+<div class="c-side-cart__contents">
+  <button data-ajax-cart-toggle-class-button="js-side-cart-open | remove" class="c-side-cart__close">
+    <svg
+      viewBox="0 0 24 24"
+      width="24"
+      height="24"
+      stroke="currentColor"
+      stroke-width="1"
+      fill="none"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="css-i6dzq1"
+    >
+      <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </button>
+  <form action="/checkout" method="post" class="c-side-cart__form">
+    <div class="c-side-cart__top" data-ajax-cart-section>
+      <h2>{{ 'sections.cart.title' | t }}</h2>
+      {%- if settings.delivery_message != blank -%}
+        <div class="c-side-cart__message">
+          <p>{{ settings.delivery_message }}</p>
+        </div>
+      {%- endif -%}
+      <div class="c-side-cart__items" data-ajax-cart-section-scroll>
+        {% for item in cart.items %}
+          {% assign item_index = forloop.index %}
+
+          <div
+            class="c-side-cart__item"
+            {% if item.product.metafields.custom.color != blank %}
+              style="--product-color: {{ item.product.metafields.custom.color | escape }};"
+            {% endif %}
+          >
+            <a
+              data-ajax-cart-request-button
+              href="{{ routes.cart_change_url }}?line={{ item_index }}&quantity=0"
+              class="c-side-cart__item__remove"
+              aria-label="Remove {{ item.title }}"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                stroke="currentColor"
+                stroke-width="2"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="css-i6dzq1"
+              >
+                <polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line>
+              </svg>
+            </a>
+            <a href="{{ item.url }}" class="c-side-cart__item__image">
+              {%- if item.image != blank -%}
+                <img
+                  class="u-absolute-fill"
+                  src="{{ item.image | image_url: width: 214 }}"
+                  loading="lazy"
+                  alt="{{ item.title }}"
+                  height="300"
+                  width="300"
+                >
+              {%- endif -%}
+            </a>
+            <div class="c-side-cart__item__info">
+              <a class="c-side-cart__item__title" href="{{ item.url }}">
+                {% liquid
+                  if item.product.metafields.custom.product_name != blank
+                    echo item.product.metafields.custom.product_name | escape
+                  elsif item.product.title != blank
+                    echo item.product.title | escape
+                  else
+                    echo item.product.title
+                  endif
+                %}
+                {%- if item.product.metafields.custom.umf_score != blank
+                  or item.product.metafields.custom.mgo_score != blank
+                -%}
+                  <span class="c-side-cart__item__score-info">
+                    {%- if item.product.metafields.custom.umf_score != blank -%}
+                      <span class="c-side-cart__item__score c-side-cart__item__score--umf">
+                        <span class="c-side-cart__item__score__name">{{ 'sections.cart.umf_html' | t }}</span>
+                        <span class="c-side-cart__item__score__value">
+                          {{- item.product.metafields.custom.umf_score | escape -}}
+                        </span>
+                      </span>
+                    {%- endif -%}
+                    {%- if item.product.metafields.custom.mgo_score != blank -%}
+                      <span class="c-side-cart__item__score c-side-cart__item__score--mgo">
+                        <span class="c-side-cart__item__score__name">{{ 'sections.cart.mgo' | t }}</span>
+                        <span class="c-side-cart__item__score__value">
+                          {{- item.product.metafields.custom.mgo_score | escape -}}
+                        </span>
+                      </span>
+                    {%- endif -%}
+                  </span>
+                {%- endif -%}
+              </a>
+              {% liquid
+                assign variant_title = null
+                if item.product.variants
+                  for variant in item.product.variants
+                    if item.variant_id == variant.id
+                      assign variant_title = variant.title
+                    endif
+                  endfor
+                endif
+              %}
+              {% if variant_title -%}
+                <span class="c-side-cart__item__variant">{{ variant_title }}</span>
+              {%- endif %}
+              <div class="c-side-cart__item__options">
+                <span class="c-side-cart__item__options__text">
+                  {%- if item.selling_plan_allocation -%}
+                    {%- if item.selling_plan_allocation.selling_plan.name -%}
+                      {{ item.selling_plan_allocation.selling_plan.name | escape }}
+                    {%- endif -%}
+                  {%- else -%}
+                    {{ 'sections.cart.one_time' | t }}
+                  {%- endif -%}
+                </span>
+              </div>
+              <div class="c-side-cart__item__bottom">
+                <div class="c-side-cart__item__price">{{ item.final_price | money }}</div>
+                <div class="c-side-cart__item__qty">
+                  <a
+                    data-ajax-cart-request-button
+                    href="{{ routes.cart_change_url }}?line={{ item_index }}&quantity={{ item.quantity | minus: 1 }}"
+                    >-</a
+                  >
+                  <input
+                    data-ajax-cart-quantity-input="{{ item_index }}"
+                    name="updates[]"
+                    value="{{ item.quantity }}"
+                    type="number"
+                  >
+                  <a
+                    data-ajax-cart-request-button
+                    href="{{ routes.cart_change_url }}?line={{ item_index }}&quantity={{ item.quantity | plus: 1 }}"
+                  >
+                    +</a
+                  >
+                </div>
+              </div>
+              <div class="c-side-cart__item__message" data-ajax-cart-messages="{{ item.key }}"></div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="c-side-cart__empty">
+        <p>{{ 'sections.cart.empty' | t }}</p>
+        <p>{{ 'sections.cart.fill' | t }}</p>
+        <p>
+          <a href="{{ routes.root_url }}">{{ 'sections.cart.shop_now' | t }}</a>
+        </p>
+      </div>
+    </div>
+    <div class="c-side-cart__bottom">
+      <button type="submit" name="checkout">
+        {{ 'sections.cart.checkout' | t }} —
+        <span data-ajax-cart-bind-state="cart.total_price | money_with_currency">
+          {{- cart.total_price | money_with_currency -}}
+        </span>
+      </button>
+    </div>
+  </form>
+</div>
+<div class="c-side-cart__overlay" data-ajax-cart-toggle-class-button="js-side-cart-open | remove"></div>
+{% schema %}
+{
+  "name": "Side Cart",
+  "tag": "div",
+  "class": "c-side-cart"
+}
+{% endschema %}

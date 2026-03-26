@@ -1,0 +1,217 @@
+{% schema %}
+{
+  "name": "Scroll Product Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "MEHR ERFAHREN"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_item",
+      "name": "Product Card",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
+        },
+        {
+          "type": "text",
+          "id": "label_override",
+          "label": "Label Text (optional)",
+          "default": "Product Label"
+        },
+        {
+          "type": "url",
+          "id": "custom_url",
+          "label": "Custom Link (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Scroll Product Grid",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+.scroll-labels-section {
+  padding: 40px 20px 0px;
+  max-width: 1250px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.scroll-labels-section h2 {
+  text-align: center;
+  font-size: 28px;
+  margin: 0 0 20px;
+  color: #f4af23;
+  letter-spacing: 2px;
+}
+
+.collection-scroll-menu-wrapper {
+  position: relative;
+}
+
+.collection-scroll-menu {
+  overflow-x: hidden; /* hide scrollbar */
+  scroll-behavior: smooth;
+  display: flex;
+  gap: 16px;
+  padding: 16px 40px; /* add padding for arrows */
+  scroll-snap-type: x mandatory;
+}
+
+.collection-card {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  background:  #ffffff;
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+  width: 120px;
+  height: auto;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.collection-card:hover {
+  transform: scale(1.05);
+  background:  #fef3d6;
+}
+.card-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.label1 {
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Arrow buttons */
+.scroll-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #f4af23;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background-color 0.3s ease;
+  padding: 0;
+}
+
+.scroll-arrow:hover:not(:disabled) {
+  background: #d59417;
+}
+
+.scroll-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.scroll-arrow.left {
+  left: -10px;
+}
+
+.scroll-arrow.right {
+  right: -10px;
+}
+
+/* Arrow icon */
+.scroll-arrow svg {
+  fill: #3a2f00; /* Darker color for contrast */
+  width: 16px;
+  height: 16px;
+}
+
+@media screen and (max-width: 480px) {
+  .collection-card {
+    width: 120px;
+    font-size: 12px;
+  }
+
+  .card-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .scroll-arrow {
+    width: 32px;
+    height: 32px;
+  }
+
+  .scroll-arrow svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+{% endstyle %}
+
+<div class="scroll-labels-section">
+  {% if section.settings.heading != blank %}
+    <h2>{{ section.settings.heading }}</h2>
+  {% endif %}
+
+  <div class="collection-scroll-menu-wrapper">
+    <button class="scroll-arrow left" aria-label="Scroll Left" disabled>
+      <!-- Left arrow SVG -->
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+      </svg>
+    </button>
+
+    <div class="collection-scroll-menu" id="productScrollContainer">
+      {% for block in section.blocks %}
+        {% assign product = block.settings.product %}
+        {% if product %}
+          {% assign label = block.settings.label_override | default: product.title %}
+          {% assign link = block.settings.custom_url | default: product.url %}
+          {% assign first_image = product.featured_image | default: product.images.first %}
+
+          <a href="{{ link }}" class="collection-card">
+            {% if first_image %}
+              <img src="{{ first_image | image_url: width: 100 }}" alt="{{ product.title | escape }}" class="card-image" />
+            {% endif %}
+            <div class="label1">{{ label | raw }}</div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <button class="scroll-arrow right" aria-label="Scroll Right">
+      <!-- Right arrow SVG -->
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+      </svg>
+    </button>
+  </div>
+</div>
+

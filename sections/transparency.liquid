@@ -1,0 +1,178 @@
+{{ 'transparency.css' | asset_url | stylesheet_tag }}
+
+{% if section.settings.title_image != blank or shop.metaobjects.svgs['svgs-wjxuznox'].eyes_on_the_hives.value != blank %}
+  <style>
+    .c-container .c-transparency__right img.c-quality__image {
+      width: 100%;
+      height: auto;
+      position: relative;
+      z-index: 2;
+      padding-top: 20%;
+      padding-bottom: 20%;
+  }
+
+    .c-container .c-transparency__right__title {
+      position: absolute;
+      z-index: 3;
+      width: 70%;
+      height: auto;
+      left: -50%;
+      top: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+  }
+
+    @media only screen and (max-width: 1199px) {
+      .c-container .c-transparency__right__title {
+        left: 0;
+      }
+    }
+  </style>
+  {% endif %}
+
+<script src="{{ 'transparency.js' | asset_url }}" defer="defer"></script>
+<div class="c-container">
+  <div class="c-transparency__content">
+    <div class="c-transparency__left">
+      {%- if section.settings.title != blank -%}
+        <h2>{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <p>{{ section.settings.description }}</p>
+      {%- endif -%}
+      {%- if section.blocks != blank -%}
+        <div class="c-transparency__items">
+          {%- for block in section.blocks -%}
+            <div class="c-transparency__item">
+              {%- if block.settings.title != blank and block.settings.description != blank -%}
+                <div class="c-transparency__item__title">
+                  <h3>{{ block.settings.title }}</h3>
+                  {%- render 'icon-arrow', type: '' -%}
+                </div>
+                <div class="c-transparency__item__description">{{ block.settings.description }}</div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+      {%- if section.settings.footer != blank -%}
+        <p>{{ section.settings.footer }}</p>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank and section.settings.button_link -%}
+        <p>
+          <a href="{{ section.settings.button_link }}" class="c-button c-button--white" rel="bookmark">
+            {{- section.settings.button_label -}}
+          </a>
+        </p>
+      {%- endif -%}
+    </div>
+    <div class="c-transparency__right">
+      {% if section.settings.title_image != blank %}
+        <img class="c-transparency__right__title" src="{{ section.settings.title_image | image_url }}">
+      {% elsif shop.metaobjects.svgs['svgs-wjxuznox'].eyes_on_the_hives.value != blank %}
+        <img class="c-transparency__right__title" src="{{ shop.metaobjects.svgs['svgs-wjxuznox'].eyes_on_the_hives.value | image_url }}">
+        {% else %}
+      <svg class="c-transparency__right__title" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 464.9 332.79">
+        <defs><style>.cls-1{isolation:isolate;}.cls-2{fill:#0085ca;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1-2"><g class="cls-1"><path class="cls-2" d="M34.29,16.74c0,.9-.09,2.4-.27,4.5L8.07,21a8.39,8.39,0,0,0,2.64,6.37,10.43,10.43,0,0,0,7,2.28q5.78.06,7.84-3.9l8.25.08a12,12,0,0,1-5.37,7.94,18.22,18.22,0,0,1-10.79,3q-8.25-.07-13-5.08T0,18.2Q.09,9.8,4.9,4.86T17.73,0q7.5.08,12.07,4.73A16.17,16.17,0,0,1,34.29,16.74Zm-26.15-2,18.15.18A8.45,8.45,0,0,0,24,8.69a9,9,0,0,0-6.47-2.24,9.46,9.46,0,0,0-6.77,2.26A8.15,8.15,0,0,0,8.14,14.76Z"/></g><g class="cls-1"><path class="cls-2" d="M67.73,3.38,75.91,4,73.1,39.14q-.64,8-5.57,12.08-4.76,3.7-12.17,3.1-7.74-.62-11.72-4.56a11.94,11.94,0,0,1-3.17-9.38l8.25.66a6.52,6.52,0,0,0,1.63,4.62c1,1.06,2.84,1.7,5.39,1.9a7.9,7.9,0,0,0,6.36-2Q64.54,43.2,65,37.88l.36-4.42Q61.49,39,53.61,38.33q-6.22-.49-9.24-4.77T41.88,22.75l1.7-21.3,8.18.65L50.19,21.68q-.72,9.08,6.85,9.68a7.31,7.31,0,0,0,6.5-2.42,12.77,12.77,0,0,0,2.75-7.48Z"/></g><g class="cls-1"><path class="cls-2" d="M116.9,26.05c-.15.89-.48,2.36-1,4.42L90.22,26.06a8.36,8.36,0,0,0,1.6,6.73,10.43,10.43,0,0,0,6.6,3.39q5.72,1,8.4-2.61L115,35a12,12,0,0,1-6.6,7,18.35,18.35,0,0,1-11.18,1.25Q89,41.83,85.13,36.11T82.66,22q1.43-8.33,7-12.45T103.16,6.8q7.43,1.28,11.21,6.62A16.29,16.29,0,0,1,116.9,26.05ZM91.28,19.89l18,3.09A8.45,8.45,0,0,0,108,16.42a9.1,9.1,0,0,0-6.06-3.26,9.47,9.47,0,0,0-7.07,1.15A8.23,8.23,0,0,0,91.28,19.89Z"/></g><g class="cls-1"><path class="cls-2" d="M130.7,51.25q-6.27-2-9.17-6.43a10.25,10.25,0,0,1-1.45-9.07l7.77,2.45a4.31,4.31,0,0,0,.79,4.09,8.53,8.53,0,0,0,4.45,2.89,5.54,5.54,0,0,0,3.83,0,3.7,3.7,0,0,0,2.18-2.45,3.36,3.36,0,0,0-1.39-4.28l-7.81-5.05q-6.57-4.26-4.29-11.46a8.92,8.92,0,0,1,5.75-5.82,15,15,0,0,1,10.08.09q6.34,2,8.83,5.92a9.79,9.79,0,0,1,1,8.55l-7.62-2.41a4.08,4.08,0,0,0-.51-3.73,7.22,7.22,0,0,0-3.87-2.51,6,6,0,0,0-3.72-.12,3,3,0,0,0-2.13,2,3.66,3.66,0,0,0,1.72,4.46l7.19,4.78a12.23,12.23,0,0,1,4.49,5.14,8.44,8.44,0,0,1,.39,6.2,10.31,10.31,0,0,1-5.93,6.74Q136.91,53.21,130.7,51.25Z"/></g><g class="cls-1"><path class="cls-2" d="M193.63,75.3q-6.94,1.94-14.23-2.39t-8.92-11.35A18.27,18.27,0,0,1,172.9,47.7a18.27,18.27,0,0,1,11-8.77q7-1.95,14.24,2.38t8.92,11.35a18.27,18.27,0,0,1-2.42,13.86A18.31,18.31,0,0,1,193.63,75.3ZM178.19,60.17a10.78,10.78,0,0,0,13,7.69,11.69,11.69,0,0,0,6.45-5.51,11.6,11.6,0,0,0,1.73-8.3,10.75,10.75,0,0,0-13-7.68,11.6,11.6,0,0,0-6.45,5.5A11.65,11.65,0,0,0,178.19,60.17Z"/></g><g class="cls-1"><path class="cls-2" d="M200.16,85.33l22.72-26.56,6.21,5.31-3.17,3.71q6.33-2.19,12.42,3,9.69,8.3.67,18.83l-14.28,16.7L218.52,101l11.84-13.85q3.7-4.34,4-7.33c.19-2-.77-3.92-2.9-5.74A7.7,7.7,0,0,0,225.16,72q-3.28.51-6.3,4l-12.48,14.6Z"/></g><g class="cls-1"><path class="cls-2" d="M258.59,133.48a23.81,23.81,0,0,0,2.91,2.94L256,141.1a35.74,35.74,0,0,1-4.29-4.32,18.31,18.31,0,0,1-2.06-2.88,13.21,13.21,0,0,1-1.24-3.58,7.2,7.2,0,0,1,.83-4.85,17.78,17.78,0,0,1,4.46-5.29L266.1,109.6l-3.85-4.51,5.18-4.43,3.85,4.5,8-6.87,5.31,6.21-8,6.87,5.21,6.1-5.18,4.44-5.22-6.1-10.94,9.36q-3.2,2.73-3.41,4.49A5,5,0,0,0,258.59,133.48Z"/></g><g class="cls-1"><path class="cls-2" d="M300.62,140.47q7.65,10.2-3.45,18.53l-17.58,13.18-4.91-6.54,14.58-10.93q4.56-3.42,5.51-6.29c.63-1.91.1-4-1.58-6.22a7.69,7.69,0,0,0-5.7-3.42q-3.32-.22-7,2.56L265.1,152.86l-4.91-6.54,42-31.5,4.91,6.54-17.94,13.45Q295.8,134,300.62,140.47Z"/></g><g class="cls-1"><path class="cls-2" d="M319.37,195q-1.11.78-3.82,2.42L300.5,176.11a8.37,8.37,0,0,0-3.63,5.89,10.41,10.41,0,0,0,2.27,7.06q3.36,4.74,7.79,4.09l4.78,6.77a12,12,0,0,1-9.61.29,18.37,18.37,0,0,1-8.8-7q-4.79-6.76-3.51-13.57T298,167.9q6.89-4.87,13.73-3.86t11.51,7.59q4.35,6.15,3.24,12.61A16.22,16.22,0,0,1,319.37,195ZM305.6,172.5l10.53,14.88a8.46,8.46,0,0,0,3.73-5.55,9.06,9.06,0,0,0-2-6.58,9.55,9.55,0,0,0-5.83-4.19A8.25,8.25,0,0,0,305.6,172.5Z"/></g><g class="cls-1"><path class="cls-2" d="M359.63,221.2q7.9,10.08-3.05,18.68L339.22,253.5l-5.07-6.45,14.4-11.3c3-2.36,4.8-4.5,5.39-6.44s0-4-1.72-6.21a7.77,7.77,0,0,0-5.8-3.3q-3.33-.17-7,2.72l-15.17,11.91L319.18,228l41.47-32.55,5.07,6.46L348,215.78Q354.66,214.86,359.63,221.2Z"/></g><g class="cls-1"><path class="cls-2" d="M346.9,262.1l25.86-23.42,5.48,6-25.86,23.41Zm36.56-21.7a6.24,6.24,0,0,1-5.83-6.43,6.24,6.24,0,0,1,6.39-5.78,6.22,6.22,0,0,1,5.83,6.43,6.24,6.24,0,0,1-6.39,5.78Z"/></g><g class="cls-1"><path class="cls-2" d="M368.55,284.31l12.21-36,6.49,5.88-8.92,24.24,23.24-11.28,6.49,5.88-34.62,15.71Z"/></g><g class="cls-1"><path class="cls-2" d="M429,304.36c-.47.77-1.33,2-2.57,3.71l-22.06-13.75a8.35,8.35,0,0,0-1.06,6.81,10.37,10.37,0,0,0,4.81,5.62q4.92,3.06,8.74.76l7,4.37a12,12,0,0,1-8.72,4,18.47,18.47,0,0,1-10.8-3.06q-7-4.38-8.47-11.13t3-13.95q4.45-7.14,11.15-8.86t13.51,2.54q6.38,4,7.85,10.34A16.16,16.16,0,0,1,429,304.36ZM407.63,289l15.43,9.62a8.48,8.48,0,0,0,1.29-6.54,9.11,9.11,0,0,0-4.37-5.29,9.47,9.47,0,0,0-7-1.6A8.23,8.23,0,0,0,407.63,289Z"/></g><g class="cls-1"><path class="cls-2" d="M442.42,331.47q-6.19-2.31-8.9-6.92a10.38,10.38,0,0,1-1-9.2l7.69,2.86a4.35,4.35,0,0,0,.58,4.15,8.65,8.65,0,0,0,4.33,3.14,5.6,5.6,0,0,0,3.85.23,3.74,3.74,0,0,0,2.32-2.35c.7-1.88.3-3.34-1.18-4.37l-7.6-5.48q-6.37-4.63-3.73-11.75a9,9,0,0,1,6.08-5.56,15.2,15.2,0,0,1,10.13.6c4.19,1.56,7,3.69,8.58,6.41a9.81,9.81,0,0,1,.59,8.64l-7.54-2.8a4.12,4.12,0,0,0-.32-3.78,7.21,7.21,0,0,0-3.77-2.72,6.06,6.06,0,0,0-3.73-.31,3.08,3.08,0,0,0-2.25,1.93,3.7,3.7,0,0,0,1.51,4.58l7,5.17a12.38,12.38,0,0,1,4.26,5.4,8.49,8.49,0,0,1,.08,6.25,10.46,10.46,0,0,1-6.31,6.48C450.06,333.19,446.51,333,442.42,331.47Z"/></g></g></g>
+      </svg>
+          {% endif %}
+      {%- if section.settings.right_image != blank -%}
+        <img
+          class="c-quality__image"
+          srcset="{%- if section.settings.right_image.width >= 375 -%}{{ section.settings.right_image | image_url: width: 750 }} 375w,{%- endif -%} {%- if section.settings.right_image.width >= 550 -%}{{ section.settings.right_image | image_url: width: 1100 }} 550w,{%- endif -%} {%- if section.settings.right_image.width >= 750 -%}{{ section.settings.right_image | image_url: width: 1500 }} 750w,{%- endif -%} {%- if section.settings.right_image.width >= 1100 -%}{{ section.settings.right_image | image_url: width: 2200 }} 1100w,{%- endif -%} {%- if section.settings.right_image.width >= 1500 -%}{{ section.settings.right_image | image_url: width: 3000 }} 1500w,{%- endif -%} {%- if section.settings.right_image.width >= 1780 -%}{{ section.settings.right_image | image_url: width: 3540 }} 1780w,{%- endif -%} {%- if section.settings.right_image.width >= 2000 -%}{{ section.settings.right_image | image_url: width: 2000 }} 2000w,{%- endif -%} {%- if section.settings.right_image.width >= 3000 -%}{{ section.settings.right_image | image_url: width: 3000 }} 3000w,{%- endif -%} {%- if section.settings.right_image.width >= 3840 -%}{{ section.settings.right_image | image_url: width: 3840 }} 3840w,{%- endif -%} {{ section.settings.right_image | image_url }} {{ section.settings.right_image.width }}w"
+          sizes="100vw"
+          src="{{ section.settings.right_image | image_url: width: 1500 }}"
+          loading="lazy"
+          alt="{{ section.settings.right_image.alt | escape }}"
+          width="{{ section.settings.right_image.width }}"
+          height="{{ section.settings.right_image.width | divided_by: section.settings.right_image.aspect_ratio }}"
+        >
+      {%- endif -%}
+      <svg
+        class="c-transparency__right__background"
+        width="923"
+        height="505"
+        viewBox="0 0 923 505"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M922.76 156.94C917.79 123.27 932.07 56.53 902.55 48.2C873.22 39.93 772.26 69.19 755.74 64.41C739.28 59.66 803.51 23.23 784.61 4.68001C765.8 -13.79 640.63 23.89 510.68 91.88C177.97 265.95 -4.34996 413.79 0.970043 440.44C5.46004 462.9 41.72 445.23 70.05 455.53C88.22 462.13 45.73 491.56 61.04 497.2C76.4 502.87 94.95 509.88 113.1 500.11C172.59 468.13 202.5 444.04 215.73 448.75C229 453.48 231.67 498.44 341.41 452.51C453.85 405.44 731.63 299.96 771.78 258.75C812.24 217.21 927.73 190.66 922.75 156.94H922.76Z" fill="#4CB0DD"/>
+        <path d="M197.78 390.16C203.06 392.67 208.66 398.86 206.92 403.93C205.18 409 196.77 411.03 191.49 408.52C186.2 406.01 180.58 399.44 182.32 394.37C184.06 389.3 192.5 387.65 197.78 390.16Z" fill="#007EB4"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Transparency",
+  "tag": "section",
+  "class": "c-transparency",
+  "blocks": [
+    {
+      "type": "content",
+      "name": "Content",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Tracked from Hive to Home",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>To view the UMF™ Certificate specific to your jar of authentic Manuka Honey scan the QR Code on the back of the jar with your mobile phone.</p>"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "title_image",
+      "label": "Graphic Title"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "We are dedicated to transparency"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>We put the power in your hands with each and every jar.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "footer",
+      "label": "Footer",
+      "default": "<p>To view the UMF™ Certificate specific to your jar of authentic Manuka Honey scan the QR Code on the back of the jar with your mobile phone.<p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Text",
+      "default": "Find out more"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image",
+      "label": "Right Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Transparency"
+    }
+  ]
+}
+{% endschema %}

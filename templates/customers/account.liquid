@@ -1,0 +1,140 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+
+<div class="c-container">
+  <div class="customer account">
+    <div class="customer-top">
+      <h1>{{ 'sections.customer.account' | t }}</h1>
+      <a href="{{ routes.account_logout_url }}"> {{ 'sections.customer.logout' | t }} </a>
+    </div>
+
+    <div>
+      <div>
+        <h2>{{ 'sections.customer.order_history' | t }}</h2>
+
+        {% paginate customer.orders by 20 %}
+          {%- if customer.orders.size > 0 -%}
+            <table role="table" class="order-history">
+              <caption class="visually-hidden">
+                {{ 'sections.customer.order_history' | t }}
+              </caption>
+              <thead role="rowgroup">
+                <tr role="row">
+                  <th id="ColumnOrder" scope="col" role="columnheader">{{ 'sections.customer.order' | t }}</th>
+                  <th id="ColumnDate" scope="col" role="columnheader">{{ 'sections.customer.date' | t }}</th>
+                  <th id="ColumnPayment" scope="col" role="columnheader">
+                    {{ 'sections.customer.payment_status' | t }}
+                  </th>
+                  <th id="ColumnFulfillment" scope="col" role="columnheader">
+                    {{ 'sections.customer.fullfillment_status' | t }}
+                  </th>
+                  <th id="ColumnTotal" scope="col" role="columnheader">{{ 'sections.customer.total' | t }}</th>
+                </tr>
+              </thead>
+              <tbody role="rowgroup">
+                {%- for order in customer.orders -%}
+                  <tr role="row">
+                    <td
+                      id="RowOrder"
+                      role="cell"
+                      headers="ColumnOrder"
+                      data-label="Order"
+                    >
+                      <a
+                        href="{{ order.customer_url }}"
+                        aria-label="Order number {{ order.name }}"
+                      >
+                        {{ order.name }}
+                      </a>
+                    </td>
+                    <td headers="RowOrder ColumnDate" role="cell" data-label="Date">
+                      {{ order.created_at | time_tag: format: 'date' }}
+                    </td>
+                    <td
+                      headers="RowOrder ColumnPayment"
+                      role="cell"
+                      data-label="Payment status"
+                    >
+                      {{ order.financial_status_label }}
+                    </td>
+                    <td
+                      headers="RowOrder ColumnFulfillment"
+                      role="cell"
+                      data-label="Fulfillment Status"
+                    >
+                      {{ order.fulfillment_status_label }}
+                    </td>
+                    <td headers="RowOrder ColumnTotal" role="cell" data-label="Total">
+                      {{ order.total_price | money_with_currency }}
+                    </td>
+                  </tr>
+                {%- endfor -%}
+              </tbody>
+            </table>
+          {%- else -%}
+            <p>{{ 'sections.customer.no_order' | t }}</p>
+          {%- endif -%}
+
+          {%- if paginate.pages > 1 -%}
+            {%- if paginate.parts.size > 0 -%}
+              <nav class="pagination" role="navigation" aria-label="Pagination">
+                <ul role="list">
+                  {%- if paginate.previous -%}
+                    <li>
+                      <a href="{{ paginate.previous.url }}" aria-label="Previous page">
+                        <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+                        </svg>
+                      </a>
+                    </li>
+                  {%- endif -%}
+
+                  {%- for part in paginate.parts -%}
+                    <li>
+                      {%- if part.is_link -%}
+                        <a href="{{ part.url }}" aria-label="Page {{ part.title }}">
+                          {{- part.title -}}
+                        </a>
+                      {%- else -%}
+                        {%- if part.title == paginate.current_page -%}
+                          <span aria-current="page" aria-label="Page {{ part.title }}">
+                            {{- part.title -}}
+                          </span>
+                        {%- else -%}
+                          <span>{{ part.title }}</span>
+                        {%- endif -%}
+                      {%- endif -%}
+                    </li>
+                  {%- endfor -%}
+
+                  {%- if paginate.next -%}
+                    <li>
+                      <a href="{{ paginate.next.url }}" aria-label="Next page">
+                        <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+                        </svg>
+                      </a>
+                    </li>
+                  {%- endif -%}
+                </ul>
+              </nav>
+            {%- endif -%}
+          {%- endif -%}
+        {% endpaginate %}
+      </div>
+
+      <div>
+        <h2>{{ 'sections.customer.account_details' | t }}</h2>
+        <address>{{ customer.default_address | format_address }}</address>
+
+        <a href="{{ routes.account_addresses_url }}">
+          {{ 'sections.customer.view_addresses' | t }} ({{ customer.addresses_count }})
+        </a>
+        <!-- Begin ReCharge code -->
+        <p id="rc_link_container">
+          <a href="/tools/recurring/login">{{ 'sections.customer.manage_subscriptions' | t }}</a>
+        </p>
+        <!-- End ReCharge code -->
+      </div>
+    </div>
+  </div>
+</div>

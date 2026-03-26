@@ -1,0 +1,1393 @@
+<script src="{{ 'home-products.js' | asset_url }}" defer="defer"></script>
+{{ 'home-products.css' | asset_url | stylesheet_tag }}
+{{ 'consumberlab.css' | asset_url | stylesheet_tag }}
+<style>
+  @media (max-width: 575px) {
+  .c-home-product__info__variants {
+    display: none !important;
+  }
+
+  .new-ab-jan-mobile-hide {
+    display: none !important;
+  }
+  .c-home-product__info__link a {
+  background-color: var(--product-color) !important;
+  color: #ffffff !important;
+  width: 100%;
+}
+
+}
+@media (max-width: 575px) {
+  .product-badge {
+    width: 100px !important;
+  }
+}
+  .product-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  width: 140px; /* adjust as needed */
+  height: auto;
+}
+.product-badge img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.c-home-product__image-corner-text {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 11;
+  max-width: calc(100% - 24px);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  text-align: right;
+  color: #313131;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+.c-home-products .gw-rv-average-placeholder .gw-rv-average__btn {
+  display: none !important;
+}
+
+.c-home-products .gw-rv-average-placeholder .gw-rv-average__rating_text {
+  font-size: 12px !important;
+}
+
+</style>
+<div class="c-container">
+  <div class="c-home-products__content">
+    {%- if section.settings.hide_title != true -%}
+      {%- if section.settings.heading != blank -%}
+        <h2>{{ section.settings.heading | escape }}</h2>
+      {% else %}
+        <h2>{{ collection.title | escape }}</h2>
+      {%- endif -%}
+    {%- endif -%}
+    {% comment %}theme-check-disable{% endcomment %}
+    {%- assign products = collection.products | sort: 'published_at' -%}
+    {% if section.settings.product_list != blank %}
+      {% assign products = section.settings.product_list %}
+    {% endif %}
+    {% comment %}theme-check-enable{% endcomment %}
+    {%- if section.settings.hide_umf != true -%}
+{% comment %}Generating UMF and MGO score arrays with UMF priority{% endcomment %}
+{% assign umf_scores = '' %}
+{% assign mgo_scores = '' %}
+{% assign umf_products = '' %}
+
+{% for product in products %}
+  {% if product.metafields.custom.umf_score != blank and product.metafields.custom.color != blank %}
+    {%- unless umf_scores contains product.metafields.custom.umf_score -%}
+      {% assign umf_scores = umf_scores
+        | append: product.metafields.custom.umf_score
+        | append: ':'
+        | append: product.metafields.custom.color
+        | append: ','
+      %}
+      {% assign umf_products = umf_products | append: product.id | append: ',' %}
+    {% endunless %}
+  {% endif %}
+  {% if product.metafields.custom.mgo_score != blank and product.metafields.custom.color != blank %}
+    {% unless umf_products contains product.id %}
+      {%- unless mgo_scores contains product.metafields.custom.mgo_score -%}
+        {% assign mgo_scores = mgo_scores
+          | append: product.metafields.custom.mgo_score
+          | append: ':'
+          | append: product.metafields.custom.color
+          | append: ','
+        %}
+      {% endunless %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}
+
+{% assign umf_scores = umf_scores | split: ',' %}
+{% assign mgo_scores = mgo_scores | split: ',' %}
+
+<ul class="c-home-products__umf-nav u-list-reset">
+
+  {% if mgo_scores and mgo_scores.size != 0 %}
+    {% for mgo_score in mgo_scores %}
+      {% liquid
+        assign score_data = mgo_score | split: ':'
+        assign score_value = score_data[0]
+        assign score_color = score_data[1]
+      %}
+      {% if score_value != blank and score_color != blank %}
+        <li>
+          <a
+            href="#mgo{{ score_value | replace: '+', '' | capitalize }}"
+            style="--product-color: {{ score_color | escape }};"
+          >
+            MGO {{ score_value | escape }}
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  {% if umf_scores and umf_scores.size != 0 %}
+    {% for umf_score in umf_scores %}
+      {% liquid
+        assign score_data = umf_score | split: ':'
+        assign score_value = score_data[0]
+        assign score_color = score_data[1]
+      %}
+      {% if score_value != blank and score_color != blank %}
+        <li>
+          <a
+            href="#umf{{ score_value | replace: '+', '' | capitalize }}"
+            style="--product-color: {{ score_color | escape }};"
+          >
+            UMF {{ score_value | escape }}
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+</ul>
+
+    {%- endif -%}
+
+    <!-- Mobile product grid -->
+    <div class="c-home-products__mobile-grid">
+    <div class="c-home-products__list">
+      {% for home_product in products %}
+        {% liquid
+          assign home_product_custom = home_product.metafields.custom
+          assign default_variant_image = false
+          assign default_variant_id = null
+          if home_product.variants != blank
+            for variant in home_product.variants
+              if settings.default_variants contains variant.title
+                assign default_variant_id = variant.id
+                if variant.available == true and variant.featured_media != blank
+                  assign default_variant_image = true
+                endif
+              endif
+            endfor
+          endif
+        %}
+        <div
+            data-product-anchor="{{ home_product.handle }}"
+            class="c-home-product"
+            {% if home_product_custom.color != blank %}
+              style="--product-color: {{ home_product_custom.color | escape }};"
+            {% endif %}
+          >
+          <div
+            class="c-home-product__image{% if home_product_custom.background_image != blank %} c-home-product__image--has-background{% else %} c-home-product__image--no-background{% endif %} {% if default_variant_image == true and default_variant_id != null %}show-variant{% endif %}"
+            data-product-id="{{ home_product.id }}"
+          >
+            <a href="{{ home_product.url }}" rel="bookmark" class="u-absolute-fill">
+              <div class="c-home-product__image__product u-absolute-fill">
+                {% assign badge_image = home_product_custom.badge_image.value %}
+                {% assign badge_link = home_product_custom.badge_link.value %}
+                {% assign image_corner_text = home_product_custom.product_ship_only_text %}
+
+                {% if badge_image != blank %}
+                  <div class="product-badge">
+                    {% if badge_link != blank %}
+                      <a href="{{ badge_link }}" target="_blank" rel="noopener">
+                        <img src="{{ badge_image }}" alt="Badge" loading="lazy">
+                      </a>
+                    {% else %}
+                      <img src="{{ badge_image }}" alt="Badge" loading="lazy">
+                    {% endif %}
+                  </div>
+                {% endif %}
+                {%- if home_product.featured_media -%}
+                  <div class="c-home-product__image__product__main u-absolute-fill">
+                    <img
+                      srcset="
+                        {%- if home_product.featured_media.width >= 165 -%}{{ home_product.featured_media | image_url: width: 330 }} 165w,{%- endif -%}
+                        {%- if home_product.featured_media.width >= 360 -%}{{ home_product.featured_media | image_url: width: 720 }} 360w,{%- endif -%}
+                        {%- if home_product.featured_media.width >= 533 -%}{{ home_product.featured_media | image_url: width: 1128 }} 533w,{%- endif -%}
+                        {%- if home_product.featured_media.width >= 720 -%}{{ home_product.featured_media | image_url: width: 1128 }} 720w,{%- endif -%}
+                        {%- if home_product.featured_media.width >= 940 -%}{{ home_product.featured_media | image_url: width: 1128 }} 940w,{%- endif -%}
+                        {%- if home_product.featured_media.width >= 1066 -%}{{ home_product.featured_media | image_url: width: 1128 }} 1066w,{%- endif -%}
+                        {{ home_product.featured_media | image_url }} {{ home_product.featured_media.width }}w
+                      "
+                      src="{{ home_product.featured_media | image_url: width: 800 }}"
+                      sizes="(min-width: 500px) {{ 1600 | minus: 500 | divided_by: 3 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                      alt="{{ home_product.featured_media.alt | escape }}"
+                      class="u-absolute-fill c-home-product__image__primary"
+                      loading="lazy"
+                      width="{{ home_product.featured_media.width }}"
+                      height="{{ home_product.featured_media.height }}"
+                    >
+                  </div>
+                {%- endif -%}
+                {%- if home_product.variants != blank -%}
+                <div class="c-home-product__image__product__variants u-absolute-fill">
+                  {%- assign sale_badge_shown = false -%}
+
+                  {%- for variant in home_product.variants -%}
+                    {%- if variant.featured_media != blank and variant.metafields.custom.hide != true -%}
+
+                      <!-- SALE Badge Code -->
+                      {%- if variant.metafields.custom.sale_badge != blank and sale_badge_shown == false -%}
+                      <div class="sale-badge">
+                        {{ variant.metafields.custom.sale_badge }}
+                      </div>
+                      {%- assign sale_badge_shown = true -%}
+                      {%- endif -%}
+                      <!-- End SALE Badge Code -->
+
+                      <img
+                        srcset="
+                          {%- if variant.featured_media.width >= 165 -%}{{ variant.featured_media | image_url: width: 330 }} 165w,{%- endif -%}
+                          {%- if variant.featured_media.width >= 360 -%}{{ variant.featured_media | image_url: width: 720 }} 360w,{%- endif -%}
+                          {%- if variant.featured_media.width >= 533 -%}{{ variant.featured_media | image_url: width: 1128 }} 533w,{%- endif -%}
+                          {%- if variant.featured_media.width >= 720 -%}{{ variant.featured_media | image_url: width: 1128 }} 720w,{%- endif -%}
+                          {%- if variant.featured_media.width >= 940 -%}{{ variant.featured_media | image_url: width: 1128 }} 940w,{%- endif -%}
+                          {%- if variant.featured_media.width >= 1066 -%}{{ variant.featured_media | image_url: width: 1128 }} 1066w,{%- endif -%}
+                          {{ variant.featured_media | image_url }} {{ variant.featured_media.width }}w
+                        "
+                        src="{{ variant.featured_media | image_url: width: 800 }}"
+                        sizes="(min-width: 500px) {{ 1600 | minus: 500 | divided_by: 3 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                        alt="{{ variant.featured_media.alt | escape }}"
+                        class="u-absolute-fill c-home-product__image__primary c-home-product__image__primary--variant {% if default_variant_image == true and default_variant_id == variant.id %}show-variant-image{% endif %}"
+                        data-variant-id="{{ variant.id }}"
+                        loading="eager"
+                        width="{{ variant.featured_media.width }}"
+                        height="{{ variant.featured_media.height }}"
+                      >
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+                {%- endif -%}
+              </div>
+              {%- if home_product_custom.background_image != blank -%}
+                <img
+                  srcset="
+                    {%- if home_product_custom.background_image.width >= 165 -%}{{ home_product_custom.background_image | image_url: width: 330 }} 165w,{%- endif -%}
+                    {%- if home_product_custom.background_image.width >= 360 -%}{{ home_product_custom.background_image | image_url: width: 720 }} 360w,{%- endif -%}
+                    {%- if home_product_custom.background_image.width >= 533 -%}{{ home_product_custom.background_image | image_url: width: 1128 }} 533w,{%- endif -%}
+                    {%- if home_product_custom.background_image.width >= 720 -%}{{ home_product_custom.background_image | image_url: width: 1128 }} 720w,{%- endif -%}
+                    {%- if home_product_custom.background_image.width >= 940 -%}{{ home_product_custom.background_image | image_url: width: 1128 }} 940w,{%- endif -%}
+                    {%- if home_product_custom.background_image.width >= 1066 -%}{{ home_product_custom.background_image | image_url: width: 1128 }} 1066w,{%- endif -%}
+                    {{ home_product_custom.background_image | image_url }} {{ home_product_custom.background_image.width }}w
+                  "
+                  src="{{ home_product_custom.background_image | image_url: width: 800 }}"
+                  sizes="(min-width: 500px) {{ 1600 | minus: 500 | divided_by: 3 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                  alt="{{ home_product_custom.background_image.alt | escape }}"
+                  class="u-absolute-fill c-home-product__image__background"
+                  loading="lazy"
+                  width="{{ home_product_custom.background_image.width }}"
+                  height="{{ home_product_custom.background_image.height }}"
+                >
+              {%- endif -%}
+              {% if image_corner_text != blank %}
+                <span class="c-home-product__image-corner-text">{{ image_corner_text | escape }}</span>
+              {% endif %}
+            </a>
+          </div>
+          <div class="c-home-product__content">
+            <div class="c-home-product__content__top">
+              <div class="c-home-product__content__left">
+                <div class="c-home-product__title">
+                  <p class="c-home-product__title-text">
+                    {{ home_product_custom.product_name | default: home_product.title | escape }}
+                  </p>
+                  <h3 class="c-home-product__score-line">
+                  {%- assign has_score = false -%}
+                  {%- if home_product_custom.umf_score != blank -%}
+                    {%- assign has_score = true -%}
+                    <span class="c-home-product__content__score c-home-product__content__score--umf">
+                      <span class="c-home-product__content__score__name">
+                        {{ 'sections.main_collection.umf_html' | t }}
+                      </span>
+                      <span class="c-home-product__content__score__value">
+                        {{ home_product_custom.umf_score | escape }}
+                      </span>
+                    </span>
+                  {%- endif -%}
+                  {%- if home_product_custom.mgo_score != blank -%}
+                    {%- if has_score -%}
+                      <span class="c-home-product__score-separator">|</span>
+                    {%- endif -%}
+                    {%- assign has_score = true -%}
+                    <span class="c-home-product__content__score c-home-product__content__score--mgo">
+                      <span class="c-home-product__content__score__name">
+                        {{ 'sections.main_collection.mgo' | t }}
+                      </span>
+                      <span class="c-home-product__content__score__value">
+                        {{ home_product_custom.mgo_score | escape }}
+                      </span>
+                    </span>
+                  {%- endif -%}
+                  </h3>
+                </div>
+                <div class="c-home-product__rating__info">
+                  <div
+                    class="gw-rv-average-placeholder collections"
+                    data-gw-product-id="{{ home_product.id }}"
+                    style="display: block;font-size:15px;"
+                  ></div>
+                </div>
+              </div>
+            </div>
+            <div class="c-home-product__content__description rte">
+              {% if section.settings.product_content == 'full' %}
+                {%- if home_product_custom.tagline != blank -%}
+                  <p class="c-home-product__tagline">
+                    <strong>{{ home_product_custom.tagline }}</strong>
+                  </p>
+                {%- endif -%}
+                {%- if home_product.description != blank -%}
+                  {{ home_product.description }}
+                {%- endif -%}
+              {%- else -%}
+                {%- if home_product_custom.tagline != blank -%}
+                  <p>
+                    <strong>{{ home_product_custom.tagline }}</strong>
+                  </p>
+                {%- endif -%}
+                {%- if home_product_custom.collection_short_description != blank -%}
+                  <p class="c-home-product__short-description">{{ home_product_custom.collection_short_description }}</p>
+                {%- endif -%}
+              {%- endif -%}
+            </div>
+          </div>
+          <div class="c-home-product__info">
+            {%- if home_product_custom.feature_1_image != blank
+              or home_product_custom.feature_2_icon != blank
+              or home_product_custom.feature_3_icon != blank
+            -%}
+              <div class="c-home-product__info__icons">
+                {%- if home_product_custom.feature_1_image != blank
+                  and home_product_custom.feature_1_description != blank
+                -%}
+                  <div class="c-home-product__info__icons__item">
+                    <div class="c-home-product__info__icons__image">
+                      {%- assign image_size = 75 | append: 'x' -%}
+                      <img
+                        srcset="{{ home_product_custom.feature_1_image | image_url: width: image_size }} 1x, {{ home_product_custom.feature_1_image | image_url: width: home_product_custom.feature_1_image.width }} 2x"
+                        src="{{ home_product_custom.feature_1_image | image_url: width: image_size }}"
+                        loading="lazy"
+                        class="c-header__branding__img"
+                        width="{{ home_product_custom.feature_1_image.width }}"
+                        height="{{ home_product_custom.feature_1_image.height }}"
+                        alt="{{ home_product_custom.feature_1_image.alt | default: home_product_custom.feature_1_description | escape }}"
+                      >
+                    </div>
+                    <div class="c-home-product__info__icons__description">
+                      <span>{{ home_product_custom.feature_1_description | escape }}</span>
+                    </div>
+                  </div>
+                {%- endif -%}
+                {%- if home_product_custom.feature_2_icon != blank
+                  and home_product_custom.feature_2_description != blank
+                -%}
+                  <div class="c-home-product__info__icons__item">
+                    <div class="c-home-product__info__icons__image">
+                      {%- assign image_size = 75 | append: 'x' -%}
+                      <img
+                        srcset="{{ home_product_custom.feature_2_icon | image_url: width: image_size }} 1x, {{ home_product_custom.feature_2_icon | image_url: width: home_product_custom.feature_2_icon.width }} 2x"
+                        src="{{ home_product_custom.feature_2_icon | image_url: width: image_size }}"
+                        loading="lazy"
+                        class="c-header__branding__img"
+                        width="{{ home_product_custom.feature_2_icon.width }}"
+                        height="{{ home_product_custom.feature_2_icon.height }}"
+                        alt="{{ home_product_custom.feature_2_icon.alt | default: home_product_custom.feature_2_description | escape }}"
+                      >
+                    </div>
+                    <div class="c-home-product__info__icons__description">
+                      <span>{{ home_product_custom.feature_2_description | escape }}</span>
+                    </div>
+                  </div>
+                {%- endif -%}
+                {%- if home_product_custom.feature_3_icon != blank
+                  and home_product_custom.feature_3_description != blank
+                -%}
+                  <div class="c-home-product__info__icons__item">
+                    <div class="c-home-product__info__icons__image">
+                      {%- assign image_size = 75 | append: 'x' -%}
+                      <img
+                        srcset="{{ home_product_custom.feature_3_icon | image_url: width: image_size }} 1x, {{ home_product_custom.feature_3_icon | image_url: width: home_product_custom.feature_3_icon.width }} 2x"
+                        src="{{ home_product_custom.feature_3_icon | image_url: width: image_size }}"
+                        loading="lazy"
+                        class="c-header__branding__img"
+                        width="{{ home_product_custom.feature_3_icon.width }}"
+                        height="{{ home_product_custom.feature_3_icon.height }}"
+                        alt="{{ home_product_custom.feature_3_icon.alt | default: home_product_custom.feature_3_description | escape }}"
+                      >
+                    </div>
+                    <div class="c-home-product__info__icons__description">
+                      <span>{{ home_product_custom.feature_3_description | escape }}</span>
+                    </div>
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+            {%- unless home_product.has_only_default_variant -%}
+              <div class="c-home-product__info__variants">
+                {%- for variant in home_product.variants -%}
+                  {% assign default_variant_id = home_product.selected_or_first_available_variant.id %}
+                  {%- if variant.metafields.custom.hide != true -%}
+                    <a
+                      href="{{ home_product.url }}{% if variant.available != false %}?variant={{ variant.id }}{% endif %}"
+                      data-variant-id="{{ variant.id }}"
+                      data-product-id="{{ home_product.id }}"
+                      class="c-home-product__info__variant{% if default_variant_id == variant.id %} c-home-product__info__variant--active{% endif %}"
+                      rel="bookmark"
+                    >
+                      <span class="c-home-product__info__variant__name">{{ variant.title | escape }}</span>
+                      <span class="c-home-product__info__variant__price{% if variant.compare_at_price != null %} c-home-product__info__variant__price--has-sale{% endif %}">
+                        {% if variant.compare_at_price != null %}
+                          <del>{{ variant.price | money }}</del><ins>{{ variant.compare_at_price | money }}</ins>
+                        {% else %}
+                          <span>{{ variant.price | money }}</span>
+                        {% endif %}
+                      </span>
+                    </a>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            {%- endunless -%}
+            <div class="c-home-product__info__link">
+              <a
+                href="{{ home_product.url }}{% if default_variant_id != null %}?variant={{ default_variant_id }}{% endif %}"
+                rel="bookmark"
+              >
+                {%- if home_product_custom.shop_button_text != blank -%}
+                  {{- home_product_custom.shop_button_text | escape -}}
+                {%- else -%}
+                  {{ 'sections.main_collection.learn_more' | t }}
+                {%- endif -%}
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {% if section.settings.show_mid_banner and forloop.index == section.settings.banner_position %}
+          <div
+            class="c-home-products__banner"
+            style="--banner-bg: {{ section.settings.banner_bg_color }}; --banner-text: {{ section.settings.banner_text_color }}; --banner-button-bg: {{ section.settings.banner_button_bg_color }}; --banner-button-text: {{ section.settings.banner_button_text_color }};"
+          >
+            <div class="c-home-products__banner-content">
+              {% if section.settings.banner_heading != blank %}
+                <h3 class="c-home-products__banner-text">{{ section.settings.banner_heading }}</h3>
+              {% endif %}
+
+              {% if section.settings.banner_button_text != blank %}
+                {% if section.settings.banner_button_link != blank %}
+                  <a href="{{ section.settings.banner_button_link }}" class="c-home-products__banner-btn">
+                    {{ section.settings.banner_button_text | escape }}
+                  </a>
+                {% else %}
+                  <span class="c-home-products__banner-btn">
+                    {{ section.settings.banner_button_text | escape }}
+                  </span>
+                {% endif %}
+              {% endif %}
+            </div>
+
+            {% if section.settings.banner_image != blank %}
+              <div class="c-home-products__banner-image">
+                <img
+                  srcset="
+                    {{ section.settings.banner_image | image_url: width: 260 }} 260w,
+                    {{ section.settings.banner_image | image_url: width: 520 }} 520w
+                  "
+                  src="{{ section.settings.banner_image | image_url: width: 520 }}"
+                  alt="{{ section.settings.banner_image.alt | default: section.settings.banner_heading | strip_html | escape }}"
+                  loading="lazy"
+                  width="{{ section.settings.banner_image.width }}"
+                  height="{{ section.settings.banner_image.height }}"
+                >
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+
+      {% endfor %}
+    </div>
+    </div>
+
+    <!-- Desktop product grid -->
+    <div class="c-home-products-desktop">
+      <div class="c-home-products-desktop__grid">
+        {% for home_product in products %}
+          {% assign home_product_custom = home_product.metafields.custom %}
+          <article
+            data-product-anchor="{{ home_product.handle }}"
+            class="c-home-products-desktop__card"
+            {% if home_product_custom.color != blank %}
+              style="--desktop-product-color: {{ home_product_custom.color | escape }};"
+            {% endif %}
+          >
+            <div class="c-home-products-desktop__media">
+              {% assign badge_image = home_product_custom.badge_image.value %}
+              {% assign badge_link = home_product_custom.badge_link.value %}
+              {% assign image_corner_text = home_product_custom.product_ship_only_text %}
+
+              {% if badge_image != blank %}
+                <div class="c-home-products-desktop__badge">
+                  {% if badge_link != blank %}
+                    <a href="{{ badge_link }}" target="_blank" rel="noopener">
+                      <img src="{{ badge_image }}" alt="Badge" loading="lazy">
+                    </a>
+                  {% else %}
+                    <img src="{{ badge_image }}" alt="Badge" loading="lazy">
+                  {% endif %}
+                </div>
+              {% endif %}
+
+              <a
+                href="{{ home_product.url }}"
+                rel="bookmark"
+                class="c-home-products-desktop__media-link"
+                aria-label="{{ home_product_custom.product_name | default: home_product.title | escape }}"
+              >
+                {% if home_product_custom.background_image != blank %}
+                  <img
+                    srcset="
+                      {%- if home_product_custom.background_image.width >= 165 -%}{{ home_product_custom.background_image | image_url: width: 330 }} 165w,{%- endif -%}
+                      {%- if home_product_custom.background_image.width >= 360 -%}{{ home_product_custom.background_image | image_url: width: 720 }} 360w,{%- endif -%}
+                      {%- if home_product_custom.background_image.width >= 533 -%}{{ home_product_custom.background_image | image_url: width: 1128 }} 533w,{%- endif -%}
+                      {%- if home_product_custom.background_image.width >= 720 -%}{{ home_product_custom.background_image | image_url: width: 1128 }} 720w,{%- endif -%}
+                      {{ home_product_custom.background_image | image_url }} {{ home_product_custom.background_image.width }}w
+                    "
+                    src="{{ home_product_custom.background_image | image_url: width: 800 }}"
+                    alt="{{ home_product_custom.background_image.alt | escape }}"
+                    class="c-home-products-desktop__background"
+                    loading="lazy"
+                    width="{{ home_product_custom.background_image.width }}"
+                    height="{{ home_product_custom.background_image.height }}"
+                  >
+                {% endif %}
+
+                {% if home_product.featured_media %}
+                  <img
+                    srcset="
+                      {%- if home_product.featured_media.width >= 165 -%}{{ home_product.featured_media | image_url: width: 330 }} 165w,{%- endif -%}
+                      {%- if home_product.featured_media.width >= 360 -%}{{ home_product.featured_media | image_url: width: 720 }} 360w,{%- endif -%}
+                      {%- if home_product.featured_media.width >= 533 -%}{{ home_product.featured_media | image_url: width: 1128 }} 533w,{%- endif -%}
+                      {%- if home_product.featured_media.width >= 720 -%}{{ home_product.featured_media | image_url: width: 1128 }} 720w,{%- endif -%}
+                      {{ home_product.featured_media | image_url }} {{ home_product.featured_media.width }}w
+                    "
+                    src="{{ home_product.featured_media | image_url: width: 800 }}"
+                    alt="{{ home_product.featured_media.alt | escape }}"
+                    class="c-home-products-desktop__image"
+                    loading="lazy"
+                    width="{{ home_product.featured_media.width }}"
+                    height="{{ home_product.featured_media.height }}"
+                  >
+                {% endif %}
+                {% if image_corner_text != blank %}
+                  <span class="c-home-products-desktop__image-corner-text">{{ image_corner_text | escape }}</span>
+                {% endif %}
+              </a>
+            </div>
+
+            <div class="c-home-products-desktop__body">
+              <h3 class="c-home-products-desktop__title">
+                {{ home_product_custom.product_name | default: home_product.title | escape }}
+              </h3>
+              <div class="c-home-products-desktop__score-row">
+                {%- assign desktop_has_score = false -%}
+                {%- if home_product_custom.umf_score != blank -%}
+                  {%- assign desktop_has_score = true -%}
+                  <span class="c-home-products-desktop__score c-home-products-desktop__score--umf">
+                    <span class="c-home-products-desktop__score-name">{{ 'sections.main_collection.umf_html' | t }}</span>
+                    <span class="c-home-products-desktop__score-value">{{ home_product_custom.umf_score | escape }}</span>
+                  </span>
+                {%- endif -%}
+                {%- if home_product_custom.mgo_score != blank -%}
+                  {%- if desktop_has_score -%}
+                    <span class="c-home-products-desktop__score-separator">|</span>
+                  {%- endif -%}
+                  {%- assign desktop_has_score = true -%}
+                  <span class="c-home-products-desktop__score c-home-products-desktop__score--mgo">
+                    <span class="c-home-products-desktop__score-name">{{ 'sections.main_collection.mgo' | t }}</span>
+                    <span class="c-home-products-desktop__score-value">{{ home_product_custom.mgo_score | escape }}</span>
+                  </span>
+                {%- endif -%}
+              </div>
+
+              <div class="c-home-product__rating__info">
+                <div
+                  class="gw-rv-average-placeholder collections"
+                  data-gw-product-id="{{ home_product.id }}"
+                  style="display: block;font-size:15px;"
+                ></div>
+              </div>
+
+              {% if section.settings.product_content == 'full' %}
+                {%- if home_product_custom.tagline != blank -%}
+                  <p class="c-home-products-desktop__tagline">{{ home_product_custom.tagline }}</p>
+                {%- endif -%}
+                {%- if home_product.description != blank -%}
+                  <div class="c-home-products-desktop__description rte">{{ home_product.description }}</div>
+                {%- endif -%}
+              {% else %}
+                {%- if home_product_custom.tagline != blank -%}
+                  <p class="c-home-products-desktop__tagline">{{ home_product_custom.tagline }}</p>
+                {%- endif -%}
+                {%- if home_product_custom.collection_short_description != blank -%}
+                  <p class="c-home-products-desktop__description">{{ home_product_custom.collection_short_description }}</p>
+                {%- endif -%}
+              {% endif %}
+
+              {%- if home_product_custom.feature_1_image != blank
+                or home_product_custom.feature_2_icon != blank
+                or home_product_custom.feature_3_icon != blank
+              -%}
+                <div class="c-home-products-desktop__icons">
+                  {%- if home_product_custom.feature_1_image != blank and home_product_custom.feature_1_description != blank -%}
+                    <div class="c-home-products-desktop__icon-item">
+                      {%- assign image_size = 75 | append: 'x' -%}
+                      <div class="c-home-products-desktop__icon-image">
+                        <img
+                          srcset="{{ home_product_custom.feature_1_image | image_url: width: image_size }} 1x, {{ home_product_custom.feature_1_image | image_url: width: home_product_custom.feature_1_image.width }} 2x"
+                          src="{{ home_product_custom.feature_1_image | image_url: width: image_size }}"
+                          loading="lazy"
+                          width="{{ home_product_custom.feature_1_image.width }}"
+                          height="{{ home_product_custom.feature_1_image.height }}"
+                          alt="{{ home_product_custom.feature_1_image.alt | default: home_product_custom.feature_1_description | escape }}"
+                        >
+                      </div>
+                      <div class="c-home-products-desktop__icon-text">{{ home_product_custom.feature_1_description | escape }}</div>
+                    </div>
+                  {%- endif -%}
+                  {%- if home_product_custom.feature_2_icon != blank and home_product_custom.feature_2_description != blank -%}
+                    <div class="c-home-products-desktop__icon-item">
+                      {%- assign image_size = 75 | append: 'x' -%}
+                      <div class="c-home-products-desktop__icon-image">
+                        <img
+                          srcset="{{ home_product_custom.feature_2_icon | image_url: width: image_size }} 1x, {{ home_product_custom.feature_2_icon | image_url: width: home_product_custom.feature_2_icon.width }} 2x"
+                          src="{{ home_product_custom.feature_2_icon | image_url: width: image_size }}"
+                          loading="lazy"
+                          width="{{ home_product_custom.feature_2_icon.width }}"
+                          height="{{ home_product_custom.feature_2_icon.height }}"
+                          alt="{{ home_product_custom.feature_2_icon.alt | default: home_product_custom.feature_2_description | escape }}"
+                        >
+                      </div>
+                      <div class="c-home-products-desktop__icon-text">{{ home_product_custom.feature_2_description | escape }}</div>
+                    </div>
+                  {%- endif -%}
+                  {%- if home_product_custom.feature_3_icon != blank and home_product_custom.feature_3_description != blank -%}
+                    <div class="c-home-products-desktop__icon-item">
+                      {%- assign image_size = 75 | append: 'x' -%}
+                      <div class="c-home-products-desktop__icon-image">
+                        <img
+                          srcset="{{ home_product_custom.feature_3_icon | image_url: width: image_size }} 1x, {{ home_product_custom.feature_3_icon | image_url: width: home_product_custom.feature_3_icon.width }} 2x"
+                          src="{{ home_product_custom.feature_3_icon | image_url: width: image_size }}"
+                          loading="lazy"
+                          width="{{ home_product_custom.feature_3_icon.width }}"
+                          height="{{ home_product_custom.feature_3_icon.height }}"
+                          alt="{{ home_product_custom.feature_3_icon.alt | default: home_product_custom.feature_3_description | escape }}"
+                        >
+                      </div>
+                      <div class="c-home-products-desktop__icon-text">{{ home_product_custom.feature_3_description | escape }}</div>
+                    </div>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+
+            <div class="c-home-products-desktop__footer">
+              <a href="{{ home_product.url }}" rel="bookmark" class="c-home-products-desktop__button">
+                {%- if home_product_custom.shop_button_text != blank -%}
+                  {{- home_product_custom.shop_button_text | escape -}}
+                {%- else -%}
+                  {{ 'sections.main_collection.learn_more' | t }}
+                {%- endif -%}
+              </a>
+            </div>
+          </article>
+
+          {% if section.settings.show_mid_banner and forloop.index == section.settings.banner_position %}
+            <div
+              class="c-home-products-desktop__banner"
+              style="--desktop-banner-bg: {{ section.settings.banner_bg_color }}; --desktop-banner-text: {{ section.settings.banner_text_color }}; --desktop-banner-button-bg: {{ section.settings.banner_button_bg_color }}; --desktop-banner-button-text: {{ section.settings.banner_button_text_color }};"
+            >
+              <div class="c-home-products-desktop__banner-content">
+                {% if section.settings.banner_heading != blank %}
+                  <h3 class="c-home-products-desktop__banner-text">{{ section.settings.banner_heading }}</h3>
+                {% endif %}
+                {% if section.settings.banner_button_text != blank %}
+                  {% if section.settings.banner_button_link != blank %}
+                    <a href="{{ section.settings.banner_button_link }}" class="c-home-products-desktop__banner-btn">
+                      {{ section.settings.banner_button_text | escape }}
+                    </a>
+                  {% else %}
+                    <span class="c-home-products-desktop__banner-btn">
+                      {{ section.settings.banner_button_text | escape }}
+                    </span>
+                  {% endif %}
+                {% endif %}
+              </div>
+
+              {% if section.settings.banner_image != blank %}
+                <div class="c-home-products-desktop__banner-image">
+                  <img
+                    srcset="{{ section.settings.banner_image | image_url: width: 260 }} 260w, {{ section.settings.banner_image | image_url: width: 520 }} 520w"
+                    src="{{ section.settings.banner_image | image_url: width: 520 }}"
+                    alt="{{ section.settings.banner_image.alt | default: section.settings.banner_heading | strip_html | escape }}"
+                    loading="lazy"
+                    width="{{ section.settings.banner_image.width }}"
+                    height="{{ section.settings.banner_image.height }}"
+                  >
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+  (() => {
+    if (window.__homeProductsAnchorSyncInitialized) return;
+    window.__homeProductsAnchorSyncInitialized = true;
+
+    const desktopQuery = window.matchMedia('(min-width: 990px)');
+
+    const syncProductAnchors = () => {
+      document.querySelectorAll('.c-home-products [data-product-anchor]').forEach((element) => {
+        element.removeAttribute('id');
+      });
+
+      const visibleCardSelector = desktopQuery.matches
+        ? '.c-home-products .c-home-products-desktop__card[data-product-anchor]'
+        : '.c-home-products .c-home-product[data-product-anchor]';
+
+      document.querySelectorAll(visibleCardSelector).forEach((element) => {
+        element.id = element.dataset.productAnchor;
+      });
+
+      if (window.location.hash.length > 1) {
+        const target = document.getElementById(window.location.hash.slice(1));
+        if (target) {
+          requestAnimationFrame(() => {
+            target.scrollIntoView({ behavior: 'auto', block: 'start' });
+          });
+        }
+      }
+    };
+
+    const initProductAnchorSync = () => {
+      syncProductAnchors();
+      window.addEventListener('hashchange', syncProductAnchors);
+
+      if (desktopQuery.addEventListener) {
+        desktopQuery.addEventListener('change', syncProductAnchors);
+      } else if (desktopQuery.addListener) {
+        desktopQuery.addListener(syncProductAnchors);
+      }
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initProductAnchorSync, { once: true });
+    } else {
+      initProductAnchorSync();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Main Collection",
+  "tag": "section",
+  "class": "c-home-products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": " Meet Our Honey",
+      "label": "Heading"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_umf",
+      "label": "Hide UMF navigation",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_title",
+      "label": "Hide title",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "product_content",
+      "label": "Product Content",
+      "options": [
+        {
+          "value": "short",
+          "label": "Display Short Description"
+        },
+        {
+          "value": "full",
+          "label": "Display Full Description"
+        }
+      ],
+      "default": "short"
+    },
+    {
+      "type": "product_list",
+      "id": "product_list",
+      "label": "Products",
+      "limit": 15
+    },
+    {
+      "type": "header",
+      "content": "Banner After Product"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mid_banner",
+      "label": "Show banner after a product",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "banner_position",
+      "label": "Show banner after product number",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "inline_richtext",
+      "id": "banner_heading",
+      "label": "Banner heading",
+      "default": "Find the perfect UMF™ for yourself"
+    },
+    {
+      "type": "text",
+      "id": "banner_button_text",
+      "label": "Button text",
+      "default": "TAKE A QUIZ"
+    },
+    {
+      "type": "url",
+      "id": "banner_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner image"
+    },
+    {
+      "type": "color",
+      "id": "banner_bg_color",
+      "label": "Banner background",
+      "default": "#3b3b3b"
+    },
+    {
+      "type": "color",
+      "id": "banner_text_color",
+      "label": "Banner text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "banner_button_bg_color",
+      "label": "Button background",
+      "default": "#F1B434"
+    },
+    {
+      "type": "color",
+      "id": "banner_button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection products tab"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .c-home-products__content h2 {
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1;
+    text-align: center;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: #f1b434;
+    margin-bottom: 60px;
+}
+
+.c-home-products__banner {
+  --banner-bg: #3b3b3b;
+  --banner-text: #ffffff;
+  --banner-button-bg: #f1b434;
+  --banner-button-text: #ffffff;
+  grid-column: 1 / -1;
+  width: 100%;
+  flex: 0 0 100%;
+  max-width: 1015px;
+  margin: 40px auto;
+  background: var(--banner-bg);
+  border-radius: 16px;
+  padding: 40px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.c-home-products__banner-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.c-home-products__banner-text {
+  font-family: 'GT Walsheim Trial', sans-serif;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 1.2;
+  color: var(--banner-text);
+  text-align: left;
+  margin: 0;
+}
+
+.c-home-products__banner-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8.54px;
+  padding: 12px 13.46px;
+  border-radius: 50px;
+  background: var(--banner-button-bg);
+  border: 1px solid var(--banner-button-bg);
+  color: var(--banner-button-text);
+  font-family: 'GT Walsheim Trial', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.2;
+  text-decoration: none;
+  width: 350px;
+  max-width: 100%;
+}
+
+.c-home-products__banner-image img {
+  max-width: 260px;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .c-home-products__banner {
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .c-home-products__banner-content {
+    gap: 12px;
+  }
+
+  .c-home-products__banner-text {
+    font-size: 20px;
+  }
+
+  .c-home-products__banner-btn {
+    font-size: 14px;
+    width: 100%;
+    padding: 12px 13.46px;
+  }
+
+  .c-home-products__banner-image img {
+    max-width: 120px;
+  }
+}
+
+@media (max-width: 989px) {
+  .c-home-products__mobile-grid .c-home-product__score-separator,
+  .c-home-products__mobile-grid .c-home-product__short-description {
+    display: none !important;
+  }
+
+  .c-home-products__mobile-grid .c-home-product__title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .c-home-products__mobile-grid .c-home-product__title-text {
+    margin: 0 !important;
+    font-size: 28px !important;
+    line-height: 1.2 !important;
+  }
+
+  .c-home-products__mobile-grid .c-home-product__score-line {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin: 0 !important;
+  }
+
+  .c-home-products__mobile-grid .c-home-product__content__score {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .c-home-products__mobile-grid .c-home-product__content__score__value {
+    font-size: 32px !important;
+    line-height: 1 !important;
+  }
+}
+
+.c-home-products__mobile-grid {
+  display: block;
+}
+
+.c-home-product__title-text {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #313131;
+}
+
+.c-home-products-desktop {
+  display: none;
+}
+
+@media (min-width: 990px) {
+  .c-home-products__mobile-grid {
+    display: none !important;
+  }
+
+  .c-home-products-desktop {
+    display: block;
+  }
+}
+
+.c-home-products-desktop__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  align-items: start;
+}
+
+.c-home-products-desktop__card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background: #ffffff;
+  border: 1px solid #e7e2d8;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(18, 18, 18, 0.06);
+}
+
+.c-home-products-desktop__media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #f6f3ed;
+}
+
+.c-home-products-desktop__media-link {
+  position: absolute;
+  inset: 0;
+  display: block;
+  text-decoration: none;
+}
+
+.c-home-products-desktop__background,
+.c-home-products-desktop__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.c-home-products-desktop__background {
+  z-index: 1;
+  object-fit: contain;
+  object-position: center;
+}
+
+.c-home-products-desktop__image {
+  z-index: 2;
+  padding: 26px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.c-home-products-desktop__badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+  width: 130px;
+}
+
+.c-home-products-desktop__badge img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.c-home-products-desktop__image-corner-text {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1;
+  max-width: calc(100% - 32px);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+  text-align: right;
+  color: #313131;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+.c-home-products-desktop__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 22px 18px;
+}
+
+.c-home-products-desktop__title {
+  font-weight: 300 !important;
+  font-size: 24px !important;
+  line-height: 35.2px !important;
+  letter-spacing: 0.6px !important;
+  vertical-align: middle !important;
+  display: block !important;
+  margin: 0 0 8px !important;
+  color: rgb(49, 49, 49) !important;
+  padding-top: 0 !important;
+}
+
+.c-home-products-desktop__score-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: #303030;
+}
+
+.c-home-products-desktop__score {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.c-home-products-desktop__score-name {
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: rgb(49, 49, 49) !important;
+}
+
+.c-home-products-desktop__score-value {
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 1;
+  color: rgb(49, 49, 49) !important;
+}
+
+.c-home-products-desktop__score-separator {
+  font-size: 22px;
+  line-height: 1;
+  color: #7b7b7b;
+}
+
+.c-home-products-desktop__title-fallback {
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: #303030;
+}
+
+.c-home-products-desktop__rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.c-home-products-desktop__rating .c-home-product__rating__info {
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #999 !important;
+ 
+}
+.c-home-product__rating__info {
+   margin-left: 0px !important
+   }
+   .c-home-products-desktop__score-name small {
+    font-size: 25px;
+}
+
+.c-home-products-desktop__tagline {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: rgb(49, 49, 49) !important;
+}
+
+.c-home-products-desktop__description {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.55;
+  color: #595959;
+}
+
+.c-home-products-desktop__description p {
+  margin: 0;
+}
+
+.c-home-products-desktop__icons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px 10px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.c-home-products-desktop__icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.c-home-products-desktop__icon-image {
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.c-home-products-desktop__icon-image img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+}
+
+.c-home-products-desktop__icon-text {
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgb(102, 102, 102) !important;
+}
+
+.c-home-products-desktop__footer {
+  padding: 0 22px 22px;
+}
+
+.c-home-products-desktop__button {
+  display: inline-flex;
+  width: 100%;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: var(--desktop-product-color, #1ea7e1);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.c-home-products-desktop__banner {
+  --desktop-banner-bg: #3b3b3b;
+  --desktop-banner-text: #ffffff;
+  --desktop-banner-button-bg: #f1b434;
+  --desktop-banner-button-text: #ffffff;
+  grid-column: 1 / -1;
+  max-width: 1080px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 40px 50px;
+  border-radius: 16px;
+  background: var(--desktop-banner-bg);
+  margin: 8px auto 0;
+}
+
+.c-home-products-desktop__banner-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.c-home-products-desktop__banner-text {
+  margin: 0;
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--desktop-banner-text);
+}
+
+.c-home-products-desktop__banner-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  max-width: 250px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: var(--desktop-banner-button-bg);
+  border: 1px solid var(--desktop-banner-button-bg);
+  color: var(--desktop-banner-button-text);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.c-home-products-desktop__banner-image img {
+  display: block;
+  width: auto;
+  max-width: 260px;
+  height: auto;
+}
+.gw-rv-average__rating {
+    
+    font-size: 14px !important;
+}
+.gw-rv-average__divider {
+   
+    display: none !important;
+}
+
+</style>

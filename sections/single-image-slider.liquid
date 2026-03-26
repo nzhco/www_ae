@@ -1,0 +1,77 @@
+{% schema %}
+{
+  "name": "Single Image Banner",
+  "settings": [
+    {
+      "type": "url",
+      "id": "banner_link",
+      "label": "Banner Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop Banner Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile Banner Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Single Image Banner"
+    }
+  ]
+}
+{% endschema %}
+
+<div id="banner-container">
+  <a href="{{ section.settings.banner_link }}" aria-label="banner-link">
+    <img 
+      src="{{ section.settings.desktop_image | image_url: width: 1900 }}" 
+      alt="Desktop Banner" 
+      loading="eager"
+      fetchpriority="high"
+      class="desktop-image"
+    >
+    <img 
+      src="{{ section.settings.mobile_image | image_url: width: 800 }}" 
+      alt="Mobile Banner" 
+      loading="eager"
+      fetchpriority="high"
+      class="mobile-image"
+    >
+  </a>
+</div>
+
+<style>
+  #banner-container {
+    max-width: 1920px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  #banner-container img {
+    width: 100%;
+    height: auto;
+    display: none;
+  }
+
+  #banner-container .desktop-image {
+    display: block;
+  }
+
+  #banner-container .mobile-image {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    #banner-container .desktop-image {
+      display: none;
+    }
+    #banner-container .mobile-image {
+      display: block;
+    }
+  }
+</style>

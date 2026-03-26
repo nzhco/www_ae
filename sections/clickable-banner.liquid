@@ -1,0 +1,66 @@
+{% schema %}
+{
+  "name": "Clickable Banner",
+  "tag": "section",
+  "class": "clickable-banner-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "url",
+      "id": "banner_link",
+      "label": "Banner Link"
+    },
+    {
+      "type": "text",
+      "id": "alt_text",
+      "label": "Image Alt Text",
+      "default": "Shop Now Banner"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Clickable Banner",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+.clickable-banner-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.clickable-banner-section a {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
+.clickable-banner-section img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+{% endstyle %}
+
+{% if section.settings.banner_image != blank %}
+  <div class="clickable-banner-section">
+    <a href="{{ section.settings.banner_link | default: '#' }}">
+      <img
+        src="{{ section.settings.banner_image | image_url }}"
+        alt="{{ section.settings.alt_text | escape }}"
+        loading="lazy"
+      >
+    </a>
+  </div>
+{% endif %}

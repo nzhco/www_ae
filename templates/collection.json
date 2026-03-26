@@ -1,0 +1,184 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "shogun-above": {
+      "type": "shogun-above",
+      "settings": {}
+    },
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "image": "shopify://shop_images/honey_co_banner-home_1.jpg",
+        "video": "https://www.youtube.com/watch?v=r4wNFNe1k-s",
+        "heading": "Your authentic, certified NZ Manuka Honey for beauty, immunity and vitality.",
+        "paragraph": "Take the quiz",
+        "button_label": "WHICH HONEY IS FOR ME?",
+        "button_link": "shopify://pages/which-manuka-honey-is-right-for-you"
+      }
+    },
+    "scrollable_product_gallery_MmcCtd": {
+      "type": "scrollable-product-gallery",
+      "blocks": {
+        "product_item_DDpqAG": {
+          "type": "product_item",
+          "settings": {
+            "product": "manuka-honey-umf-10",
+            "label_override": "UMF™ 10+ <br>MGO 263+",
+            "custom_url": "#manuka-honey-umf-10"
+          }
+        },
+        "product_item_FJXPNF": {
+          "type": "product_item",
+          "settings": {
+            "product": "manuka-honey-umf-15",
+            "label_override": "UMF™ 15+<br>MGO 514+",
+            "custom_url": "#manuka-honey-umf-15"
+          }
+        },
+        "product_item_hed4XD": {
+          "type": "product_item",
+          "settings": {
+            "product": "manuka-honey-umf-20-mgo-829",
+            "label_override": "UMF™ 20+<br>MGO 829+",
+            "custom_url": "#manuka-honey-umf-20-mgo-829"
+          }
+        },
+        "product_item_4jRVTt": {
+          "type": "product_item",
+          "settings": {
+            "product": "manuka-honey-umf-24-mgo-1122",
+            "label_override": "UMF™ 24+ <br>MGO 1122+",
+            "custom_url": "#manuka-honey-umf-24-mgo-1122"
+          }
+        },
+        "product_item_i7Fbfe": {
+          "type": "product_item",
+          "settings": {
+            "product": "manuka-honey-umf-26-mgo-1282",
+            "label_override": "UMF™ 26+<br>MGO 1282+",
+            "custom_url": "#manuka-honey-umf-26-mgo-1282"
+          }
+        },
+        "product_item_K8cDYx": {
+          "type": "product_item",
+          "settings": {
+            "product": "manuka-honey-umf-28-mgo-1450",
+            "label_override": "UMF™ 28+<br>MGO 1450+",
+            "custom_url": "#manuka-honey-umf-28-mgo-1450"
+          }
+        },
+        "product_item_68PWr4": {
+          "type": "product_item",
+          "disabled": true,
+          "settings": {
+            "product": "manuka-honey-umf™-30-mgo-1620",
+            "label_override": "UMF™ 30+MGO 1620+",
+            "custom_url": "#manuka-honey-umf™-30-mgo-1620"
+          }
+        },
+        "product_item_X6LhEe": {
+          "type": "product_item",
+          "settings": {
+            "product": "manuka-honey-minis",
+            "label_override": "Minis",
+            "custom_url": "#manuka-honey-minis"
+          }
+        },
+        "product_item_Xn7FCW": {
+          "type": "product_item",
+          "settings": {
+            "product": "new-zealand-honey-co-daily-spoon",
+            "label_override": "Spoon",
+            "custom_url": "#new-zealand-honey-co-daily-spoon"
+          }
+        }
+      },
+      "block_order": [
+        "product_item_DDpqAG",
+        "product_item_FJXPNF",
+        "product_item_hed4XD",
+        "product_item_4jRVTt",
+        "product_item_i7Fbfe",
+        "product_item_K8cDYx",
+        "product_item_68PWr4",
+        "product_item_X6LhEe",
+        "product_item_Xn7FCW"
+      ],
+      "name": "Scroll Product Grid",
+      "settings": {
+        "heading": "MEET OUR HONEY"
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "heading": "Meet our honey",
+        "hide_umf": true,
+        "hide_title": true,
+        "product_content": "short",
+        "product_list": [
+          "manuka-honey-umf-10",
+          "manuka-honey-umf-15",
+          "manuka-honey-umf-20-mgo-829",
+          "manuka-honey-umf-24-mgo-1122",
+          "manuka-honey-umf-26-mgo-1282",
+          "manuka-honey-umf-28-mgo-1450",
+          "manuka-honey-umf™-30-mgo-1620",
+          "manuka-honey-minis",
+          "new-zealand-honey-co-daily-spoon"
+        ],
+        "show_mid_banner": true,
+        "banner_position": 3,
+        "banner_heading": "Find the perfect UMF™ for yourself",
+        "banner_button_text": "TAKE A QUIZ",
+        "banner_button_link": "shopify://pages/which-manuka-honey-is-right-for-you",
+        "banner_bg_color": "#3b3b3b",
+        "banner_text_color": "#ffffff",
+        "banner_button_bg_color": "#f1b434",
+        "banner_button_text_color": "#ffffff"
+      }
+    },
+    "shogun-below": {
+      "type": "shogun-below",
+      "disabled": true,
+      "settings": {}
+    },
+    "17114963867464cb51": {
+      "type": "apps",
+      "blocks": {
+        "klaviyo_email_marketing_sms_form_embed_block_kcVHFa": {
+          "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/form-embed-block/2632fe16-c075-4321-a88b-50b567f42507",
+          "settings": {
+            "formId": "Ry7EXG"
+          }
+        }
+      },
+      "block_order": [
+        "klaviyo_email_marketing_sms_form_embed_block_kcVHFa"
+      ],
+      "disabled": true,
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "shogun-above",
+    "hero",
+    "scrollable_product_gallery_MmcCtd",
+    "main",
+    "shogun-below",
+    "17114963867464cb51"
+  ]
+}

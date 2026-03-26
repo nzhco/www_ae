@@ -1,0 +1,45 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-article",
+      "settings": {
+        "meta": false,
+        "title": false,
+        "image": false,
+        "container": true,
+        "share": false
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "paragraph": "Enter your email to receive 10% off your next order and be the first to know about our sales, news and events!",
+        "success": "Thanks for subscribing",
+        "bg_color": "#FFF"
+      }
+    },
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "main",
+    "newsletter",
+    "shogun-optimizer"
+  ]
+}

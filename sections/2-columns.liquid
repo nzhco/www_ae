@@ -1,0 +1,145 @@
+{{ '2-columns.css' | asset_url | stylesheet_tag }}
+
+{% if section.settings.title_image != blank or shop.metaobjects.svgs['svgs-wjxuznox'].explore_the_range.value != blank %}
+  <style>
+    .c-2-columns__content > img {
+      width: 40%;
+      margin-left: 30%;
+      margin-right: 30%;
+      margin-bottom: -3%;
+      position: relative;
+      z-index: 2;
+      height: auto;
+  }
+  </style>
+  {% endif %}
+
+<div class="c-container">
+  <div class="c-2-columns__content">
+    {% if section.settings.title_image != blank %}
+      <img src="{{ section.settings.title_image | image_url }}">
+    {% elsif shop.metaobjects.svgs['svgs-wjxuznox'].explore_the_range.value != blank %}
+      <img src="{{ shop.metaobjects.svgs['svgs-wjxuznox'].explore_the_range.value | image_url }}">
+      {% else %}
+    <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 543.08 243.25">
+                                          									<defs><style>.cls-hadfddfd{fill:#e87825;}</style></defs><path class="cls-hadfddfd" d="M33.43,49.19c.25.86.58,2.33,1,4.39l-25,7a8.3,8.3,0,0,0,4.3,5.38,10.33,10.33,0,0,0,7.38.24q5.55-1.55,6.44-5.92L35.51,58a11.93,11.93,0,0,1-2.95,9.11A18.3,18.3,0,0,1,23,73q-8,2.2-13.89-1.27T.92,60.12q-2.25-8.1,1-14.18t11-8.23q7.21-2,12.89,1.19A16.17,16.17,0,0,1,33.43,49.19ZM7.78,54.55l17.47-4.87a8.45,8.45,0,0,0-3.95-5.37A9.08,9.08,0,0,0,14.47,44,9.49,9.49,0,0,0,8.6,48,8.19,8.19,0,0,0,7.78,54.55Z"/><path class="cls-hadfddfd" d="M40.11,67.34l8.78-20L32.78,33.17,42.66,31l9.54,9.49,4.65-12.63,9.88-2.19L58.11,45.3l16.4,14.43-9.88,2.18-9.85-9.8L50,65.15Z"/><path class="cls-hadfddfd" d="M93.88,20.38a15.46,15.46,0,0,1,12.68,3.22q5.26,4.32,6.49,12.48t-2.78,13.81A16.16,16.16,0,0,1,98.8,56.8a14.49,14.49,0,0,1-6.67-.55,11.11,11.11,0,0,1-5.2-3.36l3,20.25-8.08,1.21L74.37,24.21,82.45,23l.7,4.67a10.94,10.94,0,0,1,4.14-4.75A15.78,15.78,0,0,1,93.88,20.38Zm2.66,29.4a9.5,9.5,0,0,0,6.8-4.16A11.41,11.41,0,0,0,105,37.29a11.42,11.42,0,0,0-4-7.47,9.5,9.5,0,0,0-7.73-2,9.76,9.76,0,0,0-7,4.15,11.35,11.35,0,0,0-1.62,8.36,11.29,11.29,0,0,0,4,7.51A9.72,9.72,0,0,0,96.54,49.78Z"/><path class="cls-hadfddfd" d="M122.71,53,118.25.7l8.14-.7,4.46,52.31Z"/><path class="cls-hadfddfd" d="M169.53,46.69q-4.92,5.28-13.39,5.39t-13.52-5A18.28,18.28,0,0,1,137.47,34a18.27,18.27,0,0,1,4.81-13.22q4.91-5.28,13.38-5.39t13.52,5a18.28,18.28,0,0,1,5.16,13.09A18.32,18.32,0,0,1,169.53,46.69Zm-21.05-4.86a10.75,10.75,0,0,0,15.06-.2,11.66,11.66,0,0,0,2.63-8.06,11.67,11.67,0,0,0-2.84-8,10.77,10.77,0,0,0-15.07.21,11.66,11.66,0,0,0-2.63,8.06A11.58,11.58,0,0,0,148.48,41.83Z"/><path class="cls-hadfddfd" d="M180.45,51.89l5.12-34.57,8.08,1.2-1,6.67a9,9,0,0,1,4.27-4.78,9.87,9.87,0,0,1,6-1,14.19,14.19,0,0,1,3.14.77L205,27.62a29,29,0,0,0-3.16-.62,8.18,8.18,0,0,0-7.22,2.15q-2.91,2.81-3.78,8.65l-2.26,15.29Z"/><path class="cls-hadfddfd" d="M240.39,47.49c-.29.85-.84,2.25-1.67,4.19l-24.53-8.41a8.39,8.39,0,0,0,.5,6.87,10.41,10.41,0,0,0,5.95,4.38q5.46,1.86,8.66-1.24L237.1,56a12,12,0,0,1-7.59,5.84,18.34,18.34,0,0,1-11.19-.54q-7.78-2.68-10.73-8.91t-.18-14.26q2.73-8,8.84-11.12T230,26.39q7.09,2.43,9.95,8.29A16.19,16.19,0,0,1,240.39,47.49ZM216.21,37.38l17.16,5.88a8.4,8.4,0,0,0-.22-6.65,9,9,0,0,0-5.42-4.16,9.44,9.44,0,0,0-7.14,0A8.2,8.2,0,0,0,216.21,37.38Z"/><path class="cls-hadfddfd" d="M270.87,81a22.94,22.94,0,0,0,3.54,2.13l-4.16,5.88A35.48,35.48,0,0,1,265,85.92a18.25,18.25,0,0,1-2.7-2.28,13.16,13.16,0,0,1-2.07-3.17,7.16,7.16,0,0,1-.39-4.91,18.1,18.1,0,0,1,3-6.22l9.4-13.29-4.84-3.42,3.94-5.57,4.84,3.42,6.1-8.64L289,46.56l-6.1,8.63,6.55,4.63-3.94,5.57L279,60.77l-8.31,11.76q-2.43,3.42-2.21,5.19A5.09,5.09,0,0,0,270.87,81Z"/><path class="cls-hadfddfd" d="M313.6,79.72q9.31,8.69-.13,18.84l-15,16.08-6-5.56,12.42-13.34q3.88-4.17,4.31-7.16c.29-2-.6-3.94-2.65-5.85a7.7,7.7,0,0,0-6.2-2.35c-2.21.24-4.36,1.5-6.48,3.77l-13.08,14-6-5.57,35.78-38.42,6,5.56L301.32,76.19Q307.72,74.26,313.6,79.72Z"/><path class="cls-hadfddfd" d="M340.33,131.52c-.67.61-1.82,1.58-3.46,2.89l-17.62-19a8.35,8.35,0,0,0-2.81,6.29,10.35,10.35,0,0,0,3.16,6.67q3.91,4.24,8.21,3l5.6,6A12,12,0,0,1,324,139a18.31,18.31,0,0,1-9.59-5.78q-5.6-6-5.23-12.93t6.6-12.64q6.15-5.7,13.05-5.6t12.34,6q5.1,5.51,4.84,12A16.22,16.22,0,0,1,340.33,131.52Zm-16.51-20.36,12.32,13.3a8.42,8.42,0,0,0,3-6,9,9,0,0,0-2.81-6.23A9.43,9.43,0,0,0,330,108.9,8.15,8.15,0,0,0,323.82,111.16Z"/><path class="cls-hadfddfd" d="M345.37,165.11l24.4-25,5.85,5.7-4.71,4.84a8.91,8.91,0,0,1,6.26-1.38,9.78,9.78,0,0,1,5.42,2.71,14.38,14.38,0,0,1,2.1,2.46l-5.24,5.37a28.34,28.34,0,0,0-2.2-2.35,8.15,8.15,0,0,0-7.11-2.48q-4,.56-8.13,4.8l-10.79,11.06Z"/><path class="cls-hadfddfd" d="M379,195.85q-6.65-4.74-7.31-11.57t4-13.35a18.86,18.86,0,0,1,11.49-8q6.87-1.51,13.34,3.11a13.9,13.9,0,0,1,4.38,5,11,11,0,0,1,1.26,6l2.75-3.85,6.65,4.74-20.29,28.46-6.65-4.74,2.74-3.85a10.48,10.48,0,0,1-6.19.61A14.89,14.89,0,0,1,379,195.85Zm5.2-5.23q4.09,2.91,8.09,1.9a13.22,13.22,0,0,0,9.23-13c-.23-2.74-1.7-5.08-4.43-7a9.44,9.44,0,0,0-7.88-1.79,13,13,0,0,0-9.27,13A9.42,9.42,0,0,0,384.16,190.62Z"/><path class="cls-hadfddfd" d="M414.85,216.06l9.65-33.6,7.85,2.26L431,189.4q4.85-4.62,12.55-2.4,12.24,3.51,8.41,16.85L445.9,225l-7.85-2.26,5-17.51c1-3.66,1.24-6.43.6-8.34s-2.32-3.24-5-4a7.69,7.69,0,0,0-6.6.72c-1.86,1.21-3.21,3.31-4.07,6.28l-5.3,18.46Z"/><path class="cls-hadfddfd" d="M491,191.52l8.17-.1.43,33.45q.13,10.49-6.1,15.15-4.09,3.12-12,3.23-7.64.09-12.32-3a11.6,11.6,0,0,1-5.67-9.46l8.54-.11q1.2,5.91,9.29,5.81,5.18-.06,7.65-2.61t2.41-8.32l-.05-3.82a10.54,10.54,0,0,1-4.63,4.14,14.7,14.7,0,0,1-6.46,1.62q-8,.11-12.62-5a19.12,19.12,0,0,1-4.78-13.1,18.64,18.64,0,0,1,4.67-13.19A16.28,16.28,0,0,1,480,190.76a14,14,0,0,1,6.47,1.42,10.9,10.9,0,0,1,4.54,4.07Zm-9.6,28.7a9.5,9.5,0,0,0,7.53-3.28,12.69,12.69,0,0,0-.2-15.83,9.57,9.57,0,0,0-7.61-3.09,9.46,9.46,0,0,0-7.34,3.21,12.77,12.77,0,0,0,.2,16A9.46,9.46,0,0,0,481.35,220.22Z"/><path class="cls-hadfddfd" d="M542.5,203c.1.9.18,2.4.25,4.5L517,210.24a8.36,8.36,0,0,0,3.35,6,10.36,10.36,0,0,0,7.24,1.46q5.75-.6,7.33-4.77l8.2-.86a12,12,0,0,1-4.41,8.5,18.37,18.37,0,0,1-10.37,4.22q-8.2.87-13.49-3.55t-6.18-12.85q-.88-8.35,3.33-13.81t12.18-6.31q7.46-.78,12.52,3.32A16.18,16.18,0,0,1,542.5,203Zm-26.19,1,18-1.9a8.46,8.46,0,0,0-3-5.94,9.08,9.08,0,0,0-6.68-1.49,9.42,9.42,0,0,0-6.46,3A8.17,8.17,0,0,0,516.31,204.05Z"/>
+    </svg>
+      {% endif %}
+    <div class="c-2-columns__row">
+      <div class="c-2-columns__column">
+        {%- if section.settings.button_1_label != blank and section.settings.button_1_link -%}
+          {%- if section.settings.image_1 != blank -%}
+            <a href="{{ section.settings.button_1_link }}" class="c-2-columns__image" rel="bookmark">
+              <img
+                class="u-absolute-fill"
+                srcset="{%- if section.settings.image_1.width >= 375 -%}{{ section.settings.image_1 | image_url: width: 750 }} 375w,{%- endif -%} {%- if section.settings.image_1.width >= 550 -%}{{ section.settings.image_1 | image_url: width: 1100 }} 550w,{%- endif -%} {%- if section.settings.image_1.width >= 750 -%}{{ section.settings.image_1 | image_url: width: 1500 }} 750w,{%- endif -%} {%- if section.settings.image_1.width >= 1100 -%}{{ section.settings.image_1 | image_url: width: 2200 }} 1100w,{%- endif -%} {%- if section.settings.image_1.width >= 1500 -%}{{ section.settings.image_1 | image_url: width: 3000 }} 1500w,{%- endif -%} {%- if section.settings.image_1.width >= 1780 -%}{{ section.settings.image_1 | image_url: width: 3540 }} 1780w,{%- endif -%} {%- if section.settings.image_1.width >= 2000 -%}{{ section.settings.image_1 | image_url: width: 2000 }} 2000w,{%- endif -%} {%- if section.settings.image_1.width >= 3000 -%}{{ section.settings.image_1 | image_url: width: 3000 }} 3000w,{%- endif -%} {%- if section.settings.image_1.width >= 3840 -%}{{ section.settings.image_1 | image_url: width: 3840 }} 3840w,{%- endif -%} {{ section.settings.image_1 | image_url }} {{ section.settings.image_1.width }}w"
+                sizes="100vw"
+                src="{{ section.settings.image_1 | image_url: width: 1500 }}"
+                loading="lazy"
+                alt="{{ section.settings.image_1.alt | escape }}"
+                width="{{ section.settings.image_1.width }}"
+                height="{{ section.settings.image_1.width | divided_by: section.settings.image_1.aspect_ratio }}"
+              >
+              </a>
+          {%- endif -%}
+          {%- if section.settings.text_1 != blank -%}
+            <p>{{ section.settings.text_1 | escape }}</p>
+          {%- endif -%}
+
+          <a href="{{ section.settings.button_1_link }}" class="c-button c-button--white" rel="bookmark">
+            {{- section.settings.button_1_label | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+      <div class="c-2-columns__column">
+        {%- if section.settings.button_2_label != blank and section.settings.button_2_link -%}
+          {%- if section.settings.image_2 != blank -%}
+            <a href="{{ section.settings.button_2_link }}" class="c-2-columns__image" rel="bookmark">
+              <img
+                class="u-absolute-fill"
+                srcset="{%- if section.settings.image_2.width >= 375 -%}{{ section.settings.image_2 | image_url: width: 750 }} 375w,{%- endif -%} {%- if section.settings.image_2.width >= 550 -%}{{ section.settings.image_2 | image_url: width: 1100 }} 550w,{%- endif -%} {%- if section.settings.image_2.width >= 750 -%}{{ section.settings.image_2 | image_url: width: 1500 }} 750w,{%- endif -%} {%- if section.settings.image_2.width >= 1100 -%}{{ section.settings.image_2 | image_url: width: 2200 }} 1100w,{%- endif -%} {%- if section.settings.image_2.width >= 1500 -%}{{ section.settings.image_2 | image_url: width: 3000 }} 1500w,{%- endif -%} {%- if section.settings.image_2.width >= 1780 -%}{{ section.settings.image_2 | image_url: width: 3540 }} 1780w,{%- endif -%} {%- if section.settings.image_2.width >= 2000 -%}{{ section.settings.image_2 | image_url: width: 2000 }} 2000w,{%- endif -%} {%- if section.settings.image_2.width >= 3000 -%}{{ section.settings.image_2 | image_url: width: 3000 }} 3000w,{%- endif -%} {%- if section.settings.image_2.width >= 3840 -%}{{ section.settings.image_2 | image_url: width: 3840 }} 3840w,{%- endif -%} {{ section.settings.image_2 | image_url }} {{ section.settings.image_2.width }}w"
+                sizes="100vw"
+                src="{{ section.settings.image_2 | image_url: width: 1500 }}"
+                loading="lazy"
+                alt="{{ section.settings.image_2.alt | escape }}"
+                width="{{ section.settings.image_2.width }}"
+                height="{{ section.settings.image_2.width | divided_by: section.settings.image_2.aspect_ratio }}"
+              >
+              </a>
+          {%- endif -%}
+          {%- if section.settings.text_2 != blank -%}
+            <p>{{ section.settings.text_2 | escape }}</p>
+          {%- endif -%}
+
+          <a href="{{ section.settings.button_2_link }}" class="c-button c-button--white" rel="bookmark">
+            {{- section.settings.button_2_label | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "2 Columns",
+  "tag": "section",
+  "class": "c-2-columns",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "title_image",
+      "label": "Graphic Title"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "Text 1",
+      "default": "Our Manuka Honey"
+    },
+    {
+      "type": "text",
+      "id": "button_1_label",
+      "label": "Button 1 Label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Button 1 link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image 2"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Text 2",
+      "default": "Which Manuka is for me?"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Button 2 Label",
+      "default": "Take our quiz"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Button 2 link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "2 Columns"
+    }
+  ]
+}
+{% endschema %}

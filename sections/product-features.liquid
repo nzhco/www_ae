@@ -1,0 +1,147 @@
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+{{ 'product-features.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-features.js' | asset_url }}" defer="defer"></script>
+<div class="c-container">
+  <div class="c-product-features__content">
+    {%- if section.settings.title_one != blank or section.settings.title_two != blank -%}
+      <h2 class="c-product-features__heading">
+        {%- if section.settings.title_one != blank -%}
+          <span>{{ section.settings.title_one }}</span>
+        {%- endif -%}
+        {%- if section.settings.title_two != blank -%}
+          <span>{{ section.settings.title_two }}</span>
+        {%- endif -%}
+      </h2>
+    {%- endif -%}
+    {%- if section.settings.title != blank -%}
+      <h3 class="c-product-features__title">{{ section.settings.title }}</h3>
+    {%- endif -%}
+    {%- if section.settings.description != blank -%}
+      <p class="c-product-features__description">{{ section.settings.description }}</p>
+    {%- endif -%}
+    {%- if section.blocks != blank -%}
+      <div class="c-product-features__slider swiper">
+        <div class="c-product-features__slider__wrapper swiper-wrapper">
+          {%- for block in section.blocks -%}
+            <div class="c-product-features__slider__item swiper-slide">
+              <div class="c-product-features__slider__item__content">
+                {%- if block.settings.title != blank -%}
+                  <h4 class="c-product-features__slider__item__title">{{ block.settings.title }}</h4>
+                {%- endif -%}
+                {%- if block.settings.description != blank -%}
+                  <p class="c-product-features__slider__item__description">
+                    {{ block.settings.description }}
+                  </p>
+                {%- endif -%}
+                {%- if block.settings.image != blank -%}
+                  <div class="c-product-features__slider__item__image">
+                    <img
+                      srcset="
+                        												{%- if block.settings.image.width >= 165 -%}{{ block.settings.image | image_url: width: 330 }} 165w,{%- endif -%}
+                        												{%- if block.settings.image.width >= 360 -%}{{ block.settings.image | image_url: width: 720 }} 360w,{%- endif -%}
+                        												{%- if block.settings.image.width >= 533 -%}{{ block.settings.image | image_url: width: 1128 }} 533w,{%- endif -%}
+                        												{%- if block.settings.image.width >= 720 -%}{{ block.settings.image | image_url: width: 1128 }} 720w,{%- endif -%}
+                        												{%- if block.settings.image.width >= 940 -%}{{ block.settings.image | image_url: width: 1128 }} 940w,{%- endif -%}
+                        												{%- if block.settings.image.width >= 1066 -%}{{ block.settings.image | image_url: width: 1128 }} 1066w,{%- endif -%}
+                        												{{ block.settings.image | image_url }} {{ block.settings.image.width }}w
+                      "
+                      src="{{ block.settings.image | image_url: width: 800 }}"
+                      sizes="(min-width: 500px) {{ 1600 | minus: 500 | divided_by: 3 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                      alt="{{ block.settings.image.alt | escape }}"
+                      class="c-product-features__slider__item__img"
+                      loading="lazy"
+                      width="{{ block.settings.image.width }}"
+                      height="{{ block.settings.image.height }}"
+                    >
+                  </div>
+                {%- endif -%}
+                {%- if block.settings.image_description != blank -%}
+                  <p class="c-product-features__slider__item__description--image">
+                    {{ block.settings.image_description }}
+                  </p>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+        <div class="c-product-features__slider__nav swiper-button-prev">
+          {%- render 'icon-arrow', type: 'left' -%}
+        </div>
+        <div class="c-product-features__slider__nav swiper-button-next">
+          {%- render 'icon-arrow', type: 'right' -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Features",
+  "tag": "section",
+  "class": "c-product-features",
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Methylglyoxal (MGO)"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "The antibacterial powerhouse"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "textarea",
+          "id": "image_description",
+          "label": "Image Description",
+          "default": "Gives manuka its effective antibacterial, antimicrobial and antioxidant properties."
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title_one",
+      "label": "Title First Line",
+      "default": "Over 2000 natural compounds"
+    },
+    {
+      "type": "text",
+      "id": "title_two",
+      "label": "Title Second Line",
+      "default": "making this honey potent and powerful"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Features Title",
+      "default": "UMF™"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Features Description",
+      "default": "These four natural markers are a guarantee of our Manuka Honey UMF™ authenticity. "
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Features"
+    }
+  ]
+}
+{% endschema %}

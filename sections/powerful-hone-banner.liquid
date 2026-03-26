@@ -1,0 +1,141 @@
+{% schema %}
+{
+  "name": "Responsive Banner Slider",
+  "settings": [
+    {
+      "type": "url",
+      "id": "banner_link",
+      "label": "Banner Link 1"
+    },
+    {
+      "type": "url",
+      "id": "banner_link2",
+      "label": "Banner Link 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image_1",
+      "label": "Desktop Banner Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image_2",
+      "label": "Desktop Banner Image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image_1",
+      "label": "Mobile Banner Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image_2",
+      "label": "Mobile Banner Image 2"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Responsive Banner Slider"
+    }
+  ]
+}
+{% endschema %}
+<div class="responsive-banner-slider swiper">
+  <div class="swiper-wrapper">
+
+    {% if section.settings.desktop_image_1 %}
+      <div class="swiper-slide">
+        <a href="{{ section.settings.banner_link }}">
+          <img 
+            src="{{ section.settings.desktop_image_1 | image_url: width: 1920 }}" 
+            alt="Desktop Banner 1" 
+            class="desktop-image"
+          >
+          <img 
+            src="{{ section.settings.mobile_image_1 | image_url: width: 768 }}" 
+            alt="Mobile Banner 1" 
+            class="mobile-image"
+          >
+        </a>
+      </div>
+    {% endif %}
+
+    {% if section.settings.desktop_image_2 %}
+      <div class="swiper-slide">
+        <a href="{{ section.settings.banner_link2 }}">
+          <img 
+            src="{{ section.settings.desktop_image_2 | image_url: width: 1920 }}" 
+            alt="Desktop Banner 2" 
+            class="desktop-image"
+          >
+          <img 
+            src="{{ section.settings.mobile_image_2 | image_url: width: 768 }}" 
+            alt="Mobile Banner 2" 
+            class="mobile-image"
+          >
+        </a>
+      </div>
+    {% endif %}
+
+  </div>
+
+  <!-- Navigation -->
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+  <div class="swiper-pagination"></div>
+</div>
+
+<style>
+  .responsive-banner-slider {
+    max-width: 1920px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .responsive-banner-slider img {
+    width: 100%;
+    height: auto;
+    display: none;
+  }
+
+  .responsive-banner-slider .desktop-image {
+    display: block;
+  }
+
+  .responsive-banner-slider .mobile-image {
+    display: none;
+  }
+.swiper-button-next,
+.swiper-button-prev {
+  display:none !important;
+}
+
+  @media (max-width: 768px) {
+    .responsive-banner-slider .desktop-image {
+      display: none;
+    }
+    .responsive-banner-slider .mobile-image {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    new Swiper('.responsive-banner-slider', {
+      loop: true,
+      autoplay: {
+        delay: 6000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  });
+</script>

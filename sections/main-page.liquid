@@ -1,0 +1,89 @@
+{{ 'page.css' | asset_url | stylesheet_tag }}
+{{ 'rte.css' | asset_url | stylesheet_tag }}
+{{ 'reviews-page.css' | asset_url | stylesheet_tag }}
+{% if section.settings.container == false %}
+  <div class="c-container">
+    {% if section.settings.title == false %}
+      <h1 class="c-page__title{% if section.settings.wide == true %} c-page__wide{% endif %} {% if page.id == 93324968184 %} c-page__title--center{% endif %}">
+        {{ page.title }}
+      </h1>
+    {% endif %}
+    <div class="c-page__content c-rte{% if section.settings.wide == true %} c-page__wide{% endif %}">
+      {{ page.content }}
+    </div>
+  </div>
+{% else %}
+  {{ page.content }}
+{% endif %}
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "articleBody": {{ article.content | strip_html | json }},
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": {{ request.origin | append: page.url | json }}
+    },
+    "headline": {{ article.title | json }},
+    {% if article.excerpt != blank %}
+      "description": {{ article.excerpt | strip_html | json }},
+    {% endif %}
+    {% if article.image %}
+      "image": [
+        {{ article | image_url: width: article.image.width | prepend: "https:" | json }}
+      ],
+    {% endif %}
+    "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+    "dateCreated": {{ article.created_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+    "author": {
+      "@type": "Person",
+      "name": {{ article.author | json }}
+    },
+    "publisher": {
+      "@type": "Organization",
+      {% if settings.share_image %}
+        "logo": {
+          "@type": "ImageObject",
+          "height": {{ settings.share_image.height | json }},
+          "url": {{ settings.share_image | image_url: width: settings.share_image.width | prepend: "https:" | json }},
+          "width": {{ settings.share_image.width | json }}
+        },
+      {% endif %}
+      "name": {{ shop.name | json }}
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Main Article",
+  "tag": "div",
+  "class": "c-page",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "title",
+      "label": "Hide Title",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "wide",
+      "label": "Wide Content",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "container",
+      "label": "Disable Container",
+      "info": "It useful for when using a Shogun page builder",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Main Page"
+    }
+  ]
+}
+{% endschema %}

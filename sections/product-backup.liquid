@@ -1,0 +1,1021 @@
+<script>
+  var productObject = {{ product | json }}
+</script>
+<script src="{{ 'jarallax.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'jarallax-video.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'fancybox.umd.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'gsap.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'ScrollTrigger.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-variant-swatches.js' | asset_url }}" defer="defer"></script>
+{{ 'fancybox.css' | asset_url | stylesheet_tag }}
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+{{ 'product.css' | asset_url | stylesheet_tag }}
+{{ 'stamped-main.css' | asset_url | stylesheet_tag }}
+{{ 'sale-badge.css' | asset_url | stylesheet_tag }}
+<div
+  class="c-container"
+  {% if product.metafields.custom.color != blank %}
+    style="--product-color: {{ product.metafields.custom.color | escape }};"
+  {% endif %}
+>
+  {%- assign featured_media = product.selected_or_first_available_variant.featured_image
+    | default: product.featured_image
+  -%}
+
+  {% liquid
+    assign default_variant_id = null
+    assign show_class = ''
+    assign product_color = '#f1b434'
+
+    if product.metafields.custom.color != blank
+      assign product_color = product.metafields.custom.color
+    endif
+
+    if product.variants != blank
+      for variant in product.variants
+        if settings.default_variants contains variant.title
+          assign default_variant_id = variant.id
+        endif
+        if variant.selected == true
+          assign default_variant_id = variant.id
+        endif
+      endfor
+      if default_variant_id == null
+        for variant in product.variants
+          if variant == product.selected_or_first_available_variant
+            assign default_variant_id = variant.id
+          endif
+        endfor
+      endif
+    endif
+  %}
+  {% if section.settings.dropdown %}
+    {{ 'variant-swatches.css' | asset_url | stylesheet_tag }}
+
+  {% endif %}
+
+  <div class="c-product__content  sss" data-product-color="{{ product_color }}">
+    <div class="c-product__left">
+      {%- if featured_media != null -%}
+        <div class="c-product__slider swiper">
+          <div class="c-product__slider__wrapper swiper-wrapper">
+            {%- if featured_media != null -%}
+              <div class="c-product__image swiper-slide">
+                <div class="c-product__image__wrapper u-absolute-fill{% if product.selected_or_first_available_variant.id != blank and product.variants.size > 1 %} show-variant{% endif %}">
+                  <div class="c-product__image__main u-absolute-fill">
+                    <a
+                      data-id="{{ featured_media.id }}"
+                      data-fancybox="gallery"
+                      data-src="{{ featured_media | image_url: width: 1600 }}"
+                      class="c-product__image__featured u-absolute-fill"
+                    >
+                      {{
+                        featured_media
+                        | image_url: width: featured_media.width
+                        | image_tag:
+                          height: featured_media.height,
+                          alt: featured_media.alt,
+                          class: 'u-absolute-fill',
+                          loading: 'lazy'
+                      }}
+                    </a>
+                  </div>
+                  {%- if product.variants != blank -%}
+                    <div class="c-product__image__variants u-absolute-fill">
+                      {%- for variant in product.variants -%}
+                        {% liquid
+                          if product.selected_or_first_available_variant == variant
+                            assign show_class = 'u-absolute-fill c-product__image__variant show-variant-image'
+                          else
+                            assign show_class = 'u-absolute-fill c-product__image__variant'
+                          endif
+                        %}
+                        {%- if variant.featured_media != blank -%}
+                          <a
+                            data-id="{{ variant.featured_media.id }}"
+                            data-fancybox="gallery"
+                            data-src="{{ variant.featured_media | image_url: width: 1600 }}"
+                            class="{{ show_class }}"
+                            data-variant-id="{{ variant.id }}"
+                          >
+                            {{
+                              variant.featured_media
+                              | image_url: width: variant.featured_media.width
+                              | image_tag:
+                                height: variant.featured_media.height,
+                                alt: variant.featured_media.alt,
+                                class: 'u-absolute-fill',
+                                loading: 'lazy'
+                            }}
+                          </a>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </div>
+                  {%- endif -%}
+                </div>
+                {%- if product.metafields.custom.background_image != blank -%}
+                  {{
+                    product.metafields.custom.background_image
+                    | image_url: width: product.metafields.custom.background_image.width
+                    | image_tag:
+                      height: product.metafields.custom.background_image.height,
+                      alt: product.metafields.custom.background_image.alt,
+                      class: 'c-product__image__background',
+                      loading: 'lazy'
+                  }}
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+            {%- if product.media.size > 1 -%}
+              {%- for media in product.media -%}
+                {%- unless media.id == product.selected_or_first_available_variant.featured_media.id
+                  or media.alt contains 'variant'
+                -%}
+                  <div class="swiper-slide c-product__slider__item">
+                    <a
+                      data-id="{{ media.id }}"
+                      data-fancybox="gallery"
+                      data-src="{% if media.media_type == 'image' %}{{ media | image_url: width: 1600 }}{% else if media.media_type == "external_video" %}{% if media.host == 'youtube' %}https://www.youtube.com/watch?v={% else %}https://vimeo.com/{% endif %}{{ media.external_id }}{% endif %}"
+                      class="c-product__gallery__item{% if media.media_type == "external_video" %} jarallax jarallax-mobile{% endif %}"
+                    >
+                      {% if media.media_type == 'external_video' %}
+                        <div class="c-product__gallery__icon">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                          </svg>
+                        </div>
+                      {% else %}
+                        <div class="c-product__gallery__icon is-zoom">
+                          <svg
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="css-i6dzq1"
+                          >
+                            <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>
+                          </svg>
+                        </div>
+                      {% endif %}
+                      {% if media.media_type == 'external_video' %}
+                        {{
+                          media
+                          | image_url: width: media.width
+                          | image_tag:
+                            height: media.height,
+                            alt: media.alt,
+                            class: 'c-product__gallery__img jarallax-img',
+                            loading: 'lazy'
+                        }}
+                      {% else %}
+                        {{
+                          media
+                          | image_url: width: media.width
+                          | image_tag:
+                            height: media.height,
+                            alt: media.alt,
+                            class: 'c-product__gallery__img',
+                            loading: 'lazy'
+                        }}
+                      {% endif %}
+                    </a>
+                  </div>
+                {%- endunless -%}
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+          <div class="c-product__slider__nav c-product__slider__nav--prev swiper-button-prev">
+            {%- render 'icon-arrow', type: 'left' -%}
+          </div>
+          <div class="c-product__slider__nav c-product__slider__nav--next swiper-button-next">
+            {%- render 'icon-arrow', type: 'right' -%}
+          </div>
+        </div>
+      {%- endif -%}
+      {%- if product.media.size > 1 -%}
+        <div class="c-product__gallery">
+          {%- for media in product.media -%}
+            {%- unless media.id == product.selected_or_first_available_variant.featured_media.id
+              or media.alt contains 'variant'
+            -%}
+              <a
+                data-id="{{ media.id }}"
+                data-fancybox="gallery"
+                data-src="{% if media.media_type == 'image' %}{{ media | image_url: width: 1600 }}{% else if media.media_type == "external_video" %}{% if media.host == 'youtube' %}https://www.youtube.com/watch?v={% else %}https://vimeo.com/{% endif %}{{ media.external_id }}{% endif %}"
+                class="c-product__gallery__item{% if media.media_type == "external_video" %} jarallax jarallax-desktop{% endif %}"
+              >
+                {% if media.media_type == 'external_video' %}
+                  <div class="c-product__gallery__icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                  </div>
+                {% endif %}
+                {% if media.media_type == 'external_video' %}
+                  {{
+                    media
+                    | image_url: width: media.width
+                    | image_tag:
+                      height: media.height,
+                      alt: media.alt,
+                      class: 'c-product__gallery__img jarallax-img',
+                      loading: 'lazy'
+                  }}
+                {% else %}
+                  {{
+                    media
+                    | image_url: width: media.width
+                    | image_tag: height: media.height, alt: media.alt, class: 'c-product__gallery__img', loading: 'lazy'
+                  }}
+                {% endif %}
+              </a>
+            {%- endunless -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+    <div class="c-product__right">
+      <div class="c-product__info-top">
+        <div class="c-product__title">
+  {%- if product.metafields.custom.product_name != blank -%}
+    <h1>
+      {{ product.metafields.custom.product_name | escape }}
+      {%- if product.metafields.custom.umf_score != blank -%}
+        <span class="c-product__score c-product__score--umf">
+          <span class="c-product__score__name">{{ 'sections.main_product.umf_html' | t }}</span>
+          <span class="c-product__score__value">{{ product.metafields.custom.umf_score | escape }}</span>
+        </span>
+      {%- endif -%}
+      {%- if product.metafields.custom.mgo_score != blank -%}
+        <span class="c-product__score c-product__score--mgo">
+          <span class="c-product__score__name">{{ 'sections.main_product.mgo' | t }}</span>
+          <span class="c-product__score__value">{{ product.metafields.custom.mgo_score | escape }}</span>
+        </span>
+      {%- endif -%}
+    </h1>
+    {% if product.metafields.custom.sale_badges != blank %}
+      <div class="sale-badge">{{ product.metafields.custom.sale_badges }}</div>
+    {% endif %}
+  {%- elsif product.title != blank -%}
+    <h1>
+      {{ product.title | escape }}
+      {%- if product.metafields.custom.umf_score != blank -%}
+        <span class="c-product__score c-product__score--umf">
+          <span class="c-product__score__name">{{ 'sections.main_product.umf_html' | t }}</span>
+          <span class="c-product__score__value">{{ product.metafields.custom.umf_score | escape }}</span>
+        </span>
+      {%- endif -%}
+      {%- if product.metafields.custom.mgo_score != blank -%}
+        <span class="c-product__score c-product__score--mgo">
+          <span class="c-product__score__name">{{ 'sections.main_product.mgo' | t }}</span>
+          <span class="c-product__score__value">{{ product.metafields.custom.mgo_score | escape }}</span>
+        </span>
+      {%- endif -%}
+    </h1>
+    {% if product.metafields.custom.sale_badges != blank %}
+      <div class="sale-badge">{{ product.metafields.custom.sale_badges }}</div>
+    {% endif %}
+  {%- else -%}
+    <h1>
+      {{ 'sections.main_product.manuka_honey' | t }}
+      {%- if product.metafields.custom.umf_score != blank -%}
+        <span class="c-product__score c-product__score--umf">
+          <span class="c-product__score__name">{{ 'sections.main_product.umf_html' | t }}</span>
+          <span class="c-product__score__value">{{ product.metafields.custom.umf_score | escape }}</span>
+        </span>
+      {%- endif -%}
+      {%- if product.metafields.custom.mgo_score != blank -%}
+        <span class="c-product__score c-product__score--mgo">
+          <span class="c-product__score__name">{{ 'sections.main_product.mgo' | t }}</span>
+          <span class="c-product__score__value">{{ product.metafields.custom.mgo_score | escape }}</span>
+        </span>
+      {%- endif -%}
+    </h1>
+    {% if product.metafields.custom.sale_badges != blank %}
+      <div class="sale-badge">{{ product.metafields.custom.sale_badges }}</div>
+    {% endif %}
+  {%- endif -%}
+</div>
+        {%- if product.description != blank or product.metafields.custom.short_description != blank -%}
+          <div class="c-product__description rte">
+            {% if section.settings.product_content == 'full' %}
+              {{ product.description }}
+            {% else %}
+              {% if product.metafields.custom.tagline != blank %}
+                <div class="c-product__tagline">
+                  <p>
+                    <strong>{{ product.metafields.custom.tagline }}</strong>
+                  </p>
+                  {%- if settings.public_api != blank -%}
+                    <a
+                      href="#stamped-main-widget"
+                      class="c-product__rating c-product__rating--js c-product__rating--hidden"
+                      data-rating="5"
+                      data-public-api="{{ settings.public_api }}"
+                      data-product-id="{{ product.id }}"
+                      data-domain="{{ shop.domain }}"
+                    >
+                      <div class="c-product__rating__stars">
+                        <span class="c-product__rating__star">
+                          <svg
+                            width="18"
+                            height="16"
+                            viewBox="0 0 18 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                          </svg>
+                          <svg
+                            width="18"
+                            height="16"
+                            viewBox="0 0 18 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                          </svg>
+                          <svg
+                            width="18"
+                            height="16"
+                            viewBox="0 0 18 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                          </svg>
+                          <svg
+                            width="18"
+                            height="16"
+                            viewBox="0 0 18 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                          </svg>
+                          <svg
+                            width="18"
+                            height="16"
+                            viewBox="0 0 18 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                          </svg>
+                        </span>
+                        <span class="c-product__rating__star--background">
+                          <svg
+                            width="18"
+                            height="16"
+                            viewBox="0 0 18 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                          </svg>
+                          <svg
+                            width="18"
+                            height="16"
+                            viewBox="0 0 18 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                          </svg>
+                          <svg
+                            width="18"
+                            height="16"
+                            viewBox="0 0 18 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                          </svg>
+                          <svg
+                            width="18"
+                            height="16"
+                            viewBox="0 0 18 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                          </svg>
+                          <svg
+                            width="18"
+                            height="16"
+                            viewBox="0 0 18 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                          </svg>
+                        </span>
+                      </div>
+                      <div class="c-product__rating__info"></div>
+                    </a>
+                  {%- else -%}
+                    {%- if product.metafields.reviews.rating.value != blank -%}
+                      {% liquid
+                        assign rating_decimal = 0
+                        assign decimal = product.metafields.reviews.rating.value.rating | modulo: 1
+                        if decimal >= 0.3 and decimal <= 0.7
+                          assign rating_decimal = 0.5
+                        elsif decimal > 0.7
+                          assign rating_decimal = 1
+                        endif
+                      %}
+                      <a href="#ratings" class="c-product__rating">
+                        <div class="c-product__rating__stars">
+                          <span
+                            class="c-product__rating__star "
+                            style="--rating: {{ product.metafields.reviews.rating.value.rating | floor }}; --rating-max: {{ product.metafields.reviews.rating.value.scale_max }}; --rating-decimal: {{ rating_decimal }};"
+                          >
+                            <svg
+                              width="18"
+                              height="16"
+                              viewBox="0 0 18 16"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                            </svg>
+                            <svg
+                              width="18"
+                              height="16"
+                              viewBox="0 0 18 16"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                            </svg>
+                            <svg
+                              width="18"
+                              height="16"
+                              viewBox="0 0 18 16"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                            </svg>
+                            <svg
+                              width="18"
+                              height="16"
+                              viewBox="0 0 18 16"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                            </svg>
+                            <svg
+                              width="18"
+                              height="16"
+                              viewBox="0 0 18 16"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                            </svg>
+                          </span>
+                          <span class="c-product__rating__star--background">
+                            <svg
+                              width="18"
+                              height="16"
+                              viewBox="0 0 18 16"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                            </svg>
+                            <svg
+                              width="18"
+                              height="16"
+                              viewBox="0 0 18 16"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                            </svg>
+                            <svg
+                              width="18"
+                              height="16"
+                              viewBox="0 0 18 16"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                            </svg>
+                            <svg
+                              width="18"
+                              height="16"
+                              viewBox="0 0 18 16"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                            </svg>
+                            <svg
+                              width="18"
+                              height="16"
+                              viewBox="0 0 18 16"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M16.6657 1.3918C14.8865 -0.463932 12.0118 -0.463932 10.2435 1.3918L8.86575 2.59123L7.75923 1.43706C5.98011 -0.41867 3.10532 -0.41867 1.3262 1.43706C-0.442067 3.28147 -0.442067 6.29137 1.3262 8.13578L8.86575 16L14.6696 9.94625L16.6657 7.86421C18.4448 6.00849 18.4448 3.24752 16.6657 1.3918Z" fill="#F1B434"/>
+                            </svg>
+                          </span>
+                        </div>
+                        <div class="c-product__rating__info">
+                          {{ product.metafields.reviews.rating_count -}}
+                          {%- if product.metafields.reviews.rating_count <= 1 -%}
+                            {{- 'sections.main_product.review' | t -}}
+                          {%- else -%}
+                            {{- 'sections.main_product.reviews' | t -}}
+                          {%- endif %}
+                        </div>
+                      </a>
+                    {%- endif -%}
+                  {%- endif -%}
+                </div>
+              {% endif %}
+              <p>{{ product.metafields.custom.short_description }}</p>
+            {% endif %}
+          </div>
+        {%- endif -%}
+      </div>                    
+      <div id="productPage" class="c-product__page">
+  <div id="productForm" class="c-product__form--wrapper">
+    {% form 'product', product, class: 'c-product__form' %}
+      {{ form | payment_terms }}
+
+      {%- unless product.has_only_default_variant -%}
+        {%- for option in product.options_with_values -%}
+          <span class="c-product__form__label c-product__form__label--mobile-center">
+            {{- option.name }}
+            {{ 'sections.main_product.select_one' | t -}}
+          </span>
+          <div class="product-form__options-wrapper d4-variant-swatches c-product__form__variants">
+            <div class="product-form__options-title">
+              <span>Variant: <span id="variant-name-display">{% if product.metafields.custom.default_variant_select.value != blank %}{% for variant in product.variants %}{% if forloop.index == product.metafields.custom.default_variant_select.value %}{{ variant.title }}{% endif %}{% endfor %}{% else %}Select a variant{% endif %}</span></span>
+            </div>
+<div class="product-form__options-container">
+    {% for variant in product.variants %}
+        <div
+            data-price="{{ variant.price | money_without_currency }}"
+            class="product-form__option-element {% if forloop.index == 1 %}selected{% endif %} {% if product.metafields.custom.default_variant_select.value != blank %}{% if forloop.index == product.metafields.custom.default_variant_select.value %}selected{% endif %}{% endif %}"
+            data-id="{{ variant.id }}"
+            data-value="{{ variant.title }}"
+            onclick="updateVariantSelection(this)"
+            style="display: inline-block; margin-right: 10px; cursor: pointer; border-radius: 25px;"
+        >
+            <img src="{{ variant.featured_image | img_url: '200x200' }}" alt="{{ variant.title }}" >
+        </div>
+    {% endfor %}
+</div>
+          </div>
+        {%- endfor -%}
+      {%- endunless -%}
+ <div class="variant-price1">Price: <span id="variant-price"></span></div>
+<style>
+  .variant-price1 {
+    margin: 20px 0px;
+    color: #ffffff;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f1b434;
+    border-radius: 25px;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .variant-price1:hover {
+    background-color: #ffcc00; /* Slightly darker yellow on hover */
+  }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Select all variant thumbnails
+    const variantElements = document.querySelectorAll(".product-form__option-element");
+
+    // Get the first variant price and display it
+    if (variantElements.length > 0) {
+        let firstVariantPrice = variantElements[0].getAttribute("data-price");
+        document.getElementById("variant-price").innerText = "Dhs. " + firstVariantPrice;
+    }
+
+    // Add click event listener to each variant
+    variantElements.forEach(element => {
+        element.addEventListener("click", function () {
+            // Get selected variant price
+            let selectedPrice = this.getAttribute("data-price");
+
+            // Update the price display
+            document.getElementById("variant-price").innerText = "Dhs. " + selectedPrice;
+        });
+    });
+});
+</script>
+{% if section.blocks != blank %}
+            <div class="product-app-blocks">
+              {%- for block in section.blocks -%}
+                {%- case block.type -%}
+                  {%- when 'title' -%}
+                    <span class="c-product__form__label c-product__form__label--mobile-center recharge-subscription-widget-title">
+                      {{ block.settings.title }}
+                    </span>
+                  {%- when '@app' -%}
+                    {% render block %}
+                {%- endcase -%}
+              {%- endfor -%}
+            </div>
+          {% endif %}
+      <input type="hidden" id="Option1--variant_picker" name="id" {% if product.metafields.custom.default_variant_select.value != blank %}{% for variant in product.variants %}{% if forloop.index == product.metafields.custom.default_variant_select.value %}value="{{ variant.id }}"{% endif %}{% endfor %}{% endif %}>
+               <div class="product-form__options-title">
+              <span style="font-size: 14px;">SELECT QUANTITY</span>
+            </div>
+<div class="c-product__form__bottom">
+    <div class="c-product__form__quantity">
+        <div class="c-product__form__quantity__wrapper">
+            <span class="c-product__form__quantity__minus">-</span>
+            <input value="1" type="number" id="Quantity" name="quantity" class="quantity-selector">
+            <span class="c-product__form__quantity__plus">+</span>
+        </div>
+    </div>
+    <div class="c-product__button__wrapper">
+        <button type="submit" name="add" id="AddToCart" class="c-product__form__cart c-product__form__cart__button">
+            {{ 'sections.main_product.add_to_cart' | t }}
+        </button>
+    </div>
+</div>
+  <div data-ajax-cart-messages="form">
+                <!-- Errors and messages appear here -->
+              </div>
+
+      <div class="container_msg">  <!-- Ensure this container supports flex display -->
+    <div class="c-product__form__message">
+        {%- if settings.delivery_message != blank -%}
+            <div class="c-product__form__label" for="Quantity">{{ 'sections.main_product.delivery' | t }}</div>
+            <p>{{ settings.delivery_message }}</p>
+        {%- endif -%}
+    </div>
+    <div class="c-product__form__message">
+       <div id="edt-p"></div>
+    </div>
+</div>
+
+
+    {% endform %}
+    <div class="c-product__afterpay">
+          <div class="c-product__form__label">{{ 'sections.main_product.afterpay' | t }}</div>
+          <div class="c-product__afterpay__price">
+            {{ product.selected_or_first_available_variant.price | money_without_currency }}
+          </div>
+          <div class="c-product__afterpay__el"></div>
+        </div>
+        {%- if section.settings.product_list != blank -%}
+          <div class="c-product__umf">
+            {%- if section.settings.umf_title -%}
+              <div class="c-product__form__label">{{ section.settings.umf_title | escape }}</div>
+            {%- endif -%}
+            
+             {% if template == 'product.mgo-variant-swatches' or template == 'product.lozenges-mgo' %}
+   <ul class="c-product__umf__nav u-list-reset">
+              {% comment %}theme-check-disable{% endcomment %}
+              {% assign mgo_counter = 0 %}
+              {% comment %}theme-check-enable{% endcomment %}
+              {% assign current_score = 1 %}
+              {% for mgo_nav in section.settings.product_list %}
+                {% if mgo_nav.metafields.custom.mgo_score != blank and mgo_nav.metafields.custom.color != blank %}
+                  {% assign mgo_counter = mgo_counter | plus: 1 %}
+                  {% if product.metafields.custom.umf_score != blank %}
+                    {% if product.metafields.custom.mgo_score == mgo_nav.metafields.custom.mgo_score %}
+                      {% assign current_score = mgo_counter %}
+                    {% endif %}
+                  {% endif %}
+                  {% liquid
+                    assign default_variant_id = null
+                    if mgo_nav.variants != blank
+                      for variant in mgo_nav.variants
+                        if settings.default_variants contains variant.title
+                          assign default_variant_id = variant.id
+                        endif
+                      endfor
+                    endif
+                  %}
+                  <li>
+                    <a
+                      class="c-product__umf__nav__item{% if product.metafields.custom.mgo_score == mgo_nav.metafields.custom.mgo_score %} is-current{% endif %}"
+                      data-score="{{ mgo_nav.metafields.custom.mgo_score }}"
+                      href="{{ mgo_nav.url }}{% if default_variant_id != null %}?variant={{ default_variant_id }}{% endif %}"
+                      style="--product-color: {{ mgo_nav.metafields.custom.color | escape }};"
+                      >MGO {{ mgo_nav.metafields.custom.mgo_score -}}
+                      <span class="c-product__umf__nav__item__tooltip d9-tool-tip">
+                        {{- 'sections.main_product.view_honey' | t -}}
+                      </span>
+                    </a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+               {% else %}
+               <ul class="c-product__umf__nav u-list-reset">
+              {% comment %}theme-check-disable{% endcomment %}
+              {% assign umf_counter = 0 %}
+              {% comment %}theme-check-enable{% endcomment %}
+              {% assign current_score = 1 %}
+              {% for umf_nav in section.settings.product_list %}
+                {% if umf_nav.metafields.custom.umf_score != blank and umf_nav.metafields.custom.color != blank %}
+                  {% assign umf_counter = umf_counter | plus: 1 %}
+                  {% if product.metafields.custom.umf_score != blank %}
+                    {% if product.metafields.custom.umf_score == umf_nav.metafields.custom.umf_score %}
+                      {% assign current_score = umf_counter %}
+                    {% endif %}
+                  {% endif %}
+                  {% liquid
+                    assign default_variant_id = null
+                    if umf_nav.variants != blank
+                      for variant in umf_nav.variants
+                        if settings.default_variants contains variant.title
+                          assign default_variant_id = variant.id
+                        endif
+                      endfor
+                    endif
+                  %}
+                  <li>
+                    <a
+                      class="c-product__umf__nav__item{% if product.metafields.custom.umf_score == umf_nav.metafields.custom.umf_score %} is-current{% endif %}"
+                      data-score="{{ umf_nav.metafields.custom.umf_score }}"
+                      href="{{ umf_nav.url }}{% if default_variant_id != null %}?variant={{ default_variant_id }}{% endif %}"
+                      style="--product-color: {{ umf_nav.metafields.custom.color | escape }};"
+                      ><span>UMF™</span> {{ umf_nav.metafields.custom.umf_score -}}
+                      <span class="c-product__umf__nav__item__tooltip">
+                        {{- 'sections.main_product.view_honey' | t -}}
+                      </span>
+                    </a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+  {% endif %}
+            
+            {%- if section.settings.scale_title -%}
+              <div class="c-product__form__label">{{ section.settings.scale_title | escape }}</div>
+            {%- endif -%}
+            
+            
+               <div class="c-product__umf__slider">
+              <input
+                type="range"
+                min="1"
+                max="{{ umf_counter }}"
+                step="1"
+                value="{{ current_score }}"
+                class="c-product__umf__range"
+              >
+              {% assign i = 0 %}
+              <style>
+                body .c-product__umf__slider input[type='range'] {
+                  background-image: linear-gradient(
+                    to right{% for umf_css in section.settings.product_list %}{% assign i = i | plus: 1 %},
+                    {{ umf_css.metafields.custom.color | escape }} {% if i == 1 %}0%{% elsif i == umf_counter %}100%{% else
+                      %}{{ i | times: 100 | divided_by: umf_counter }}%{% endif %}{% endfor %}
+                  );
+                }
+              </style>
+            </div>
+
+            {%- if section.settings.scale_start != blank and section.settings.scale_end != blank -%}
+              <div class="c-product__umf__slider__labels">
+                <span>{{ section.settings.scale_start | escape }}</span>
+                <span>{{ section.settings.scale_end | escape }}</span>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+  </div>
+</div>
+
+<script>
+  var productObject = {{ product | json }};
+
+  // Function to update the variant selection
+  function updateVariantSelection(element) {
+    var variantId = element.getAttribute('data-id');
+    var variantName = element.getAttribute('data-value');
+    document.getElementById('Option1--variant_picker').value = variantId;
+    document.getElementById('variant-name-display').textContent = variantName;
+    document.querySelector('.product-form__option-element.selected')?.classList.remove('selected');
+    element.classList.add('selected');
+
+    // Update ReCharge subscription details
+    updateReCharge(variantId);
+  }
+
+  // Function to handle ReCharge updates
+  function updateReCharge(variantId) {
+    var event = new CustomEvent('variantChange', { detail: { variantId: variantId } });
+    document.dispatchEvent(event);
+
+    // Simulating a change event for ReCharge
+    var selectElement = document.getElementById('Option1--variant_picker');
+    if ("createEvent" in document) {
+      var evt = document.createEvent("HTMLEvents");
+      evt.initEvent("change", false, true);
+      selectElement.dispatchEvent(evt);
+    } else {
+      selectElement.fireEvent("onchange");
+    }
+  }
+
+  // Select the first variant on page load
+  document.addEventListener("DOMContentLoaded", function () {
+    var firstVariantElement = document.querySelector('.product-form__option-element');
+    if (firstVariantElement) {
+      updateVariantSelection(firstVariantElement);
+    }
+  });
+</script>
+
+                <script>
+                  const productVariantd4 = document.querySelectorAll('.product-form__option-element');
+  var price = document.querySelector(".c-product__afterpay__price");
+  productVariantd4.forEach(variant=> {
+    variant.addEventListener('click', ()=> {
+      console.log('Variant Clicked!');
+      if(variant.classList.contains("selected")) {
+        price.innerHTML = variant.getAttribute('data-price');
+      }
+    })
+  })
+                </script>                
+      {% if product.metafields.custom.default_variant_select.value != blank %}
+        <script>
+        function d4UpdateSwatchDetails() {
+          window.addEventListener('load', () => {
+            const d4SelectedVariant = document.querySelector('.product-form__option-element.selected');
+            d4SelectedVariant.click();
+          })
+        }
+    
+        d4UpdateSwatchDetails();
+      </script>
+    {% endif %}
+    </div>
+  </div>
+  {%- liquid
+    if product.selected_or_first_available_variant.featured_media
+      assign seo_media = product.selected_or_first_available_variant.featured_media
+    else
+      assign seo_media = product.featured_media
+    endif
+  -%}
+
+  {% assign current_variant = product.selected_or_first_available_variant %}
+  <script type="application/ld+json">
+    {
+           "@context": "http://schema.org/",
+           "@type": "Product",
+      	   "url": "{{ shop.secure_url | escape }}{{ product.url | escape }}",
+      	   "name": "{{ product.title | escape }}",
+           "image": "https:{{ product.featured_image.src | img_url: 'master' }}",
+           "description": "{{ product.description | escape }}",
+           "brand": {
+               "name": "{{ product.vendor }}"
+           },
+           "sku": "{{ product.variants.first.sku }}",
+           "mpn": "{{ product.variants.first.sku }}",
+           "offers": {
+               "@type": "Offer",
+               "priceCurrency": "{{ shop.currency }}",
+               "price": "{{ current_variant.price | money_without_currency }}",
+               "availability": "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+               "seller": {
+                   "@type": "Organization",
+                    "name": "{{ shop.name }}"
+               },
+               "url": "{{ shop.secure_url | escape }}{{ product.url | escape }}"
+           }
+     {% if product.metafields.stamped.reviews_count and product.metafields.stamped.reviews_count != "0" %},"aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": {{ product.metafields.stamped.reviews_average | round: 2 }},
+    "reviewCount": {{ product.metafields.stamped.reviews_count }},
+    "bestRating": 5,
+    "worstRating": 1
+    }
+    {% endif %}
+    }
+  </script>
+
+ </div>
+
+{% schema %}
+{
+  "name": "Main Product swatches",
+  "tag": "section",
+  "class": "c-product",
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "title",
+      "name": "Title",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "We are dedicated to transparency"
+    },
+    {
+      "type": "text",
+      "id": "umf_title",
+      "label": "UMF™ Title",
+      "default": "UMF™ scale"
+    },
+    {
+      "type": "product_list",
+      "id": "product_list",
+      "label": "UMF™ Products",
+      "info": "Please choose products that contain the UMF score.",
+      "limit": 12
+    },
+    {
+      "type": "text",
+      "id": "scale_title",
+      "label": "Scale title",
+      "default": "Taste Profile"
+    },
+    {
+      "type": "text",
+      "id": "scale_start",
+      "label": "Scale start",
+      "default": "Clean & Intense"
+    },
+    {
+      "type": "text",
+      "id": "scale_end",
+      "label": "Scale end",
+      "default": "Bold & Intense"
+    },
+
+    {
+      "type": "select",
+      "id": "product_content",
+      "label": "Product Content",
+      "options": [
+        {
+          "value": "short",
+          "label": "Display Short Description"
+        },
+        {
+          "value": "full",
+          "label": "Display Full Description"
+        }
+      ],
+      "default": "short"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Main Product"
+    }
+  ]
+}
+{% endschema %}

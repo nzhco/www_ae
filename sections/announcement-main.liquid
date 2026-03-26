@@ -1,0 +1,68 @@
+{%- if settings.show_announcement -%}
+  {{ 'announcement.css' | asset_url | stylesheet_tag }}
+  <div class="announcement-bar">
+    <div
+      class="announcement-wrapper"
+      {% if settings.announcement_color_text and settings.announcement_color_bg %}
+        style="--an-color: {{ settings.announcement_color_text }}; --an-bg: {{ settings.announcement_color_bg }};"
+      {% endif %}
+    >
+      {%- if settings.announcement_link != blank -%}
+        <a
+          href="{{ settings.announcement_link }}"
+          class="announcement-link"
+          rel="bookmark"
+          {% if settings.announcement_color_text %}
+            style="--an-color: {{ settings.announcement_color_text }};"
+          {% endif %}
+        >
+          <div class="c-container">
+            <div class="announcement-text">
+              <span>{{ settings.announcement_text }}</span>
+              {%- if settings.announcement_icon -%}
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 24 24"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  xml:space="preserve"
+                  xmlns:serif="http://www.serif.com/"
+                  style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
+                >
+                  <g transform="matrix(0.471041,0,0,0.490683,0.223978,0.199081)">
+                      <path d="M35.1,32.95L32.95,30.85L38.25,25.55L6,25.55L6,22.55L38.3,22.55L33,17.25L35.1,15.15L44,24.05L35.1,32.95Z" style="fill-rule:nonzero;"/>
+                  </g>
+                </svg>
+              {% endif %}
+            </div>
+          </div>
+        </a>
+      {%- else -%}
+        <div class="c-container">
+          <div class="announcement-text">
+            <span>{{ settings.announcement_text }}</span>
+            {%- if settings.announcement_icon -%}
+              <svg
+                width="100%"
+                height="100%"
+                viewBox="0 0 24 24"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xml:space="preserve"
+                xmlns:serif="http://www.serif.com/"
+                style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
+              >
+                <g transform="matrix(0.471041,0,0,0.490683,0.223978,0.199081)">
+                    <path d="M35.1,32.95L32.95,30.85L38.25,25.55L6,25.55L6,22.55L38.3,22.55L33,17.25L35.1,15.15L44,24.05L35.1,32.95Z" style="fill-rule:nonzero;"/>
+                </g>
+              </svg>
+            {% endif %}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}

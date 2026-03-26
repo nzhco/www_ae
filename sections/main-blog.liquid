@@ -1,0 +1,82 @@
+<script src="{{ 'infinite-scroll.pkgd.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'blog.js' | asset_url }}" defer="defer"></script>
+{{ 'c-blog.css' | asset_url | stylesheet_tag }}
+<div class="c-container">
+  {%- if section.settings.filters -%}
+    <div class="c-blog__filters">
+      <h3>{{ 'sections.main_blog.filter_by' | t }}</h3>
+      {% if blog.all_tags %}
+        <ul class="c-blog__filters__list">
+          {% for tag in blog.all_tags %}
+            <li>{{ tag | link_to_tag: tag }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  {%- endif -%}
+  {%- paginate blog.articles by 6 -%}
+    <div class="c-blog__posts">
+      {%- for article in blog.articles -%}
+        <div class="c-blog__post">
+          {% if article.image != blank %}
+            <div class="c-blog__post__image">
+              <a href="{{ article.url }}" rel="bookmark">
+                {{
+                  article.image
+                  | image_url: width: 900
+                  | image_tag:
+                    height: article.image.height,
+                    alt: article.image.alt,
+                    class: 'u-absolute-fill',
+                    loading: 'lazy'
+                }}
+              </a>
+            </div>
+          {% endif %}
+          <div class="c-blog__post__content">
+            <div class="c-blog__post__tag">{{ article.tags | first }}</div>
+            <h3>
+              <a href="{{ article.url }}" rel="bookmark">{{ article.title }}</a>
+            </h3>
+            <div class="c-blog__post__excerpt">
+              {% if article.excerpt != blank %}
+                {{ article.excerpt | strip_html | truncate: 200 }}
+              {% else %}
+                {{ article.excerpt_or_content | strip_html | truncate: 200 }}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if paginate.pages > 1 and paginate.next -%}
+      <div class="c-blog__pagination">
+        <a class="c-button c-blog__pagination__link" href="{{ paginate.next.url }}{{ anchor }}">
+          {{- 'sections.main_blog.load_more' | t -}}
+        </a>
+      </div>
+    {%- endif -%}
+  {%- endpaginate -%}
+</div>
+
+{% schema %}
+{
+  "name": "Main Blog",
+  "tag": "section",
+  "class": "c-blog",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "filters",
+      "label": "Show Filters",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Main Blog"
+    }
+  ]
+}
+{% endschema %}

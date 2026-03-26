@@ -1,0 +1,120 @@
+
+.pure-monofloral-section {
+  padding: 15px 0;
+}
+
+.pure-monofloral-pill {
+  display: inline-flex;
+  gap: 5px;
+  padding: 12px;
+  border: 2px solid #f1b335;
+  border-radius: 999px;
+}
+
+.pure-monofloral-pill h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  color: #f1b335;
+  white-space: nowrap;
+}
+
+.pure-monofloral-icon {
+  color: #f1b335;
+  
+}
+
+.pure-monofloral-icon svg {
+  display: block;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .pure-monofloral-pill {
+    padding: 12px;
+  }
+
+  .pure-monofloral-pill h2 {
+    font-size: 14px;
+  }
+
+  .pure-monofloral-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.product-benefits {
+  padding: 10px 0px 0px;
+}
+
+.product-benefits__inner {
+  max-width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  text-align: center;
+}
+
+.product-benefit__image {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.product-benefit__image img {
+  max-width: 90px;
+  height: auto;
+  object-fit: cover;
+}
+
+.product-benefit__title {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #000000;
+}
+
+@media (max-width: 768px) {
+  .product-benefits__inner {
+    gap: 15px;
+  }
+
+  .product-benefit__image {
+    width: 70px;
+    height: 70px;
+  }
+
+  .product-benefit__image img {
+    max-width: 70px;
+  }
+
+  .product-benefit__title {
+    font-size: 16px;
+    line-height: 1.2;
+  }
+}
+.product-badge {
+  position: absolute;
+  top: 30px;      /* adjust position as needed */
+  left: 40px;    /* adjust position as needed */
+  z-index: 10;    /* keep it on top of image */
+}
+
+.product-badge img {
+  max-width: 80px; /* adjust badge size */
+  height: auto;
+  display: block;
+}
+@media (max-width: 575px) {
+  .product-badge {
+    left: 0px; /* adjust position as needed */
+  }
+  .product-badge img {
+  max-width: 60px; /*
+  }
+}

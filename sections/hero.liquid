@@ -1,0 +1,94 @@
+<script src="{{ 'jarallax.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'jarallax-video.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'hero.js' | asset_url }}" defer="defer"></script>
+{{ 'hero.css' | asset_url | stylesheet_tag }}
+<div class="c-container">
+  <div class="c-hero__content">
+    {%- if section.settings.heading != blank -%}
+      <h2>{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.paragraph != blank -%}
+      <p>{{ section.settings.paragraph | escape }}</p>
+    {%- endif -%}
+    {%- if section.settings.button_label != blank and section.settings.button_link -%}
+      <a href="{{ section.settings.button_link }}" class="c-button c-button--white" rel="bookmark">
+        {{- section.settings.button_label | escape -}}
+      </a>
+    {%- endif -%}
+  </div>
+</div>
+{% if section.settings.video %}
+  <div class="c-hero__video jarallax" data-url="{{ section.settings.video }}">
+    <img
+      class="c-hero__image u-absolute-fill jarallax-img"
+      srcset="{%- if section.settings.image.width >= 375 -%}{{ section.settings.image | image_url: width: 750 }} 375w,{%- endif -%} {%- if section.settings.image.width >= 550 -%}{{ section.settings.image | image_url: width: 1100 }} 550w,{%- endif -%} {%- if section.settings.image.width >= 750 -%}{{ section.settings.image | image_url: width: 1500 }} 750w,{%- endif -%} {%- if section.settings.image.width >= 1100 -%}{{ section.settings.image | image_url: width: 2200 }} 1100w,{%- endif -%} {%- if section.settings.image.width >= 1500 -%}{{ section.settings.image | image_url: width: 3000 }} 1500w,{%- endif -%} {%- if section.settings.image.width >= 1780 -%}{{ section.settings.image | image_url: width: 3540 }} 1780w,{%- endif -%} {%- if section.settings.image.width >= 2000 -%}{{ section.settings.image | image_url: width: 2000 }} 2000w,{%- endif -%} {%- if section.settings.image.width >= 3000 -%}{{ section.settings.image | image_url: width: 3000 }} 3000w,{%- endif -%} {%- if section.settings.image.width >= 3840 -%}{{ section.settings.image | image_url: width: 3840 }} 3840w,{%- endif -%} {{ section.settings.image | image_url }} {{ section.settings.image.width }}w"
+      sizes="100vw"
+      src="{{ section.settings.image | image_url: width: 1500 }}"
+      loading="lazy"
+      alt="{{ section.settings.image.alt | escape }}"
+      width="{{ section.settings.image.width }}"
+      height="{{ section.settings.image.width | divided_by: section.settings.image.aspect_ratio }}"
+    >
+  </div>
+{% else %}
+  <img
+    class="c-hero__image u-absolute-fill"
+    srcset="{%- if section.settings.image.width >= 375 -%}{{ section.settings.image | image_url: width: 750 }} 375w,{%- endif -%} {%- if section.settings.image.width >= 550 -%}{{ section.settings.image | image_url: width: 1100 }} 550w,{%- endif -%} {%- if section.settings.image.width >= 750 -%}{{ section.settings.image | image_url: width: 1500 }} 750w,{%- endif -%} {%- if section.settings.image.width >= 1100 -%}{{ section.settings.image | image_url: width: 2200 }} 1100w,{%- endif -%} {%- if section.settings.image.width >= 1500 -%}{{ section.settings.image | image_url: width: 3000 }} 1500w,{%- endif -%} {%- if section.settings.image.width >= 1780 -%}{{ section.settings.image | image_url: width: 3540 }} 1780w,{%- endif -%} {%- if section.settings.image.width >= 2000 -%}{{ section.settings.image | image_url: width: 2000 }} 2000w,{%- endif -%} {%- if section.settings.image.width >= 3000 -%}{{ section.settings.image | image_url: width: 3000 }} 3000w,{%- endif -%} {%- if section.settings.image.width >= 3840 -%}{{ section.settings.image | image_url: width: 3840 }} 3840w,{%- endif -%} {{ section.settings.image | image_url }} {{ section.settings.image.width }}w"
+    sizes="100vw"
+    src="{{ section.settings.image | image_url: width: 1500 }}"
+    loading="lazy"
+    alt="{{ section.settings.image.alt | escape }}"
+    width="{{ section.settings.image.width }}"
+    height="{{ section.settings.image.width | divided_by: section.settings.image.aspect_ratio }}"
+  >
+{% endif %}
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "section",
+  "class": "c-hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "video_url",
+      "id": "video",
+      "label": "Background Video",
+      "default": "https://www.youtube.com/watch?v=r4wNFNe1k-s",
+      "accept": ["youtube", "vimeo"]
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your authentic, certified NZ Manuka honey for beauty, immunity and vitality."
+    },
+    {
+      "type": "text",
+      "id": "paragraph",
+      "label": "Paragraph",
+      "default": "Take the quiz"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "WHICH HONEY IS FOR ME?"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,140 @@
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+{{ 'logos.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'logos.js' | asset_url }}" defer="defer"></script>
+<div class="c-container">
+  <div class="c-logos__wrapper">
+    {% if section.settings.title != blank %}
+      <h2>{{ section.settings.title }}</h2>
+    {% endif %}
+    {%- if section.blocks != blank -%}
+      <div class="c-logos__slider c-logos--desktop">
+        <div class="c-logos__slider__wrapper">
+          {%- for block in section.blocks -%}
+            {% if block.settings.logo_image != blank %}
+              {% if block.settings.logo_link != blank %}
+                <a
+                  class="c-logos__slide "
+                  href="{{ block.settings.logo_link }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {{
+                    block.settings.logo_image
+                    | image_url: width: 600
+                    | image_tag:
+                      class: '',
+                      widths: '300, 400',
+                      height: block.settings.logo_image.height,
+                      width: block.settings.logo_image.width,
+                      alt: block.settings.logo_image.alt,
+                      loading: 'lazy'
+                  }}
+                </a>
+              {% else %}
+                <div class="c-logos__slide swiper-slide">
+                  {{
+                    block.settings.logo_image
+                    | image_url: width: 600
+                    | image_tag:
+                      class: '',
+                      widths: '300, 400',
+                      height: block.settings.logo_image.height,
+                      width: block.settings.logo_image.width,
+                      alt: block.settings.logo_image.alt,
+                      loading: 'lazy'
+                  }}
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+    {%- if section.blocks != blank -%}
+      <div class="c-logos__slider swiper c-logos--mobile">
+        <div class="c-logos__slider__wrapper swiper-wrapper">
+          {%- for block in section.blocks -%}
+            {% if block.settings.logo_image != blank %}
+              {% if block.settings.logo_link != blank %}
+                <a
+                  class="c-logos__slide swiper-slide"
+                  href="{{ block.settings.logo_link }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {{
+                    block.settings.logo_image
+                    | image_url: width: 600
+                    | image_tag:
+                      class: '',
+                      widths: '300, 400',
+                      height: block.settings.logo_image.height,
+                      width: block.settings.logo_image.width,
+                      alt: block.settings.logo_image.alt,
+                      loading: 'lazy'
+                  }}
+                </a>
+              {% else %}
+                <div class="c-logos__slide swiper-slide">
+                  {{
+                    block.settings.logo_image
+                    | image_url: width: 600
+                    | image_tag:
+                      class: '',
+                      widths: '300, 400',
+                      height: block.settings.logo_image.height,
+                      width: block.settings.logo_image.width,
+                      alt: block.settings.logo_image.alt,
+                      loading: 'lazy'
+                  }}
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          <div class="c-logos__slider__slide"></div>
+        </div>
+        <div class="swiper-pagination c-logos__pagination"></div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Logos",
+  "tag": "section",
+  "class": "c-logos",
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo_image",
+          "label": "Logo IMage"
+        },
+        {
+          "type": "url",
+          "id": "logo_link",
+          "label": "Logo link"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "As seen in:"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Logos"
+    }
+  ]
+}
+{% endschema %}
