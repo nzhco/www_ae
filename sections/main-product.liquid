@@ -13,6 +13,98 @@
 {{ 'product.css' | asset_url | stylesheet_tag }}
 {{ 'stamped-main.css' | asset_url | stylesheet_tag }}
 {{ 'consumberlab.css' | asset_url | stylesheet_tag }}
+{% style %}
+  #shopify-section-{{ section.id }} .c-product__offer-banner {
+    margin-top: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .c-product__offer-banner__inner {
+    background: {{ section.settings.subscription_offer_bg_color }};
+    border-radius: {{ section.settings.subscription_offer_border_radius }}px;
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.14);
+    color: {{ section.settings.subscription_offer_text_color }};
+    margin: 0 auto;
+    max-width: {{ section.settings.subscription_offer_max_width }}px;
+    padding: 12px 18px;
+  }
+
+  #shopify-section-{{ section.id }} .c-product__offer-banner__inner.is-clickable {
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .c-product__offer-banner__layout {
+    align-items: center;
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .c-product__offer-banner__content {
+    flex: 1 1 auto;
+  }
+
+  #shopify-section-{{ section.id }} .c-product__offer-banner__title {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .c-product__offer-banner__link {
+    color: {{ section.settings.subscription_offer_link_color }};
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .c-product__offer-banner__caption {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+    margin: 4px 0 0;
+    opacity: 0.92;
+  }
+
+  #shopify-section-{{ section.id }} .c-product__offer-banner__cta {
+    background: {{ section.settings.subscription_offer_cta_bg_color }};
+    border-radius: 999px;
+    color: {{ section.settings.subscription_offer_cta_text_color }};
+    display: inline-flex;
+    font-size: 12px;
+    font-weight: 700;
+    justify-content: center;
+    line-height: 1;
+    min-width: 120px;
+    padding: 11px 16px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .c-product__offer-banner__inner {
+      padding: 10px 14px;
+    }
+
+    #shopify-section-{{ section.id }} .c-product__offer-banner__layout {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .c-product__offer-banner__title {
+      font-size: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .c-product__offer-banner__caption {
+      font-size: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .c-product__offer-banner__cta {
+      min-width: 0;
+      width: 100%;
+    }
+  }
+{% endstyle %}
 <div
   class="c-container"
   {% if product.metafields.custom.color != blank %}
@@ -286,44 +378,11 @@
       {%- endif -%}
     {%- endif -%}
   {%- endfor -%}
-</div>
+	</div>
       {%- endif -%}
     </div>
     <div class="c-product__right">
       <div class="c-product__info-top">
-        <section class="pure-monofloral-section">
-  <div class="pure-monofloral-pill">
-    <span class="pure-monofloral-icon" aria-hidden="true">
-      <svg
-        width="14"
-        height="14"
-        viewBox="0 0 14 14"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M8.4244 7.08341C8.4244 7.52544 8.2488 7.94937 7.93624 8.26193C7.62368 8.57449 7.19976 8.75008 6.75773 8.75008C6.3157 8.75008 5.89178 8.57449 5.57922 8.26193C5.26666 7.94937 5.09106 7.52544 5.09106 7.08341C5.09106 6.64139 5.26666 6.21746 5.57922 5.9049C5.89178 5.59234 6.3157 5.41675 6.75773 5.41675C7.19976 5.41675 7.62368 5.59234 7.93624 5.9049C8.2488 6.21746 8.4244 6.64139 8.4244 7.08341Z"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linejoin="round"
-        />
-        <path
-          d="M6.75763 0.75C8.23096 0.75 9.42296 2.028 9.42296 3.50133C9.63719 3.44489 9.85985 3.41667 10.091 3.41667C10.6968 3.41638 11.2847 3.6224 11.7578 4.00079C12.2309 4.37919 12.5611 4.90741 12.694 5.49849C12.8268 6.08957 12.7545 6.70827 12.4888 7.25274C12.2231 7.79721 11.78 8.23499 11.2323 8.494C11.4493 8.78723 11.6038 9.12185 11.6862 9.47716C11.7687 9.83248 11.7774 10.2009 11.7118 10.5598C11.6462 10.9186 11.5077 11.2601 11.3048 11.5633C11.1019 11.8664 10.839 12.1247 10.5323 12.3222C10.2257 12.5197 9.88171 12.6521 9.52179 12.7114C9.16187 12.7706 8.79362 12.7554 8.43982 12.6667C8.08602 12.5779 7.75418 12.4175 7.46484 12.1954C7.1755 11.9733 6.9348 11.6942 6.75763 11.3753C6.58046 11.6942 6.33976 11.9733 6.05042 12.1954C5.76108 12.4175 5.42924 12.5779 5.07544 12.6667C4.72164 12.7554 4.35339 12.7706 3.99347 12.7114C3.63355 12.6521 3.28961 12.5197 2.98293 12.3222C2.67624 12.1247 2.41334 11.8664 2.21046 11.5633C2.00759 11.2601 1.86906 10.9186 1.80346 10.5598C1.73785 10.2009 1.74655 9.83248 1.82903 9.47716C1.91151 9.12185 2.066 8.78723 2.28296 8.494C1.68099 8.21125 1.2064 7.71377 0.952299 7.09915C0.698203 6.48453 0.682944 5.79715 0.909517 5.17186C1.13609 4.54657 1.58814 4.02852 2.17697 3.71933C2.76581 3.41015 3.44893 3.33216 4.0923 3.50067C4.0923 2.02867 5.2843 0.75 6.75763 0.75Z"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linejoin="round"
-        />
-      </svg>
-    </span>
-
-    {% if request.locale.iso_code contains 'en' %}
-  <h2>Pure Monofloral</h2>
-{% else %}
-  <h2>أحادي الزهرة النقي</h2>
-{% endif %}
-
-  </div>
-</section>
         <div class="c-product__title">
   {%- if product.metafields.custom.product_name != blank -%}
     <h1>
@@ -399,7 +458,7 @@
                   <p>
                     <strong>{{ product.metafields.custom.tagline }}</strong>
                   </p>
-                  {% comment %} {%- if settings.public_api != blank -%}
+                  {%- if settings.public_api != blank -%}
                     <a
                       href="#stamped-main-widget"
                       class="c-product__rating c-product__rating--js c-product__rating--hidden"
@@ -627,88 +686,9 @@
                         </div>
                       </a>
                     {%- endif -%}
-                  {%- endif -%} {% endcomment %}
-                   <div class="gw-rv-star-rating-widget-placeholder" data-gw-product-id="{{product.id}}" style="display: block" ></div>
+                  {%- endif -%}
                 </div>
               {% endif %}
-              {% if
-  product.metafields.custom.benefit_1_image
-  or product.metafields.custom.benefit_2_image
-  or product.metafields.custom.benefit_3_image
-%}
-
-<section class="product-benefits">
-  <div class="product-benefits__inner">
-
-    {% for i in (1..3) %}
-      {% assign image_key = 'benefit_' | append: i | append: '_image' %}
-      {% assign title_key = 'benefit_' | append: i | append: '_title' %}
-
-      {% assign image = product.metafields.custom[image_key] %}
-      {% assign title = product.metafields.custom[title_key] %}
-
-      {% if image != blank or title != blank %}
-        <div class="product-benefit">
-          {% if image != blank %}
-            <div class="product-benefit__image">
-              <img
-                src="{{ image | image_url: width: 300 }}"
-                alt="{{ title | escape }}"
-                loading="lazy"
-              >
-            </div>
-          {% endif %}
-
-          {% if title != blank %}
-            <p class="product-benefit__title">{{ title }}</p>
-          {% endif %}
-        </div>
-      {% endif %}
-    {% endfor %}
-
-  </div>
-</section>
-
-{% endif %}
-
-<style>
-  .pureTrace_honey_mobile {
-      display: none;
-      width: 100%;
-  }
-  .pureTrace_honey_desktop {
-      display: block;
-      width: 100% !important;
-      height: auto !important;
-      margin: 20px 0px !important;
-  }
-  @media only screen and (max-width: 600px) {
-      .pureTrace_honey_mobile {
-          display: block !important;
-      }
-      .pureTrace_honey_desktop {
-          display: none !important;
-      }
-  }
-</style>
-
-{% if product.metafields.custom.pure_trace_image_mobile or product.metafields.custom.pure_trace_image_desktop %}
-  <!-- Mobile Image -->
-  {% if product.metafields.custom.pure_trace_image_mobile != blank %}
-    <img class="pureTrace_honey_mobile" 
-         src="{{ product.metafields.custom.pure_trace_image_mobile | img_url: 'master' }}" 
-         alt="Pure Trace Honey Mobile" />
-  {% endif %}
-
-  <!-- Desktop Image -->
-  {% if product.metafields.custom.pure_trace_image_desktop != blank %}
-    <img class="pureTrace_honey_desktop" 
-         src="{{ product.metafields.custom.pure_trace_image_desktop | img_url: 'master' }}" 
-         alt="Pure Trace Honey Desktop" />
-  {% endif %}
-{% endif %}
-
-
               <p>{{ product.metafields.custom.short_description }}</p>
             {% endif %}
           </div>
@@ -742,10 +722,78 @@
             <img src="{{ variant.featured_image | img_url: '200x200' }}" alt="{{ variant.title }}" >
         </div>
     {% endfor %}
-</div>
+	</div>
+	          </div>
+	        {%- endfor -%}
+	      {%- endunless -%}
+      {% if section.settings.show_subscription_offer_banner and product.tags contains 'pdpbanner' %}
+        <div class="c-product__offer-banner">
+          <div
+            class="c-product__offer-banner__inner{% if section.settings.subscription_offer_banner_link != blank %} is-clickable{% endif %}"
+            {% if section.settings.subscription_offer_banner_link != blank %}
+              role="link"
+              tabindex="0"
+              onclick="if (!event.target.closest('.c-product__offer-banner__cta, .c-product__offer-banner__link')) { window.location.href='{{ section.settings.subscription_offer_banner_link }}'; }"
+              onkeydown="if ((event.key === 'Enter' || event.key === ' ') && !event.target.closest('.c-product__offer-banner__cta, .c-product__offer-banner__link')) { event.preventDefault(); window.location.href='{{ section.settings.subscription_offer_banner_link }}'; }"
+            {% endif %}
+          >
+            <div class="c-product__offer-banner__layout">
+              <div class="c-product__offer-banner__content">
+                {% if section.settings.subscription_offer_heading_prefix != blank
+                  or section.settings.subscription_offer_heading_highlight != blank
+                  or section.settings.subscription_offer_heading_suffix != blank
+                %}
+                  <p class="c-product__offer-banner__title">
+                    {{ section.settings.subscription_offer_heading_prefix }}
+                    {% if section.settings.subscription_offer_heading_highlight != blank %}
+                      {% if section.settings.subscription_offer_heading_link != blank %}
+                        <a
+                          href="{{ section.settings.subscription_offer_heading_link }}"
+                          class="c-product__offer-banner__link"
+                          {% if section.settings.subscription_offer_banner_link != blank %}
+                            onclick="event.stopPropagation();"
+                          {% endif %}
+                        >
+                          {{ section.settings.subscription_offer_heading_highlight }}
+                        </a>
+                      {% else %}
+                        <span class="c-product__offer-banner__link">
+                          {{ section.settings.subscription_offer_heading_highlight }}
+                        </span>
+                      {% endif %}
+                    {% endif %}
+                    {{ section.settings.subscription_offer_heading_suffix }}
+                  </p>
+                {% endif %}
+
+                {% if section.settings.subscription_offer_caption != blank %}
+                  <p class="c-product__offer-banner__caption">
+                    {{ section.settings.subscription_offer_caption }}
+                  </p>
+                {% endif %}
+              </div>
+
+              {% if section.settings.show_subscription_offer_cta and section.settings.subscription_offer_cta_text != blank %}
+                {% if section.settings.subscription_offer_cta_link != blank %}
+                  <a
+                    href="{{ section.settings.subscription_offer_cta_link }}"
+                    class="c-product__offer-banner__cta"
+                    {% if section.settings.subscription_offer_banner_link != blank %}
+                      onclick="event.stopPropagation();"
+                    {% endif %}
+                  >
+                    {{ section.settings.subscription_offer_cta_text }}
+                  </a>
+                {% else %}
+                  <span class="c-product__offer-banner__cta">
+                    {{ section.settings.subscription_offer_cta_text }}
+                  </span>
+                {% endif %}
+              {% endif %}
+            </div>
           </div>
-        {%- endfor -%}
-      {%- endunless -%}
+        </div>
+      {% endif %}
  {% assign special_product_ids = "8722287886609,10236514369809" | split: "," %}
 
 {% assign current_product_id = product.id | append: "" %}
@@ -805,7 +853,6 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 {% if section.blocks != blank %}
             <div class="product-app-blocks">
-              <input type="hidden" id="japar_var" name="custId" value="{{product.metafields.custom.default_variant_select.value}}">
               {%- for block in section.blocks -%}
                 {%- case block.type -%}
                   {%- when 'title' -%}
@@ -985,19 +1032,8 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const variantInput = document.getElementById("Option1--variant_picker");
-    const widget = document.getElementById("growave-widget");
-
-    if (variantInput && widget && variantInput.value) {
-      widget.setAttribute("data-gw-variant-id", variantInput.value);
-    }
-  });
-</script>
-
-<script>
   var productObject = {{ product | json }};
-  const gw_earn_points_widget = document.querySelector(".gw-rd-earn-points-product-page-widget-placeholder");
+
   // Function to update the variant selection
   function updateVariantSelection(element) {
     var variantId = element.getAttribute('data-id');
@@ -1009,9 +1045,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Update ReCharge subscription details
     updateReCharge(variantId);
-
-    {% comment %} const gw_earn_points_widget = document.querySelector(".gw-rd-earn-points-product-page-widget-placeholder"); {% endcomment %}
-    gw_earn_points_widget.setAttribute("data-gw-variant-id", variantId);
   }
 
   // Function to handle ReCharge updates
@@ -1138,6 +1171,118 @@ document.addEventListener("DOMContentLoaded", function () {
       "id": "title",
       "label": "Title",
       "default": "We are dedicated to transparency"
+    },
+    {
+      "type": "header",
+      "content": "Subscription offer banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_subscription_offer_banner",
+      "label": "Show banner for pdpbanner products",
+      "info": "Displays under the custom variant swatches.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_subscription_offer_cta",
+      "label": "Show CTA button",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "subscription_offer_banner_link",
+      "label": "Whole banner link"
+    },
+    {
+      "type": "text",
+      "id": "subscription_offer_heading_prefix",
+      "label": "Heading prefix",
+      "default": "Free"
+    },
+    {
+      "type": "text",
+      "id": "subscription_offer_heading_highlight",
+      "label": "Heading highlighted text",
+      "default": "Soothing Drops"
+    },
+    {
+      "type": "url",
+      "id": "subscription_offer_heading_link",
+      "label": "Heading highlighted text link"
+    },
+    {
+      "type": "text",
+      "id": "subscription_offer_heading_suffix",
+      "label": "Heading suffix",
+      "default": "on your first subscription!"
+    },
+    {
+      "type": "text",
+      "id": "subscription_offer_caption",
+      "label": "Caption",
+      "default": "Offer valid for USA users only"
+    },
+    {
+      "type": "text",
+      "id": "subscription_offer_cta_text",
+      "label": "CTA text",
+      "default": "Subscribe now"
+    },
+    {
+      "type": "url",
+      "id": "subscription_offer_cta_link",
+      "label": "CTA link"
+    },
+    {
+      "type": "color",
+      "id": "subscription_offer_bg_color",
+      "label": "Banner background color",
+      "default": "#2F4AA3"
+    },
+    {
+      "type": "color",
+      "id": "subscription_offer_text_color",
+      "label": "Banner text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "subscription_offer_link_color",
+      "label": "Highlighted text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "subscription_offer_cta_bg_color",
+      "label": "CTA background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "subscription_offer_cta_text_color",
+      "label": "CTA text color",
+      "default": "#2F4AA3"
+    },
+    {
+      "type": "range",
+      "id": "subscription_offer_max_width",
+      "label": "Banner max width",
+      "min": 280,
+      "max": 900,
+      "step": 10,
+      "unit": "px",
+      "default": 620
+    },
+    {
+      "type": "range",
+      "id": "subscription_offer_border_radius",
+      "label": "Banner border radius",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 6
     },
     {
       "type": "text",
