@@ -63,10 +63,50 @@
       },
       "announcement-main": {
         "type": "announcement-main",
+        "blocks": {
+          "announcement_wiamYa": {
+            "type": "announcement",
+            "settings": {
+              "text": "<p>Spend AED 500 & get a free UMF™ 15+ 125g jar.</p>",
+              "link": "shopify://collections/manuka-honey",
+              "color_text": "#ffffff",
+              "color_bg": "#000000",
+              "icon": true
+            }
+          },
+          "announcement_F7kMGH": {
+            "type": "announcement",
+            "settings": {
+              "text": "<p>✓ 25,455+ verified global reviews ★★★★★</p>",
+              "link": "shopify://collections/manuka-honey",
+              "color_text": "#ffffff",
+              "color_bg": "#000000",
+              "icon": true
+            }
+          },
+          "announcement_czL6Em": {
+            "type": "announcement",
+            "settings": {
+              "text": "<p>Shipments to Bahrain, Kuwait, Oman, Qatar & Saudi Arabia are temporarily paused due to airspace restrictions.</p>",
+              "link": "",
+              "color_text": "#ffffff",
+              "color_bg": "#000000",
+              "icon": false
+            }
+          }
+        },
+        "block_order": [
+          "announcement_wiamYa",
+          "announcement_F7kMGH",
+          "announcement_czL6Em"
+        ],
         "custom_css": [
           ".announcement-wrapper {background: linear-gradient( 120deg, #ff4a00, #f73c64 30%, #d32f5d 60%, #1fa2ff ) !important;}"
         ],
-        "settings": {}
+        "settings": {
+          "auto_rotate": true,
+          "rotate_every": 5
+        }
       }
     },
     "content_for_index": [],
