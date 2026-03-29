@@ -43,18 +43,67 @@
       },
       "footer": {
         "type": "footer",
+        "blocks": {
+          "social_icon_wzhLL8": {
+            "type": "social_icon",
+            "settings": {
+              "social_image": "shopify://shop_images/nzhc-youtube.avif",
+              "social_label": "nzhc youtube",
+              "social_link": "https://www.youtube.com/channel/UCw5ru7OfCL88sCTJTNHrU8g"
+            }
+          },
+          "social_icon_qrCgck": {
+            "type": "social_icon",
+            "settings": {
+              "social_image": "shopify://shop_images/instagram.avif",
+              "social_label": "Instagram",
+              "social_link": "https://www.instagram.com/newzealandhoneyco/"
+            }
+          },
+          "social_icon_4bB438": {
+            "type": "social_icon",
+            "settings": {
+              "social_image": "shopify://shop_images/X.avif",
+              "social_label": "NZHC X/Twitter",
+              "social_link": "https://twitter.com/NZHoneyCo_"
+            }
+          },
+          "social_icon_LkwxyN": {
+            "type": "social_icon",
+            "settings": {
+              "social_image": "shopify://shop_images/fb.avif",
+              "social_label": "nzhc facebook",
+              "social_link": "https://www.facebook.com/newzealandhoneyco/"
+            }
+          },
+          "social_icon_pm6xmC": {
+            "type": "social_icon",
+            "settings": {
+              "social_image": "shopify://shop_images/pintrest.avif",
+              "social_label": "NZHC Pintrest",
+              "social_link": "https://www.pinterest.com/newzealandhoneyco/"
+            }
+          }
+        },
+        "block_order": [
+          "social_icon_wzhLL8",
+          "social_icon_qrCgck",
+          "social_icon_4bB438",
+          "social_icon_LkwxyN",
+          "social_icon_pm6xmC"
+        ],
         "settings": {
-          "logo": "shopify://shop_images/svgviewer-output_1.svg",
-          "logo_link": "shopify://pages/loyalty-rewards",
-          "menu1": "loyalty",
-          "menu2": "about",
-          "menu3": "help",
-          "instagram": "https://www.instagram.com/newzealandhoneyco/",
-          "twitter": "https://twitter.com/NZHoneyCo_",
-          "facebook": "https://www.facebook.com/newzealandhoneyco/",
-          "pinterest": "https://www.pinterest.com/newzealandhoneyco/",
-          "youtube": "https://www.youtube.com/channel/UCw5ru7OfCL88sCTJTNHrU8g",
-          "copyrights": "<p>© New Zealand Honey Co. All rights reserved. <a href=\"https://www.iubenda.com/terms-and-conditions/62990887\" target=\"_blank\" title=\"Terms & Conditions\">Terms & Conditions</a>, <a href=\"https://www.iubenda.com/privacy-policy/62990887\" target=\"_blank\" title=\"Privacy Policy\">Privacy Policy</a>, <a href=\"https://www.iubenda.com/privacy-policy/62990887/cookie-policy\" target=\"_blank\" title=\"Cookie Policy\">Cookie Policy.</a></p><p><br/><a href=\"https://newzealandhoneyco.com/\" title=\"New Zealand Honey Co USA Shop\"><strong>Global Shop USA</strong></a><strong> | </strong><a href=\"https://newzealandhoneyco.de/\" title=\"Deutsch Manuka Honig Shop\"><strong>Deutsch Manuka Honig Shop</strong></a><br/><br/>FDA Disclaimer: These statements have not been evaluated by the Food and Drug Administration. <br/>This product is not intended to diagnose, treat, cure, or prevent any disease.<br/></p>"
+          "bg_color": "#313131",
+          "authority_text": "Premium UMF™ Certified Manuka Honey. Liquid Gold You Can Trust.",
+          "logo": "shopify://shop_images/nzhc-logo-white.webp",
+          "logo_width": 180,
+          "rewards_text": "FOLLOW US",
+          "rewards_link": "#",
+          "social_icon_size": 30,
+          "show_policy": true,
+          "payment_enable": true,
+          "copyright_text": "© New Zealand Honey Co. All rights reserved.",
+          "disclaimer_text": "FDA Disclaimer: These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
         }
       },
       "cart": {
