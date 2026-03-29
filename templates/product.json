@@ -160,6 +160,13 @@
         "image_3": "{{ product.metafields.custom.section_image_3.value }}"
       }
     },
+    "product_faq_unique_XBg6RN": {
+      "type": "product-faq-unique",
+      "name": "Product FAQ (Unique)",
+      "settings": {
+        "heading": "FAQ's:"
+      }
+    },
     "2ff829f5-4e5a-49e1-b445-f951735d3c10": {
       "type": "product-bar",
       "settings": {}
@@ -377,6 +384,7 @@
     "1664797767b4c57d4d",
     "f884a421-d80a-42f9-b9e7-6b5b0045679a",
     "972ecf9d-8d76-4f00-8e65-88685f41d784",
+    "product_faq_unique_XBg6RN",
     "2ff829f5-4e5a-49e1-b445-f951735d3c10",
     "2711e048-36b5-423e-b0ac-e3f84e7dfdb4",
     "0c83d57b-5bb8-4507-9782-87b1d4e22715",
