@@ -9,26 +9,26 @@
  */
 {
   "sections": {
-    "powerful_hone_banner_dztwgQ": {
-      "type": "powerful-hone-banner",
-      "disabled": true,
-      "name": "Responsive Banner Slider",
-      "settings": {
-        "banner_link": "shopify://pages/top-pick-by-consumerlab-com-a-testament-to-our-manuka-honey-s-purity",
-        "banner_link2": "shopify://pages/winter-wellness-natural-manuka-honey-for-health",
-        "desktop_image_1": "shopify://shop_images/Digital_Banner_opt_3b-desktop-en.jpg",
-        "desktop_image_2": "shopify://shop_images/Homepage_Banners_UAE-_opt_1_-_1920_x_705.jpg",
-        "mobile_image_1": "shopify://shop_images/Digital_Banner_opt_3b_-_Mobile-en.jpg",
-        "mobile_image_2": "shopify://shop_images/Homepage_Banners_UAE_-_mobile_-_800_x_1201.jpg"
-      }
-    },
     "single_image_slider_HiKXGJ": {
       "type": "single-image-slider",
+      "disabled": true,
       "name": "Single Image Banner",
       "settings": {
         "banner_link": "shopify://pages/top-pick-by-consumerlab-com-a-testament-to-our-manuka-honey-s-purity",
         "desktop_image": "shopify://shop_images/Digital_Banner_opt_3b-desktop-en.jpg",
         "mobile_image": "shopify://shop_images/Digital_Banner_opt_3b_-_Mobile-en.jpg"
+      }
+    },
+    "powerful_hone_banner_dztwgQ": {
+      "type": "powerful-hone-banner",
+      "name": "Responsive Banner Slider",
+      "settings": {
+        "banner_link": "shopify://collections/manuka-honey",
+        "banner_link2": "shopify://pages/top-pick-by-consumerlab-com-a-testament-to-our-manuka-honey-s-purity",
+        "desktop_image_1": "shopify://shop_images/AE-en-dk.jpg",
+        "desktop_image_2": "shopify://shop_images/Digital_Banner_opt_3b-desktop-en.jpg",
+        "mobile_image_1": "shopify://shop_images/AE-en-mb.jpg",
+        "mobile_image_2": "shopify://shop_images/Digital_Banner_opt_3b_-_Mobile-en.jpg"
       }
     },
     "uae_row_gcc_specific_banner_QzNAXq": {
