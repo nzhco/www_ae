@@ -44,6 +44,83 @@
       "footer": {
         "type": "footer",
         "blocks": {
+          "legal_link_YULBWr": {
+            "type": "legal_link",
+            "settings": {
+              "link_text": "Accessibility Statement",
+              "link_url": "https://www.iubenda.com/privacy-policy/59771845"
+            }
+          },
+          "payment_icon_NdUiaE": {
+            "type": "payment_icon",
+            "settings": {
+              "payment_image": "shopify://shop_images/amex1.avif",
+              "payment_label": "amex"
+            }
+          },
+          "payment_icon_XGjb6V": {
+            "type": "payment_icon",
+            "settings": {
+              "payment_image": "shopify://shop_images/apple-pay1.webp",
+              "payment_label": "apple Pay"
+            }
+          },
+          "payment_icon_KDEybL": {
+            "type": "payment_icon",
+            "settings": {
+              "payment_image": "shopify://shop_images/gpay.avif",
+              "payment_label": "gpay"
+            }
+          },
+          "payment_icon_CzMnrc": {
+            "type": "payment_icon",
+            "settings": {
+              "payment_image": "shopify://shop_images/mastercard.avif",
+              "payment_label": "mastercard"
+            }
+          },
+          "payment_icon_8a3d3U": {
+            "type": "payment_icon",
+            "settings": {
+              "payment_image": "shopify://shop_images/visa.avif",
+              "payment_label": "Visa"
+            }
+          },
+          "payment_icon_ezfzQW": {
+            "type": "payment_icon",
+            "settings": {
+              "payment_image": "shopify://shop_images/shoppay.avif",
+              "payment_label": "shope"
+            }
+          },
+          "payment_icon_rFYYpX": {
+            "type": "payment_icon",
+            "settings": {
+              "payment_image": "shopify://shop_images/paypal.avif",
+              "payment_label": "Paypal"
+            }
+          },
+          "menu_column_VBJH46": {
+            "type": "menu_column",
+            "settings": {
+              "heading": "SHOP",
+              "menu": "footer-shop"
+            }
+          },
+          "menu_column_KrQQYB": {
+            "type": "menu_column",
+            "settings": {
+              "heading": "LEARN",
+              "menu": "footer-learn"
+            }
+          },
+          "menu_column_RKY7cB": {
+            "type": "menu_column",
+            "settings": {
+              "heading": "SUPPORT",
+              "menu": "help"
+            }
+          },
           "social_icon_wzhLL8": {
             "type": "social_icon",
             "settings": {
@@ -86,6 +163,17 @@
           }
         },
         "block_order": [
+          "legal_link_YULBWr",
+          "payment_icon_NdUiaE",
+          "payment_icon_XGjb6V",
+          "payment_icon_KDEybL",
+          "payment_icon_CzMnrc",
+          "payment_icon_8a3d3U",
+          "payment_icon_ezfzQW",
+          "payment_icon_rFYYpX",
+          "menu_column_VBJH46",
+          "menu_column_KrQQYB",
+          "menu_column_RKY7cB",
           "social_icon_wzhLL8",
           "social_icon_qrCgck",
           "social_icon_4bB438",
