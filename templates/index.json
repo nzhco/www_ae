@@ -9,16 +9,6 @@
  */
 {
   "sections": {
-    "single_image_slider_HiKXGJ": {
-      "type": "single-image-slider",
-      "disabled": true,
-      "name": "Single Image Banner",
-      "settings": {
-        "banner_link": "shopify://pages/top-pick-by-consumerlab-com-a-testament-to-our-manuka-honey-s-purity",
-        "desktop_image": "shopify://shop_images/Digital_Banner_opt_3b-desktop-en.jpg",
-        "mobile_image": "shopify://shop_images/Digital_Banner_opt_3b_-_Mobile-en.jpg"
-      }
-    },
     "powerful_hone_banner_dztwgQ": {
       "type": "powerful-hone-banner",
       "name": "Responsive Banner Slider",
@@ -29,6 +19,16 @@
         "desktop_image_2": "shopify://shop_images/Digital_Banner_opt_3b-desktop-en.jpg",
         "mobile_image_1": "shopify://shop_images/AE-en-mb.jpg",
         "mobile_image_2": "shopify://shop_images/Digital_Banner_opt_3b_-_Mobile-en.jpg"
+      }
+    },
+    "single_image_slider_HiKXGJ": {
+      "type": "single-image-slider",
+      "disabled": true,
+      "name": "Single Image Banner",
+      "settings": {
+        "banner_link": "shopify://pages/top-pick-by-consumerlab-com-a-testament-to-our-manuka-honey-s-purity",
+        "desktop_image": "shopify://shop_images/Digital_Banner_opt_3b-desktop-en.jpg",
+        "mobile_image": "shopify://shop_images/Digital_Banner_opt_3b_-_Mobile-en.jpg"
       }
     },
     "uae_row_gcc_specific_banner_QzNAXq": {
@@ -444,8 +444,8 @@
     }
   },
   "order": [
-    "single_image_slider_HiKXGJ",
     "powerful_hone_banner_dztwgQ",
+    "single_image_slider_HiKXGJ",
     "uae_row_gcc_specific_banner_QzNAXq",
     "166079753738f5763f",
     "16607975855c377dc5",

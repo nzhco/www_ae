@@ -44,116 +44,109 @@
       "footer": {
         "type": "footer",
         "blocks": {
-          "legal_link_YULBWr": {
-            "type": "legal_link",
-            "settings": {
-              "link_text": "Accessibility Statement",
-              "link_url": "https://www.iubenda.com/privacy-policy/59771845"
-            }
-          },
-          "payment_icon_NdUiaE": {
+          "payment_icon_3Tti6b": {
             "type": "payment_icon",
             "settings": {
               "payment_image": "shopify://shop_images/amex1.avif",
               "payment_label": "amex"
             }
           },
-          "payment_icon_XGjb6V": {
+          "payment_icon_LifjrT": {
             "type": "payment_icon",
             "settings": {
               "payment_image": "shopify://shop_images/apple-pay1.webp",
-              "payment_label": "apple Pay"
+              "payment_label": "apple pay"
             }
           },
-          "payment_icon_KDEybL": {
+          "payment_icon_cUCBVB": {
             "type": "payment_icon",
             "settings": {
               "payment_image": "shopify://shop_images/gpay.avif",
               "payment_label": "gpay"
             }
           },
-          "payment_icon_CzMnrc": {
+          "payment_icon_8PXWza": {
             "type": "payment_icon",
             "settings": {
               "payment_image": "shopify://shop_images/mastercard.avif",
               "payment_label": "mastercard"
             }
           },
-          "payment_icon_8a3d3U": {
+          "payment_icon_dhMkCt": {
             "type": "payment_icon",
             "settings": {
               "payment_image": "shopify://shop_images/visa.avif",
               "payment_label": "Visa"
             }
           },
-          "payment_icon_ezfzQW": {
+          "payment_icon_8pt66M": {
             "type": "payment_icon",
             "settings": {
               "payment_image": "shopify://shop_images/shoppay.avif",
-              "payment_label": "shope"
+              "payment_label": "SHope"
             }
           },
-          "payment_icon_rFYYpX": {
+          "payment_icon_XKhigf": {
             "type": "payment_icon",
             "settings": {
               "payment_image": "shopify://shop_images/paypal.avif",
-              "payment_label": "Paypal"
+              "payment_label": "Payapl"
             }
           },
-          "menu_column_VBJH46": {
+          "menu_column_DXpaEn": {
             "type": "menu_column",
             "settings": {
               "heading": "SHOP",
               "menu": "footer-shop"
             }
           },
-          "menu_column_KrQQYB": {
+          "menu_column_WUcWFA": {
             "type": "menu_column",
             "settings": {
               "heading": "LEARN",
               "menu": "footer-learn"
             }
           },
-          "menu_column_RKY7cB": {
+          "menu_column_UBxFFy": {
             "type": "menu_column",
             "settings": {
-              "heading": "SUPPORT",
+              "heading": "HELP",
               "menu": "help"
             }
           },
-          "social_icon_wzhLL8": {
+          "social_icon_JBxVA9": {
             "type": "social_icon",
             "settings": {
               "social_image": "shopify://shop_images/nzhc-youtube.avif",
-              "social_label": "nzhc youtube",
+              "social_label": "NZHC youtube",
               "social_link": "https://www.youtube.com/channel/UCw5ru7OfCL88sCTJTNHrU8g"
             }
           },
-          "social_icon_qrCgck": {
+          "social_icon_JFXpTf": {
             "type": "social_icon",
             "settings": {
               "social_image": "shopify://shop_images/instagram.avif",
-              "social_label": "Instagram",
+              "social_label": "NZHC Instagram",
               "social_link": "https://www.instagram.com/newzealandhoneyco/"
             }
           },
-          "social_icon_4bB438": {
+          "social_icon_p6pdLn": {
             "type": "social_icon",
             "settings": {
               "social_image": "shopify://shop_images/X.avif",
-              "social_label": "NZHC X/Twitter",
+              "social_label": "NZHC X",
               "social_link": "https://twitter.com/NZHoneyCo_"
             }
           },
-          "social_icon_LkwxyN": {
+          "social_icon_y7DeRF": {
             "type": "social_icon",
             "settings": {
               "social_image": "shopify://shop_images/fb.avif",
-              "social_label": "nzhc facebook",
+              "social_label": "NZHC Facebook",
               "social_link": "https://www.facebook.com/newzealandhoneyco/"
             }
           },
-          "social_icon_pm6xmC": {
+          "social_icon_9ND3xe": {
             "type": "social_icon",
             "settings": {
               "social_image": "shopify://shop_images/pintrest.avif",
@@ -163,28 +156,27 @@
           }
         },
         "block_order": [
-          "legal_link_YULBWr",
-          "payment_icon_NdUiaE",
-          "payment_icon_XGjb6V",
-          "payment_icon_KDEybL",
-          "payment_icon_CzMnrc",
-          "payment_icon_8a3d3U",
-          "payment_icon_ezfzQW",
-          "payment_icon_rFYYpX",
-          "menu_column_VBJH46",
-          "menu_column_KrQQYB",
-          "menu_column_RKY7cB",
-          "social_icon_wzhLL8",
-          "social_icon_qrCgck",
-          "social_icon_4bB438",
-          "social_icon_LkwxyN",
-          "social_icon_pm6xmC"
+          "payment_icon_3Tti6b",
+          "payment_icon_LifjrT",
+          "payment_icon_cUCBVB",
+          "payment_icon_8PXWza",
+          "payment_icon_dhMkCt",
+          "payment_icon_8pt66M",
+          "payment_icon_XKhigf",
+          "menu_column_DXpaEn",
+          "menu_column_WUcWFA",
+          "menu_column_UBxFFy",
+          "social_icon_JBxVA9",
+          "social_icon_JFXpTf",
+          "social_icon_p6pdLn",
+          "social_icon_y7DeRF",
+          "social_icon_9ND3xe"
         ],
         "settings": {
           "bg_color": "#313131",
           "authority_text": "Premium UMF™ Certified Manuka Honey. Liquid Gold You Can Trust.",
           "logo": "shopify://shop_images/nzhc-logo-white.webp",
-          "logo_width": 180,
+          "logo_width": 220,
           "rewards_text": "FOLLOW US",
           "rewards_link": "#",
           "social_icon_size": 30,
@@ -201,7 +193,7 @@
       "announcement-main": {
         "type": "announcement-main",
         "blocks": {
-          "announcement_wiamYa": {
+          "announcement_waqGwG": {
             "type": "announcement",
             "settings": {
               "text": "<p>Spend AED 500 & get a free UMF™ 15+ 125g jar.</p>",
@@ -211,7 +203,7 @@
               "icon": true
             }
           },
-          "announcement_F7kMGH": {
+          "announcement_8d6inD": {
             "type": "announcement",
             "settings": {
               "text": "<p>✓ 25,455+ verified global reviews ★★★★★</p>",
@@ -221,7 +213,7 @@
               "icon": true
             }
           },
-          "announcement_czL6Em": {
+          "announcement_jW6h3E": {
             "type": "announcement",
             "settings": {
               "text": "<p>Shipments to Bahrain, Kuwait, Oman, Qatar & Saudi Arabia are temporarily paused due to airspace restrictions.</p>",
@@ -233,9 +225,9 @@
           }
         },
         "block_order": [
-          "announcement_wiamYa",
-          "announcement_F7kMGH",
-          "announcement_czL6Em"
+          "announcement_waqGwG",
+          "announcement_8d6inD",
+          "announcement_jW6h3E"
         ],
         "custom_css": [
           ".announcement-wrapper {background: linear-gradient( 120deg, #ff4a00, #f73c64 30%, #d32f5d 60%, #1fa2ff ) !important;}"
