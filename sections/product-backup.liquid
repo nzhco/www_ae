@@ -889,50 +889,6 @@ document.addEventListener("DOMContentLoaded", function () {
     {% endif %}
     </div>
   </div>
-  {%- liquid
-    if product.selected_or_first_available_variant.featured_media
-      assign seo_media = product.selected_or_first_available_variant.featured_media
-    else
-      assign seo_media = product.featured_media
-    endif
-  -%}
-
-  {% assign current_variant = product.selected_or_first_available_variant %}
-  <script type="application/ld+json">
-    {
-           "@context": "http://schema.org/",
-           "@type": "Product",
-      	   "url": "{{ shop.secure_url | escape }}{{ product.url | escape }}",
-      	   "name": "{{ product.title | escape }}",
-           "image": "https:{{ product.featured_image.src | img_url: 'master' }}",
-           "description": "{{ product.description | escape }}",
-           "brand": {
-               "name": "{{ product.vendor }}"
-           },
-           "sku": "{{ product.variants.first.sku }}",
-           "mpn": "{{ product.variants.first.sku }}",
-           "offers": {
-               "@type": "Offer",
-               "priceCurrency": "{{ shop.currency }}",
-               "price": "{{ current_variant.price | money_without_currency }}",
-               "availability": "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
-               "seller": {
-                   "@type": "Organization",
-                    "name": "{{ shop.name }}"
-               },
-               "url": "{{ shop.secure_url | escape }}{{ product.url | escape }}"
-           }
-     {% if product.metafields.stamped.reviews_count and product.metafields.stamped.reviews_count != "0" %},"aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": {{ product.metafields.stamped.reviews_average | round: 2 }},
-    "reviewCount": {{ product.metafields.stamped.reviews_count }},
-    "bestRating": 5,
-    "worstRating": 1
-    }
-    {% endif %}
-    }
-  </script>
-
  </div>
 
 {% schema %}
