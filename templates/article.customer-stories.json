@@ -44,8 +44,8 @@
         "content_RijKMX"
       ],
       "settings": {
-        "meta": false,
-        "title": false,
+        "meta": true,
+        "title": true,
         "image": false,
         "wide": true,
         "container": false,
@@ -55,10 +55,10 @@
         "sidebar_metafield_key": "article_sidebar",
         "enable_sidebar_content": false,
         "sidebar_product_metafield_key": "article_sidebar_product",
-        "enable_sidebar_product": true,
+        "enable_sidebar_product": false,
         "sidebar_content_title": "Table of Contents",
         "sidebar_product_title": "Products Mentioned",
-        "enable_sidebar_promo": true,
+        "enable_sidebar_promo": false,
         "sidebar_promo_position": "below_product",
         "sidebar_promo_image": "shopify://shop_images/quiz_1_1.png",
         "sidebar_promo_heading": "Which Manuka honey is right for you?",

@@ -15,9 +15,9 @@
       "settings": {
         "banner_link": "shopify://collections/manuka-honey",
         "banner_link2": "shopify://pages/top-pick-by-consumerlab-com-a-testament-to-our-manuka-honey-s-purity",
-        "desktop_image_1": "shopify://shop_images/AE-en-dk.jpg",
+        "desktop_image_1": "shopify://shop_images/Homepage_Banner_-_Desktop.png",
         "desktop_image_2": "shopify://shop_images/Digital_Banner_opt_3b-desktop-en.jpg",
-        "mobile_image_1": "shopify://shop_images/AE-en-mb.jpg",
+        "mobile_image_1": "shopify://shop_images/Homepage_Banner_-_Mobile.jpg",
         "mobile_image_2": "shopify://shop_images/Digital_Banner_opt_3b_-_Mobile-en.jpg"
       }
     },
@@ -142,6 +142,34 @@
         "button_label": "Find out more",
         "button_link": "shopify://pages/new-zealand-honey-co-credentials"
       }
+    },
+    "17761985787dcbaefb": {
+      "type": "_blocks",
+      "blocks": {
+        "sticky_cta_button_mWfzPU": {
+          "type": "sticky-cta-button",
+          "name": "Sticky button",
+          "settings": {
+            "button_text": "EXPLORE OUR RANGE",
+            "button_link": "shopify://collections/manuka-honey",
+            "start_after_sections": 2,
+            "hide_after_sections": 9,
+            "button_bg_color": "#313131",
+            "button_text_color": "#ffffff",
+            "button_hover_bg_color": "#f1b434",
+            "border_radius": 40,
+            "font_size": 14,
+            "font_weight": "600",
+            "button_padding": 16,
+            "shadow_opacity": 0.2
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "sticky_cta_button_mWfzPU"
+      ],
+      "settings": {}
     },
     "1660797686cbd18848": {
       "type": "testimonials",
@@ -450,6 +478,7 @@
     "166079753738f5763f",
     "16607975855c377dc5",
     "16607976110a9221bd",
+    "17761985787dcbaefb",
     "1660797686cbd18848",
     "166080023405542752",
     "16608264124bc0564e",

@@ -1,35 +1,1096 @@
-{{ 'comments.css' | asset_url | stylesheet_tag }}
-{{ 'form.css' | asset_url | stylesheet_tag }}
-{{ 'article.css' | asset_url | stylesheet_tag }}
-{{ 'rte.css' | asset_url | stylesheet_tag }}
+{{ 'bm-blog-styles.css' | asset_url | stylesheet_tag }}
+{{ 'section-blog-post.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    margin-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px !important;
+    margin-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px !important;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      margin-top: {{ section.settings.padding_top }}px !important;
+      margin-bottom: {{ section.settings.padding_bottom }}px !important;
+    }
+  }
+
+  /* Featured image — mobile: full-bleed, vertical center crop */
+  .article-template__hero-container {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    max-width: 100vw;
+    overflow: hidden;
+  }
+
+  .article-template__hero-cover {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+  }
+
+  .article-template__hero-cover img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+  }
+
+  /* Desktop: centered hero, constrained to 1080px */
+  @media screen and (min-width: 750px) {
+    .article-template__hero-container {
+      position: relative;
+      left: auto;
+      right: auto;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      max-width: 1080px;
+      overflow: hidden;
+      text-align: initial;
+    }
+
+    .article-template__hero-cover {
+      display: block;
+      width: 100%;
+      aspect-ratio: auto;
+      min-height: 450px;
+      overflow: hidden;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .article-template__hero-cover img {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+      object-fit: cover;
+      object-position: center center;
+    }
+  }
+
+  /* Header and content row constrained to 1080px */
+  .c-article > .c-container > .c-article__header,
+  .c-article > .c-container > .c-article__title,
+  .c-article > .c-container > .article_date_box {
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .c-article__header {
+    margin-bottom: 36px;
+  }
+
+  .c-article__breadcrumb {
+    align-items: center;
+    color: #9b968f;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 42px;
+  }
+
+  .c-article__breadcrumb a,
+  .c-article__breadcrumb span {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .c-article__breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .c-article__header-meta {
+    align-items: center;
+    color: #4d4943;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 20px;
+    line-height: 1.4;
+    margin-bottom: 20px;
+  }
+
+  .c-article__header-tag,
+  .c-article__header-tag a {
+    color: #34312d;
+    text-decoration: none;
+  }
+
+  .c-article__header-tag {
+    align-items: center;
+    border: 1px solid #e8a94a;
+    border-radius: 999px;
+    display: inline-flex;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    min-height: 34px;
+    padding: 8px 14px;
+    text-transform: uppercase;
+  }
+
+  .c-article__header-tag a {
+    color: inherit;
+  }
+
+  .c-article__header-tag--accent {
+    color: #fff;
+  }
+
+  .c-article__header-tag a:hover {
+    text-decoration: underline;
+  }
+
+  .c-article__header-separator {
+    color: #7d776f;
+  }
+
+  .c-article__header .c-article__title {
+    margin: 0;
+    max-width: 820px;
+  }
+
+  .c-article__header-divider {
+    border-top: 1px solid #e2c979;
+    margin-top: 28px;
+    padding-top: 18px;
+  }
+
+  .c-article__header-updated {
+    color: #7d776f;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  @media screen and (max-width: 749px) {
+    .c-article__header {
+      margin-bottom: 28px;
+    }
+
+    .c-article__breadcrumb {
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .c-article__header-meta {
+      font-size: 16px;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .c-article__header-divider {
+      margin-top: 22px;
+      padding-top: 14px;
+    }
+  }
+
+  .c-article__body-row {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .c-article__body-row--full {
+    display: block;
+  }
+
+  .c-article__body-main {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .c-article__body-main h2[id],
+  .c-article__body-main h3[id],
+  .c-article__body-main h4[id],
+  .c-article__body-main h5[id],
+  .c-article__body-main h6[id] {
+    scroll-margin-top: calc(var(--article-sidebar-sticky-offset, 96px) + 28px);
+  }
+
+  .c-article__sidebar {
+    order: -1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .c-article__sidebar-card {
+    background: #ffffff;
+    border-radius: 3px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    padding: 24px;
+  }
+
+  .c-article__sidebar-card > *:first-child {
+    margin-top: 0;
+  }
+
+  .c-article__sidebar-card > *:last-child {
+    margin-bottom: 0;
+  }
+
+  .c-article__sidebar-card .c-rte > *:first-child {
+    margin-top: 0;
+  }
+
+  .c-article__sidebar-card .c-rte > *:last-child {
+    margin-bottom: 0;
+  }
+
+  .c-article__sidebar-card img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .c-article__sidebar-card--toc .c-rte a {
+    color: #4a4137;
+    display: inline-block;
+    padding-right: 32px;
+    position: relative;
+    text-decoration: none;
+    transition: color 0.2s ease, font-weight 0.2s ease;
+  }
+
+  .c-article__sidebar-card--toc .c-rte a::after {
+    content: '';
+    display: block;
+    height: 25px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 25px;
+  }
+
+  .c-article__sidebar-card--toc .c-rte ul,
+  .c-article__sidebar-card--toc .c-rte ol {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+  }
+
+  .c-article__sidebar-card--toc .c-rte li,
+  .c-article__sidebar-card--toc .c-rte p {
+    line-height: 1.55;
+    margin: 0 0 12px;
+  }
+
+  .c-article__sidebar-card--toc .c-rte li:last-child,
+  .c-article__sidebar-card--toc .c-rte p:last-child {
+    margin-bottom: 0;
+  }
+
+  .c-article__sidebar-card--toc .c-rte a:hover,
+  .c-article__sidebar-card--toc .c-rte a:focus-visible,
+  .c-article__sidebar-card--toc .c-rte a.is-active {
+    color: #f3b31f;
+  }
+
+  .c-article__sidebar-card--toc .c-rte a.is-active {
+    font-weight: 500;
+  }
+
+  .c-article__sidebar-card--toc .c-rte a.is-active::after {
+    background-image: url('https://cdn.shopify.com/s/files/1/0730/0608/8505/files/honey-bee-50.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .c-article__sidebar-block__title,
+  .c-article__product-block__title {
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.4;
+    margin: 0 0 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #e8a94a;
+  }
+
+  .c-article__promo-card {
+    background: #f3b31f;
+    border-radius: 6px;
+    display: block;
+    overflow: hidden;
+    padding: 14px;
+  }
+
+  .c-article__promo-card > *:last-child {
+    margin-bottom: 0;
+  }
+
+  .c-article__promo-media {
+    border-radius: 6px;
+    display: block;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .c-article__promo-media img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .c-article__promo-body {
+    align-items: center;
+    display: grid;
+    gap: 14px;
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .c-article__promo-heading {
+    color: var(--promo-text-color, #2f2b26);
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .c-article__promo-button {
+    align-items: center;
+    background: transparent;
+    border: 1.5px solid var(--promo-button-border-color, #2f2b26);
+    border-radius: 999px;
+    color: var(--promo-button-text-color, #2f2b26);
+    display: inline-flex;
+    font-size: 14px;
+    font-weight: 700;
+    justify-content: center;
+    line-height: 1.1;
+    min-height: 52px;
+    min-width: 144px;
+    padding: 10px 18px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .c-article__promo-button:hover {
+    filter: brightness(0.96);
+  }
+
+  @media screen and (max-width: 989px) {
+    .c-article__promo-card {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 420px) {
+    .c-article__promo-body {
+      grid-template-columns: 1fr;
+    }
+
+    .c-article__promo-button {
+      width: 100%;
+    }
+  }
+
+  .c-article__product-card {
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr);
+    overflow: hidden;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  }
+
+  .c-article__product-card--no-image {
+    display: block;
+  }
+
+  .c-article__product-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #c7beb7;
+    min-height: 92px;
+    padding: 6px;
+    overflow: hidden;
+  }
+
+  .c-article__product-image img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    max-height: 82px;
+    height: auto;
+    object-fit: contain;
+    transform: scale(1.04);
+    transition: transform 0.25s ease;
+  }
+
+  .c-article__product-content {
+    min-width: 0;
+    padding: 14px 14px 12px;
+  }
+
+  .c-article__product-reviews {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    color: #555;
+    font-size: 12px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .c-article__product-stars {
+    color: #f4b321;
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+  .c-article__product-scores {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 0 12px;
+  }
+
+  .c-article__product-score {
+    background: #fff;
+    border: 1px solid #e8a94a;
+    border-radius: 20px;
+    color: #333;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    min-height: 30px;
+    padding: 7px 12px;
+  }
+
+  .c-article__product-score--accent {
+    color: #fff;
+  }
+
+  .c-article__product-description {
+    color: #555;
+    font-size: 12px;
+    line-height: 1.35;
+    margin-bottom: 12px;
+  }
+
+  .c-article__product-description > * {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .c-article__product-description p {
+    margin: 0;
+  }
+
+  .c-article__product-button {
+    align-items: center;
+    background: #f3b31f;
+    border-radius: 20px;
+    color: #333;
+    display: inline-flex;
+    font-size: 13px;
+    font-weight: 700;
+    justify-content: center;
+    line-height: 1;
+    min-height: 34px;
+    padding: 10px 22px;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .c-article__product-button:hover {
+    background: #e8a94a;
+    color: #333;
+  }
+
+  @media screen and (min-width: 750px) {
+    .c-article__product-card {
+      grid-template-columns: minmax(128px, 42%) minmax(0, 1fr);
+    }
+
+    .c-article__product-image {
+      min-height: 190px;
+      padding: 0;
+    }
+
+    .c-article__product-image img {
+      width: 100%;
+      height: 100%;
+      max-height: none;
+      object-fit: cover;
+      transform: scale(1.1);
+    }
+
+    .c-article__product-content {
+      padding: 18px 18px 16px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .c-article__body-row {
+      display: grid;
+      grid-template-columns: minmax(260px, 3fr) minmax(0, 7fr);
+      gap: 32px;
+      align-items: start;
+    }
+
+    .c-article__body-row--full {
+      display: block;
+    }
+
+    .c-article__sidebar {
+      order: initial;
+      position: sticky;
+      top: var(--article-sidebar-sticky-offset, 96px);
+    }
+
+    .c-article__body-main {
+      grid-column: 2;
+    }
+
+    .c-article__sidebar {
+      grid-column: 1;
+      grid-row: 1;
+    }
+  }
+
+  /* Reading progress bar */
+  .progress-bar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background-color: #f3f3f3;
+    z-index: 9999;
+  }
+
+  .progress-bar {
+    height: 100%;
+    width: 0;
+    background-image: linear-gradient(90deg, #ee005c, #2b38f6);
+    transition: width 0.1s ease;
+    display: block;
+  }
+
+  /* Hide Honey extension overlays */
+  .hideExisting_Honey,
+  .nzHoney_overlaysPopup {
+    display: none !important;
+  }
+
+  /* Date / tag box (from Code 1) */
+  .article_date_box {
+    margin-top: 10px;
+    font-size: 15px;
+    color: #222;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 20px 0px;
+  }
+
+  @media (min-width: 768px) {
+    .article_date_box {
+      flex-direction: row;
+      align-items: center;
+      gap: 20px;
+    }
+  }
+
+  .c-article__meta__published,
+  .c-article__meta__updated {
+    font-size: 16px;
+    color: #999;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    line-height: 18px;
+  }
+
+  .c-article__meta__tag {
+    background: #e86c1c;
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 8px 20px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    width: fit-content;
+  }
+
+  .c-article__meta__tag a {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .c-article__meta__tag a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 765px) {
+    .c-article__meta__tag {
+      margin-top: 10px;
+    }
+  }
+{%- endstyle -%}
+
+{% if request.path contains '/manuka-honey-umf-certification/' %}
+  <style>
+    body.body_article .c-article__body-row {
+      max-width: 1250px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+{% endif %}
+
+{%- liquid
+  assign article_sidebar_content_enabled = true
+  assign article_sidebar_product_enabled = true
+  assign article_sidebar_key = section.settings.sidebar_metafield_key | default: 'article_sidebar'
+  assign article_sidebar_product_key = section.settings.sidebar_product_metafield_key | default: 'article_sidebar_product'
+  assign article_sidebar_title = section.settings.sidebar_content_title | strip
+  assign article_sidebar_product_title = section.settings.sidebar_product_title | strip
+  assign article_sidebar_promo_heading = section.settings.sidebar_promo_heading | strip
+  assign article_sidebar_promo_button_label = section.settings.sidebar_promo_button_label | strip
+  assign article_sidebar_promo_button_link = section.settings.sidebar_promo_button_link
+  assign article_sidebar_promo_position = section.settings.sidebar_promo_position | default: 'above_toc'
+  assign article_sidebar_promo_background = section.settings.sidebar_promo_background
+  assign article_sidebar_promo_text_color = section.settings.sidebar_promo_text_color
+  assign article_sidebar_promo_button_text_color = section.settings.sidebar_promo_button_text_color
+  assign article_sidebar_promo_button_border_color = section.settings.sidebar_promo_button_border_color
+  assign article_sidebar_promo_image = section.settings.sidebar_promo_image
+  assign article_sidebar_promo_image_alt = article_sidebar_promo_heading
+  assign article_primary_tag = article.tags | first
+  assign show_article_published = true
+  assign show_article_updated = true
+  assign show_article_tag = false
+  assign show_article_header_meta = false
+  assign article_sidebar_promo_enabled = false
+  assign article_sidebar_content = article.metafields.custom.article_sidebar
+
+  if article.tags != blank
+    assign show_article_tag = true
+  endif
+
+  if section.settings.enable_sidebar_content == false
+    assign article_sidebar_content_enabled = false
+  endif
+
+  if section.settings.enable_sidebar_product == false
+    assign article_sidebar_product_enabled = false
+  endif
+
+  if article_sidebar_promo_image != blank and article_sidebar_promo_image.alt != blank
+    assign article_sidebar_promo_image_alt = article_sidebar_promo_image.alt
+  endif
+
+  for block in section.blocks
+    if block.type == 'meta'
+      assign show_article_published = block.settings.show_published
+      assign show_article_updated = block.settings.show_updated
+      assign show_article_tag = block.settings.show_tag
+      break
+    endif
+  endfor
+
+  if article_sidebar_content == blank
+    assign article_sidebar_content = blog.metafields.custom.article_sidebar
+  endif
+
+  if show_article_tag and article_primary_tag != blank
+    assign show_article_header_meta = true
+  endif
+
+  if show_article_published
+    assign show_article_header_meta = true
+  endif
+
+  if article_sidebar_content == blank
+    assign article_sidebar_content = article.metafields.custom[article_sidebar_key]
+  endif
+
+  if article_sidebar_content == blank
+    assign article_sidebar_content = blog.metafields.custom[article_sidebar_key]
+  endif
+
+  if article_sidebar_content == blank
+    assign article_sidebar_content = article.metafields.custom.sidebar_content
+  endif
+
+  if article_sidebar_content == blank
+    assign article_sidebar_content = blog.metafields.custom.sidebar_content
+  endif
+
+  if article_sidebar_content == blank
+    assign article_sidebar_content = article.metafields.custom.static_block
+  endif
+
+  if article_sidebar_content == blank
+    assign article_sidebar_content = blog.metafields.custom.static_block
+  endif
+
+  assign article_sidebar_product_source = article.metafields.custom[article_sidebar_product_key]
+
+  if article_sidebar_product_source == blank
+    assign article_sidebar_product_source = article.metafields.custom.article_sidebar_product
+  endif
+
+  if article_sidebar_product_source == blank
+    assign article_sidebar_product_source = article.metafields.custom.sidebar_product
+  endif
+
+  if article_sidebar_product_source == blank
+    assign article_sidebar_product_source = article.metafields.custom.product_id
+  endif
+
+  if article_sidebar_product_source == blank
+    assign article_sidebar_product_source = article.metafields.custom.product_handle
+  endif
+
+  if article_sidebar_product_source != blank
+    if article_sidebar_product_source.type contains 'product_reference'
+      assign article_sidebar_product = article_sidebar_product_source.value
+
+      if article_sidebar_product.title == blank
+        assign article_sidebar_product = article_sidebar_product_source.value | first
+      endif
+    else
+      assign article_sidebar_product_lookup = article_sidebar_product_source.value | default: article_sidebar_product_source | strip
+      assign article_sidebar_product_lookup = article_sidebar_product_lookup | split: '/products/' | last | split: '?' | first | split: '#' | first | split: '/' | first | handleize
+      assign article_sidebar_product = all_products[article_sidebar_product_lookup]
+    endif
+  endif
+
+  assign article_sidebar_has_content = false
+
+  if section.settings.enable_sidebar_promo and article_sidebar_promo_heading != blank
+    assign article_sidebar_promo_enabled = true
+  endif
+
+  if section.settings.enable_sidebar_promo and article_sidebar_promo_image != blank
+    assign article_sidebar_promo_enabled = true
+  endif
+
+  if section.settings.enable_sidebar_promo and article_sidebar_promo_button_label != blank
+    assign article_sidebar_promo_enabled = true
+  endif
+
+  if article_sidebar_content_enabled and article_sidebar_content != blank
+    assign article_sidebar_has_content = true
+  endif
+
+  if article_sidebar_product_enabled and article_sidebar_product != blank
+    assign article_sidebar_has_content = true
+  endif
+
+  if article_sidebar_promo_enabled
+    assign article_sidebar_has_content = true
+  endif
+
+  if article_sidebar_product != blank
+    assign sidebar_product_umf_score = article_sidebar_product.metafields.custom.umf_score.value | default: article_sidebar_product.metafields.custom.umf_score
+    assign sidebar_product_mgo_score = article_sidebar_product.metafields.custom.mgo_score.value | default: article_sidebar_product.metafields.custom.mgo_score
+    assign sidebar_product_badge_color = article_sidebar_product.metafields.custom.color.value | default: article_sidebar_product.metafields.custom.color
+    assign sidebar_product_short_description = article_sidebar_product.metafields.custom.collection_short_description
+    assign sidebar_product_review_average = article_sidebar_product.metafields.stamped.reviews_average
+    assign sidebar_product_review_count = article_sidebar_product.metafields.stamped.reviews_count
+
+    if sidebar_product_review_average == blank
+      assign sidebar_product_review_average = article_sidebar_product.metafields.reviews.rating.value.rating
+    endif
+
+    if sidebar_product_review_average == blank
+      assign sidebar_product_review_average = article_sidebar_product.metafields.reviews.rating.value
+    endif
+
+    if sidebar_product_review_count == blank
+      assign sidebar_product_review_count = article_sidebar_product.metafields.reviews.rating_count.value
+    endif
+  endif
+-%}
+
+{%- capture article_sidebar_promo_markup -%}
+  {%- if article_sidebar_promo_enabled -%}
+    <div
+      class="c-article__promo-card"
+      style="
+        {% if article_sidebar_promo_background != blank %}background-color: {{ article_sidebar_promo_background | escape }};{% endif %}
+        {% if article_sidebar_promo_text_color != blank %}--promo-text-color: {{ article_sidebar_promo_text_color | escape }};{% endif %}
+        {% if article_sidebar_promo_button_text_color != blank %}--promo-button-text-color: {{ article_sidebar_promo_button_text_color | escape }};{% endif %}
+        {% if article_sidebar_promo_button_border_color != blank %}--promo-button-border-color: {{ article_sidebar_promo_button_border_color | escape }};{% endif %}
+      "
+    >
+      {%- if article_sidebar_promo_image != blank -%}
+        {%- if article_sidebar_promo_button_link != blank -%}
+          <a class="c-article__promo-media" href="{{ article_sidebar_promo_button_link }}">
+            {{
+              article_sidebar_promo_image
+              | image_url: width: 720
+              | image_tag:
+                loading: 'lazy',
+                widths: '360, 540, 720',
+                alt: article_sidebar_promo_image_alt
+            }}
+          </a>
+        {%- else -%}
+          <div class="c-article__promo-media">
+            {{
+              article_sidebar_promo_image
+              | image_url: width: 720
+              | image_tag:
+                loading: 'lazy',
+                widths: '360, 540, 720',
+                alt: article_sidebar_promo_image_alt
+            }}
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+
+      <div class="c-article__promo-body">
+        <p class="c-article__promo-heading">{{ article_sidebar_promo_heading | escape }}</p>
+
+        {%- if article_sidebar_promo_button_label != blank -%}
+          {%- if article_sidebar_promo_button_link != blank -%}
+            <a class="c-article__promo-button" href="{{ article_sidebar_promo_button_link }}">
+              {{ article_sidebar_promo_button_label | escape }}
+            </a>
+          {%- else -%}
+            <span class="c-article__promo-button">{{ article_sidebar_promo_button_label | escape }}</span>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- capture article_sidebar_markup -%}
+  {%- if article_sidebar_has_content -%}
+    <aside class="c-article__sidebar" aria-label="Blog sidebar">
+      {%- if article_sidebar_promo_enabled and article_sidebar_promo_position == 'above_toc' -%}
+        {{ article_sidebar_promo_markup }}
+      {%- endif -%}
+
+      {%- if article_sidebar_content_enabled and article_sidebar_content != blank -%}
+        <div class="c-article__sidebar-card" data-sidebar-content-card>
+          {%- if article_sidebar_title != blank -%}
+            <h3 class="c-article__sidebar-block__title">{{ article_sidebar_title | escape }}</h3>
+          {%- endif -%}
+
+          <div class="c-rte" data-sidebar-content>
+            {%- if article_sidebar_content.type != blank -%}
+              {{ article_sidebar_content | metafield_tag }}
+            {%- else -%}
+              {{ article_sidebar_content }}
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if article_sidebar_product_enabled and article_sidebar_product != blank -%}
+        <div class="c-article__product-block">
+          {%- if article_sidebar_product_title != blank -%}
+            <h3 class="c-article__product-block__title">{{ article_sidebar_product_title | escape }}</h3>
+          {%- endif -%}
+          <div class="c-article__product-card{% if article_sidebar_product.featured_image == blank %} c-article__product-card--no-image{% endif %}">
+            {%- if article_sidebar_product.featured_image != blank -%}
+              <a class="c-article__product-image" href="{{ article_sidebar_product.url }}" aria-label="{{ article_sidebar_product.title | escape }}">
+                <img
+                  src="{{ article_sidebar_product.featured_image | image_url: width: 420 }}"
+                  alt="{{ article_sidebar_product.featured_image.alt | default: article_sidebar_product.title | escape }}"
+                  width="{{ article_sidebar_product.featured_image.width }}"
+                  height="{{ article_sidebar_product.featured_image.height }}"
+                  loading="lazy"
+                >
+              </a>
+            {%- endif -%}
+
+            <div class="c-article__product-content">
+              {%- if sidebar_product_review_average != blank or sidebar_product_review_count != blank -%}
+                <div class="c-article__product-reviews">
+                  <span class="c-article__product-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                  {%- if sidebar_product_review_average != blank -%}
+                    <span>{{ sidebar_product_review_average | round: 2 }}</span>
+                  {%- endif -%}
+                  {%- if sidebar_product_review_count != blank -%}
+                    <span>({{ sidebar_product_review_count }})</span>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+
+              {%- if sidebar_product_umf_score != blank or sidebar_product_mgo_score != blank -%}
+                <div class="c-article__product-scores">
+                  {%- if sidebar_product_umf_score != blank -%}
+                    <span
+                      class="c-article__product-score{% if sidebar_product_badge_color != blank %} c-article__product-score--accent{% endif %}"
+                      {% if sidebar_product_badge_color != blank %}
+                        style="background-color: {{ sidebar_product_badge_color | escape }}; border-color: {{ sidebar_product_badge_color | escape }};"
+                      {% endif %}
+                    >
+                      UMF {{ sidebar_product_umf_score }}
+                    </span>
+                  {%- endif -%}
+                  {%- if sidebar_product_mgo_score != blank -%}
+                    <span
+                      class="c-article__product-score{% if sidebar_product_badge_color != blank %} c-article__product-score--accent{% endif %}"
+                      {% if sidebar_product_badge_color != blank %}
+                        style="background-color: {{ sidebar_product_badge_color | escape }}; border-color: {{ sidebar_product_badge_color | escape }};"
+                      {% endif %}
+                    >
+                      MGO {{ sidebar_product_mgo_score }}
+                    </span>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+
+              {%- if sidebar_product_short_description != blank -%}
+                <div class="c-article__product-description">
+                  {%- if sidebar_product_short_description.type != blank -%}
+                    {{ sidebar_product_short_description | metafield_tag }}
+                  {%- else -%}
+                    {{ sidebar_product_short_description }}
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+
+              <a class="c-article__product-button" href="{{ article_sidebar_product.url }}">Shop now</a>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if article_sidebar_promo_enabled and article_sidebar_promo_position == 'below_product' and article_sidebar_product != blank -%}
+        {{ article_sidebar_promo_markup }}
+      {%- endif -%}
+
+      {%- if article_sidebar_promo_enabled and article_sidebar_promo_position == 'below_product' and article_sidebar_product == blank -%}
+        {{ article_sidebar_promo_markup }}
+      {%- endif -%}
+    </aside>
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- capture article_header_markup -%}
+  <div class="c-article__header{% if section.settings.wide == true %} c-article__wide{% endif %}">
+    <nav class="c-article__breadcrumb" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <span aria-hidden="true">→</span>
+      <a href="{{ blog.url }}">{{ blog.title }}</a>
+      <span aria-hidden="true">→</span>
+      <span aria-current="page">{{ article.title }}</span>
+    </nav>
+
+    {%- if section.settings.meta == false and show_article_header_meta -%}
+      <div class="c-article__header-meta">
+        {%- if show_article_tag and article_primary_tag != blank -%}
+          <span
+            class="c-article__header-tag{% if sidebar_product_badge_color != blank %} c-article__header-tag--accent{% endif %}"
+            {% if sidebar_product_badge_color != blank %}
+              style="background-color: {{ sidebar_product_badge_color | escape }}; border-color: {{ sidebar_product_badge_color | escape }};"
+            {% endif %}
+          >
+            {{ article_primary_tag | link_to_tag: article_primary_tag }}
+          </span>
+        {%- endif -%}
+
+        {%- if show_article_tag and article_primary_tag != blank and show_article_published -%}
+          <span class="c-article__header-separator" aria-hidden="true">|</span>
+        {%- endif -%}
+
+        {%- if show_article_published -%}
+          <span class="c-article__header-published">{{ article.published_at | date: '%B %-d, %Y' }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {% if section.settings.title == false %}
+      <h1 class="c-article__title">{{ article.title }}</h1>
+    {% endif %}
+
+    {%- if section.settings.meta == false and show_article_updated -%}
+      <div class="c-article__header-divider">
+        <div class="c-article__header-updated">Last updated: {{ article.updated_at | date: '%B %-d, %Y' }}</div>
+      </div>
+    {%- endif -%}
+  </div>
+{%- endcapture -%}
+
+<div class="progress-bar-container">
+  <div class="progress-bar"><span></span></div>
+</div>
+
 {% if section.settings.container == false %}
   <div class="c-container">
-    {% if section.settings.meta == false %}
-      <ul class="c-article__meta{% if section.settings.wide == true %} c-article__wide{% endif %}">
-        {% if article.tags != blank %}
-          {% assign first_tag = article.tags | first %}
-          <li class="c-article__meta__tag">{{ first_tag | link_to_tag: first_tag }}</li>
-        {% endif %}
-        <li class="c-article__meta__date">{{ article.published_at | date: '%B %d, %y' }}</li>
-      </ul>
-    {% endif %}
-    {% if section.settings.title == false %}
-      <h1 class="c-article__title{% if section.settings.wide == true %} c-article__wide{% endif %}">
-        {{ article.title }}
-      </h1>
-    {% endif %}
-    {% if section.settings.image == false and article.image != blank %}
-      <div class="c-article__image">
-        {{
-          article.image
-          | image_url: width: article.image.width
-          | image_tag: height: article.image.height, alt: article.image.alt, class: 'u-absolute-fill', loading: 'lazy'
-        }}
-      </div>
-    {% endif %}
-    <div class="c-article__content c-rte{% if section.settings.wide == true %} c-article__wide{% endif %}">
-      {{ article.content }}
-    </div>
+
+    {{ article_header_markup }}
+
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+
+        {%- when 'featured_image' -%}
+          {% if section.settings.image == false and article.image != blank and article.metafields.custom.author == 'Brand Manager' %}
+            <div class="article-template__hero-container" {{ block.shopify_attributes }}>
+              <div class="article-template__hero-cover">
+                <img
+                  srcset="
+                    {% if article.image.width >= 1920 %}{{ article.image | image_url: width: 1920 }} 1920w,{% endif %}
+                    {% if article.image.width >= 2200 %}{{ article.image | image_url: width: 2200 }} 2200w,{% endif %}
+                    {% if article.image.width >= 3000 %}{{ article.image | image_url: width: 3000 }} 3000w,{% endif %}
+                    {{ article.image | image_url }} {{ article.image.width }}w
+                  "
+                  sizes="(min-width: 1920px) 1920px, 1920px"
+                  src="{{ article.image | image_url: width: 1920 }}"
+                  loading="eager"
+                  fetchpriority="high"
+                  width="{{ article.image.width }}"
+                  height="{{ article.image.height }}"
+                  alt="{{ article.image.alt | escape }}"
+                >
+              </div>
+            </div>
+          {% endif %}
+
+        {%- when 'title' -%}
+          
+
+        {%- when 'meta' -%}
+          
+
+        {%- when 'content' -%}
+          <div
+            class="c-article__body-row section-{{ section.id }}-padding{% unless article_sidebar_has_content %} c-article__body-row--full{% endunless %}{% if section.settings.wide == true %} c-article__wide{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            <div class="c-article__body-main c-article__content c-rte">
+              {{ article.content }}
+            </div>
+
+            {{ article_sidebar_markup }}
+          </div>
+
+      {%- endcase -%}
+    {%- endfor -%}
+
     {% if section.settings.share == false %}
       <div class="c-article__share{% if section.settings.wide == true %} c-article__wide{% endif %}">
         <div class="c-article__share__icons">
@@ -85,259 +1146,471 @@
         </div>
       </div>
     {% endif %}
-    {%- if blog.comments_enabled? -%}
-      <div id="comments" class="c-comments{% if section.settings.wide == true %} c-article__wide{% endif %}">
-        {%- if article.comments_count > 0 -%}
-          {%- assign anchorId = '#Comments-' | append: article.id -%}
 
-          <h2 id="Comments-{{ article.id }}">
-            {{ article.comments_count }}
-            {% if article.comments_count > 1 -%}
-              {{- 'sections.main_article.comments' | t -}}
-            {%- else -%}
-              {{- 'sections.main_article.comment' | t -}}
-            {%- endif %}
-          </h2>
-          {% paginate article.comments by 5 %}
-            <div class="c-comments__list">
-              {%- if comment.status == 'pending' and comment.content -%}
-                <article id="{{ comment.id }}" class="c-comment">
-                  {{ comment.content }}
-                  <footer>
-                    <span class="c-comment_author">{{ comment.author }}</span>
-                  </footer>
-                </article>
-              {%- endif -%}
+    {% if section.settings.show_back_to_blogs %}
+      <div class="c-article__back{% if section.settings.wide == true %} c-article__wide{% endif %}" style="text-align:center; margin-top:30px;">
+        <a href="{{ blog.url }}" class="c-article__back__link">
+          &larr; {{ 'blogs.article.back_to_blog' | t: title: blog.title | escape }}
+        </a>
+      </div>
+    {% endif %}
 
-              {%- for comment in article.comments -%}
-                <article id="{{ comment.id }}" class="c-comment">
-                  {{ comment.content }}
-                  <footer>
-                    <span class="c-comment__author">{{ comment.author }}</span
-                    ><span class="c-comment__date">{{ comment.created_at | time_tag: format: 'date' }}</span>
-                  </footer>
-                </article>
-              {%- endfor -%}
-              {%- if paginate.parts.size > 0 -%}
-                <ul class="c-comments__list__pagination" role="list">
-                  {%- for part in paginate.parts -%}
-                    <li>
-                      {%- if part.is_link -%}
-                        <a
-                          href="{{ part.url }}{{ anchorId }}"
-                          class="c-comments__list__pagination__item"
-                          aria-label="{{ 'pagination.page' | t: number: part.title }}"
-                        >
-                          {{- part.title -}}
-                        </a>
-                      {%- else -%}
-                        {%- if part.title == paginate.current_page -%}
+    {% if section.settings.enable_comment_box %}
+      {%- if blog.comments_enabled? -%}
+        <div id="comments" class="c-comments{% if section.settings.wide == true %} c-article__wide{% endif %}">
+          {%- if article.comments_count > 0 -%}
+            {%- assign anchorId = '#Comments-' | append: article.id -%}
+
+            <h2 id="Comments-{{ article.id }}">
+              {{ article.comments_count }}
+              {% if article.comments_count > 1 -%}
+                {{- 'sections.main_article.comments' | t -}}
+              {%- else -%}
+                {{- 'sections.main_article.comment' | t -}}
+              {%- endif %}
+            </h2>
+            {% paginate article.comments by 5 %}
+              <div class="c-comments__list">
+                {%- if comment.status == 'pending' and comment.content -%}
+                  <article id="{{ comment.id }}" class="c-comment">
+                    {{ comment.content }}
+                    <footer>
+                      <span class="c-comment_author">{{ comment.author }}</span>
+                    </footer>
+                  </article>
+                {%- endif -%}
+
+                {%- for comment in article.comments -%}
+                  <article id="{{ comment.id }}" class="c-comment">
+                    {{ comment.content }}
+                    <footer>
+                      <span class="c-comment__author">{{ comment.author }}</span
+                      ><span class="c-comment__date">{{ comment.created_at | time_tag: format: 'date' }}</span>
+                    </footer>
+                  </article>
+                {%- endfor -%}
+                {%- if paginate.parts.size > 0 -%}
+                  <ul class="c-comments__list__pagination" role="list">
+                    {%- for part in paginate.parts -%}
+                      <li>
+                        {%- if part.is_link -%}
                           <a
-                            role="link"
-                            aria-disabled="true"
-                            class="c-comments__list__pagination__item c-comments__list__pagination__item--current"
-                            aria-current="page"
+                            href="{{ part.url }}{{ anchorId }}"
+                            class="c-comments__list__pagination__item"
                             aria-label="{{ 'pagination.page' | t: number: part.title }}"
                           >
                             {{- part.title -}}
                           </a>
                         {%- else -%}
-                          <span class="c-comments__list__pagination__item">{{ part.title }}</span>
+                          {%- if part.title == paginate.current_page -%}
+                            <a
+                              role="link"
+                              aria-disabled="true"
+                              class="c-comments__list__pagination__item c-comments__list__pagination__item--current"
+                              aria-current="page"
+                              aria-label="{{ 'pagination.page' | t: number: part.title }}"
+                            >
+                              {{- part.title -}}
+                            </a>
+                          {%- else -%}
+                            <span class="c-comments__list__pagination__item">{{ part.title }}</span>
+                          {%- endif -%}
                         {%- endif -%}
-                      {%- endif -%}
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+              </div>
+            {% endpaginate %}
+          {%- endif -%}
+          {% form 'new_comment', article %}
+            {%- liquid
+              assign post_message = 'Your comment was posted successfully! Thank you!'
+              if blog.moderated? and comment.status == 'unapproved'
+                assign post_message = 'Your comment was posted successfully. We will publish it in a little while, as our blog is moderated.'
+              endif
+            -%}
+            <h2>{{ 'sections.main_article.leave_comment' | t }}</h2>
+            {%- if form.errors -%}
+              <div class="c-form__message c-form__message--error" role="alert">
+                <h3>{{ 'sections.main_article.comment_message' | t }}</h3>
+                <ul>
+                  {%- for field in form.errors -%}
+                    <li>
+                      <a href="#CommentForm-{{ field }}" class="link">
+                        {%- if form.errors.translated_fields[field] contains 'author' -%}
+                          {{ 'sections.main_article.message_name' | t }}
+                        {%- elsif form.errors.translated_fields[field] contains 'body' -%}
+                          {{ 'sections.main_article.message_comment' | t }}
+                        {%- else -%}
+                          {{ form.errors.translated_fields[field] }}
+                        {%- endif -%}
+                        {{ form.errors.messages[field] }}
+                      </a>
                     </li>
                   {%- endfor -%}
                 </ul>
+              </div>
+            {%- elsif form.posted_successfully? -%}
+              <div class="c-form__message c-form__message--success" role="status">
+                <h3>{{ post_message }}</h3>
+              </div>
+            {%- endif -%}
+
+            <div
+              {% if blog.moderated? == false %}
+                class="article-template__comments-fields"
+              {% endif %}
+            >
+              <div class="c-form__fields">
+                <div class="c-form__field c-form__field--with-error">
+                  <input
+                    type="text"
+                    name="comment[author]"
+                    id="CommentForm-author"
+                    class="c-form__field__input"
+                    autocomplete="name"
+                    value="{{ form.author }}"
+                    aria-required="true"
+                    required
+                    {% if form.errors contains 'author' %}
+                      aria-invalid="true"
+                      aria-describedby="CommentForm-author-error"
+                    {% endif %}
+                    placeholder="{{ 'sections.main_article.placeholder_name' | t }}"
+                  >
+                  <label
+                    class="c-form__field__label"
+                    for="CommentForm-author"
+                  >
+                    {{- 'sections.main_article.label_name' | t }}
+                    <span aria-hidden="true">*</span></label
+                  >
+                  {%- if form.errors contains 'author' -%}
+                    <small class="c-form__field__error" id="CommentForm-author-error">
+                      <span class="form__message">
+                        {{- 'sections.main_article.warning_name' | t }}
+                        {{ form.errors.messages.author }}.</span
+                      >
+                    </small>
+                  {%- endif -%}
+                </div>
+                <div class="c-form__field c-form__field--with-error">
+                  <input
+                    type="email"
+                    name="comment[email]"
+                    id="CommentForm-email"
+                    autocomplete="email"
+                    class="c-form__field__input"
+                    value="{{ form.email }}"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    aria-required="true"
+                    required
+                    {% if form.errors contains 'email' %}
+                      aria-invalid="true"
+                      aria-describedby="CommentForm-email-error"
+                    {% endif %}
+                    placeholder="{{ 'sections.main_article.placeholder_email' | t }}"
+                  >
+                  <label
+                    class="c-form__field__label"
+                    for="CommentForm-email"
+                  >
+                    {{- 'sections.main_article.label_email' | t }}
+                    <span aria-hidden="true">*</span></label
+                  >
+                  {%- if form.errors contains 'email' -%}
+                    <small class="c-form__field__error" id="CommentForm-email-error">
+                      <span class="form__message">
+                        {{- 'sections.main_article.warning_email' | t }}
+                        {{ form.errors.messages.email }}.</span
+                      >
+                    </small>
+                  {%- endif -%}
+                </div>
+              </div>
+              <div class="c-form__field c-form__field--with-error">
+                <textarea
+                  rows="5"
+                  name="comment[body]"
+                  id="CommentForm-body"
+                  class="text-area c-form__field__input"
+                  aria-required="true"
+                  required
+                  {% if form.errors contains 'body' %}
+                    aria-invalid="true"
+                    aria-describedby="CommentForm-body-error"
+                  {% endif %}
+                  placeholder="{{ 'sections.main_article.placeholder_comment' | t }}"
+                >{{ form.body }}</textarea>
+                <label
+                  class="form__label c-form__field__label"
+                  for="CommentForm-body"
+                >
+                  {{- 'sections.main_article.label_comment' | t }}
+                  <span aria-hidden="true">*</span></label
+                >
+              </div>
+              {%- if form.errors contains 'body' -%}
+                <small class="c-form__field__error" id="CommentForm-body-error">
+                  <span class="form__message">
+                    {{- 'sections.main_article.warning_comment' | t }}
+                    {{ form.errors.messages.body }}.</span
+                  >
+                </small>
               {%- endif -%}
             </div>
-          {% endpaginate %}
-        {%- endif -%}
-        {% form 'new_comment', article %}
-          {%- liquid
-            assign post_message = 'Your comment was posted successfully! Thank you!'
-            if blog.moderated? and comment.status == 'unapproved'
-              assign post_message = 'Your comment was posted successfully. We will publish it in a little while, as our blog is moderated.'
-            endif
-          -%}
-          <h2>{{ 'sections.main_article.leave_comment' | t }}</h2>
-          {%- if form.errors -%}
-            <div class="c-form__message c-form__message--error" role="alert">
-              <h3>{{ 'sections.main_article.comment_message' | t }}</h3>
-              <ul>
-                {%- for field in form.errors -%}
-                  <li>
-                    <a href="#CommentForm-{{ field }}" class="link">
-                      {%- if form.errors.translated_fields[field] contains 'author' -%}
-                        {{ 'sections.main_article.message_name' | t }}
-                      {%- elsif form.errors.translated_fields[field] contains 'body' -%}
-                        {{ 'sections.main_article.message_comment' | t }}
-                      {%- else -%}
-                        {{ form.errors.translated_fields[field] }}
-                      {%- endif -%}
-                      {{ form.errors.messages[field] }}
-                    </a>
-                  </li>
-                {%- endfor -%}
-              </ul>
-            </div>
-          {%- elsif form.posted_successfully? -%}
-            <div class="c-form__message c-form__message--success" role="status">
-              <h3>{{ post_message }}</h3>
-            </div>
-          {%- endif -%}
-
-          <div
-            {% if blog.moderated? == false %}
-              class="article-template__comments-fields"
-            {% endif %}
-          >
-            <div class="c-form__fields">
-              <div class="c-form__field c-form__field--with-error">
-                <input
-                  type="text"
-                  name="comment[author]"
-                  id="CommentForm-author"
-                  class="c-form__field__input"
-                  autocomplete="name"
-                  value="{{ form.author }}"
-                  aria-required="true"
-                  required
-                  {% if form.errors contains 'author' %}
-                    aria-invalid="true"
-                    aria-describedby="CommentForm-author-error"
-                  {% endif %}
-                  placeholder="{{ 'sections.main_article.placeholder_name' | t }}"
-                >
-                <label
-                  class="c-form__field__label"
-                  for="CommentForm-author"
-                >
-                  {{- 'sections.main_article.label_name' | t }}
-                  <span aria-hidden="true">*</span></label
-                >
-                {%- if form.errors contains 'author' -%}
-                  <small class="c-form__field__error" id="CommentForm-author-error">
-                    <span class="form__message">
-                      {{- 'sections.main_article.warning_name' | t }}
-                      {{ form.errors.messages.author }}.</span
-                    >
-                  </small>
-                {%- endif -%}
-              </div>
-              <div class="c-form__field c-form__field--with-error">
-                <input
-                  type="email"
-                  name="comment[email]"
-                  id="CommentForm-email"
-                  autocomplete="email"
-                  class="c-form__field__input"
-                  value="{{ form.email }}"
-                  autocorrect="off"
-                  autocapitalize="off"
-                  aria-required="true"
-                  required
-                  {% if form.errors contains 'email' %}
-                    aria-invalid="true"
-                    aria-describedby="CommentForm-email-error"
-                  {% endif %}
-                  placeholder="{{ 'sections.main_article.placeholder_email' | t }}"
-                >
-                <label
-                  class="c-form__field__label"
-                  for="CommentForm-email"
-                >
-                  {{- 'sections.main_article.label_email' | t }}
-                  <span aria-hidden="true">*</span></label
-                >
-                {%- if form.errors contains 'email' -%}
-                  <small class="c-form__field__error" id="CommentForm-email-error">
-                    <span class="form__message">
-                      {{- 'sections.main_article.warning_email' | t }}
-                      {{ form.errors.messages.email }}.</span
-                    >
-                  </small>
-                {%- endif -%}
-              </div>
-            </div>
-            <div class="c-form__field c-form__field--with-error">
-              <textarea
-                rows="5"
-                name="comment[body]"
-                id="CommentForm-body"
-                class="text-area c-form__field__input"
-                aria-required="true"
-                required
-                {% if form.errors contains 'body' %}
-                  aria-invalid="true"
-                  aria-describedby="CommentForm-body-error"
-                {% endif %}
-                placeholder="{{ 'sections.main_article.placeholder_comment' | t }}"
-              >{{ form.body }}</textarea>
-              <label
-                class="form__label c-form__field__label"
-                for="CommentForm-body"
-              >
-                {{- 'sections.main_article.label_comment' | t }}
-                <span aria-hidden="true">*</span></label
-              >
-            </div>
-            {%- if form.errors contains 'body' -%}
-              <small class="c-form__field__error" id="CommentForm-body-error">
-                <span class="form__message">
-                  {{- 'sections.main_article.warning_comment' | t }}
-                  {{ form.errors.messages.body }}.</span
-                >
-              </small>
+            {%- if blog.moderated? -%}
+              <p class="c-form__moderate-message">{{ 'sections.main_article.moderate' | t }}</p>
             {%- endif -%}
-          </div>
-          {%- if blog.moderated? -%}
-            <p class="c-form__moderate-message">{{ 'sections.main_article.moderate' | t }}</p>
-          {%- endif -%}
-          <input type="submit" class="c-form__button c-button" value="{{ 'sections.main_article.add_comment' | t }}">
-        {% endform %}
-      </div>
-    {%- endif -%}
+            <input type="submit" class="c-form__button c-button" value="{{ 'sections.main_article.add_comment' | t }}">
+          {% endform %}
+        </div>
+      {%- endif -%}
+    {% endif %}
+
   </div>
 {% else %}
-  {{ article.content }}
+  {%- if article_sidebar_has_content -%}
+    <div class="c-article__body-row section-{{ section.id }}-padding">
+      <div class="c-article__body-main c-article__content c-rte">
+        {{ article.content }}
+      </div>
+
+      {{ article_sidebar_markup }}
+    </div>
+  {%- else -%}
+    {{ article.content }}
+  {%- endif -%}
 {% endif %}
+
 <script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "Article",
-    "articleBody": {{ article.content | strip_html | json }},
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": {{ request.origin | append: page.url | json }}
-    },
-    "headline": {{ article.title | json }},
-    {% if article.excerpt != blank %}
-      "description": {{ article.excerpt | strip_html | json }},
-    {% endif %}
-    {% if article.image %}
-      "image": [
-        {{ article | image_url: width: article.image.width | prepend: "https:" | json }}
-      ],
-    {% endif %}
-    "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
-    "dateCreated": {{ article.created_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
-    "author": {
-      "@type": "Person",
-      "name": {{ article.author | json }}
-    },
-    "publisher": {
-      "@type": "Organization",
-      {% if settings.share_image %}
-        "logo": {
-          "@type": "ImageObject",
-          "height": {{ settings.share_image.height | json }},
-          "url": {{ settings.share_image | image_url: width: settings.share_image.width | prepend: "https:" | json }},
-          "width": {{ settings.share_image.width | json }}
-        },
-      {% endif %}
-      "name": {{ shop.name | json }}
-    }
+  {{ article | structured_data }}
+</script>
+
+<script>
+  let lastScrollTop = 0;
+  const progressBarContainer = document.querySelector('.progress-bar-container');
+  const progressBar = document.querySelector('.progress-bar');
+  let updateActiveTableOfContents = null;
+
+  function updateProgressBar() {
+    const totalHeight = document.body.scrollHeight - window.innerHeight;
+    const progress = (window.pageYOffset / totalHeight) * 100;
+    if (progressBar) progressBar.style.width = progress + '%';
   }
+
+  function slugifyHeadingText(value) {
+    return (value || '')
+      .toString()
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/&/g, ' and ')
+      .replace(/['’]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '') || 'section';
+  }
+
+  function normalizeHeadingText(value) {
+    return (value || '')
+      .toString()
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/&/g, ' and ')
+      .replace(/['’]/g, '')
+      .replace(/[^a-z0-9]+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function getSidebarScrollOffset(sectionRoot) {
+    const sidebar = sectionRoot ? sectionRoot.querySelector('.c-article__sidebar') : null;
+    const stickyTop = sidebar ? parseInt(window.getComputedStyle(sidebar).top, 10) : NaN;
+
+    if (Number.isFinite(stickyTop)) {
+      return stickyTop + 28;
+    }
+
+    return 112;
+  }
+
+  function initializeSidebarTableOfContents() {
+    const sectionRoot = document.currentScript ? document.currentScript.closest('.c-article') : document.querySelector('.c-article');
+    const articleBody = sectionRoot ? sectionRoot.querySelector('.c-article__body-main') : null;
+    const sidebarCard = sectionRoot ? sectionRoot.querySelector('[data-sidebar-content-card]') : null;
+    const sidebarContent = sidebarCard ? sidebarCard.querySelector('[data-sidebar-content]') : null;
+
+    if (!articleBody || !sidebarCard || !sidebarContent) {
+      return;
+    }
+
+    const headingElements = Array.from(articleBody.querySelectorAll('h2, h3, h4, h5, h6')).filter(function (heading) {
+      return normalizeHeadingText(heading.textContent) !== '';
+    });
+
+    if (!headingElements.length) {
+      return;
+    }
+
+    const usedIds = new Set();
+    const headingEntries = headingElements.map(function (heading) {
+      let headingId = heading.id ? heading.id.trim() : '';
+      const baseId = headingId || slugifyHeadingText(heading.textContent);
+      let uniqueId = baseId;
+      let suffix = 2;
+
+      while (usedIds.has(uniqueId)) {
+        uniqueId = baseId + '-' + suffix;
+        suffix += 1;
+      }
+
+      if (headingId !== uniqueId) {
+        heading.id = uniqueId;
+      }
+
+      usedIds.add(uniqueId);
+
+      return {
+        element: heading,
+        id: uniqueId,
+        text: normalizeHeadingText(heading.textContent)
+      };
+    });
+
+    const headingMap = new Map();
+
+    headingEntries.forEach(function (entry) {
+      if (!headingMap.has(entry.text)) {
+        headingMap.set(entry.text, entry);
+      }
+    });
+
+    const tocItemElements = Array.from(sidebarContent.querySelectorAll('p, li, h1, h2, h3, h4, h5, h6')).filter(function (item) {
+      return normalizeHeadingText(item.textContent) !== '';
+    });
+
+    const matchedItems = tocItemElements.map(function (item) {
+      const itemText = normalizeHeadingText(item.textContent);
+      let matchedHeading = headingMap.get(itemText) || null;
+
+      if (!matchedHeading) {
+        matchedHeading = headingEntries.find(function (entry) {
+          return entry.text.includes(itemText) || itemText.includes(entry.text);
+        }) || null;
+      }
+
+      if (!matchedHeading) {
+        return null;
+      }
+
+      let link = item.querySelector('a');
+
+      if (!link) {
+        link = document.createElement('a');
+        link.className = 'c-article__toc-link';
+        link.innerHTML = item.innerHTML;
+        item.innerHTML = '';
+        item.appendChild(link);
+      } else {
+        link.classList.add('c-article__toc-link');
+      }
+
+      link.setAttribute('href', '#' + matchedHeading.id);
+      link.setAttribute('data-toc-target', matchedHeading.id);
+
+      return {
+        item: item,
+        link: link,
+        heading: matchedHeading.element,
+        id: matchedHeading.id
+      };
+    }).filter(Boolean);
+
+    if (matchedItems.length < 2) {
+      return;
+    }
+
+    sidebarCard.classList.add('c-article__sidebar-card--toc');
+
+    matchedItems.forEach(function (entry) {
+      entry.link.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        const scrollOffset = getSidebarScrollOffset(sectionRoot);
+        const targetTop = entry.heading.getBoundingClientRect().top + window.pageYOffset - scrollOffset;
+
+        window.scrollTo({
+          top: Math.max(targetTop, 0),
+          behavior: 'smooth'
+        });
+
+        if (window.history && window.history.replaceState) {
+          window.history.replaceState(null, '', '#' + entry.id);
+        }
+      });
+    });
+
+    const orderedItems = matchedItems.slice().sort(function (left, right) {
+      return left.heading.offsetTop - right.heading.offsetTop;
+    });
+
+    function setActiveTableOfContentsItem(activeId) {
+      matchedItems.forEach(function (entry) {
+        const isActive = entry.id === activeId;
+        entry.link.classList.toggle('is-active', isActive);
+
+        if (isActive) {
+          entry.link.setAttribute('aria-current', 'true');
+        } else {
+          entry.link.removeAttribute('aria-current');
+        }
+      });
+    }
+
+    updateActiveTableOfContents = function () {
+      const scrollOffset = getSidebarScrollOffset(sectionRoot);
+      let activeItem = orderedItems[0];
+
+      orderedItems.forEach(function (entry) {
+        const entryTop = entry.heading.getBoundingClientRect().top;
+
+        if (entryTop - scrollOffset <= 0) {
+          activeItem = entry;
+        }
+      });
+
+      if (activeItem) {
+        setActiveTableOfContentsItem(activeItem.id);
+      }
+    };
+
+    updateActiveTableOfContents();
+  }
+
+  window.addEventListener('scroll', function () {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (progressBarContainer) {
+      if (scrollTop > lastScrollTop) {
+        progressBarContainer.style.height = '7px';
+      } else {
+        progressBarContainer.style.height = '0';
+      }
+    }
+
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    updateProgressBar();
+
+    if (typeof updateActiveTableOfContents === 'function') {
+      updateActiveTableOfContents();
+    }
+  });
+
+  initializeSidebarTableOfContents();
+  updateProgressBar();
 </script>
 
 {% schema %}
@@ -382,11 +1655,197 @@
       "id": "share",
       "label": "Hide Social",
       "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_back_to_blogs",
+      "label": "Show back to blogs",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_comment_box",
+      "label": "Enable comment box",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "sidebar_metafield_key",
+      "label": "Sidebar metafield key",
+      "info": "Reads custom.<key> from the article first, then the blog. Use a rich text metafield for the sticky sidebar.",
+      "default": "article_sidebar"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sidebar_content",
+      "label": "Show table of contents",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sidebar_product_metafield_key",
+      "label": "Sidebar product metafield key",
+      "info": "Reads custom.<key> from the article. Product reference metafields work best; product handles are also supported.",
+      "default": "article_sidebar_product"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sidebar_product",
+      "label": "Show products mentioned",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sidebar_content_title",
+      "label": "Sidebar content title",
+      "default": "Table of Contents"
+    },
+    {
+      "type": "text",
+      "id": "sidebar_product_title",
+      "label": "Sidebar product title",
+      "default": "Products Mentioned"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sidebar_promo",
+      "label": "Show sidebar promo card",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "sidebar_promo_position",
+      "label": "Sidebar promo position",
+      "default": "above_toc",
+      "options": [
+        {
+          "value": "above_toc",
+          "label": "Above Table of Contents"
+        },
+        {
+          "value": "below_product",
+          "label": "Below Products Mentioned"
+        }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "sidebar_promo_image",
+      "label": "Sidebar promo image"
+    },
+    {
+      "type": "text",
+      "id": "sidebar_promo_heading",
+      "label": "Sidebar promo heading",
+      "default": "Let us help you find your perfect match!"
+    },
+    {
+      "type": "text",
+      "id": "sidebar_promo_button_label",
+      "label": "Sidebar promo button label",
+      "default": "Take the quiz"
+    },
+    {
+      "type": "url",
+      "id": "sidebar_promo_button_link",
+      "label": "Sidebar promo button link"
+    },
+    {
+      "type": "color",
+      "id": "sidebar_promo_background",
+      "label": "Sidebar promo background",
+      "default": "#f3b31f"
+    },
+    {
+      "type": "color",
+      "id": "sidebar_promo_text_color",
+      "label": "Sidebar promo text color",
+      "default": "#2f2b26"
+    },
+    {
+      "type": "color",
+      "id": "sidebar_promo_button_text_color",
+      "label": "Sidebar promo button text color",
+      "default": "#2f2b26"
+    },
+    {
+      "type": "color",
+      "id": "sidebar_promo_button_border_color",
+      "label": "Sidebar promo button border color",
+      "default": "#2f2b26"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Main content top margin",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Main content bottom margin",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "featured_image",
+      "name": "Featured Image",
+      "limit": 1
+    },
+    {
+      "type": "title",
+      "name": "Title",
+      "limit": 1
+    },
+    {
+      "type": "content",
+      "name": "Content",
+      "limit": 1
+    },
+    {
+      "type": "meta",
+      "name": "Date / Tag",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_published",
+          "label": "Show published date",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_updated",
+          "label": "Show updated date",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_tag",
+          "label": "Show first tag",
+          "default": true
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Main Article"
+      "name": "Main Article",
+      "blocks": [
+        { "type": "featured_image" },
+        { "type": "title" },
+        { "type": "meta" },
+        { "type": "content" }
+      ]
     }
   ]
 }

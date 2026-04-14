@@ -51,6 +51,14 @@
         "scale_title": "Taste Profile",
         "scale_start": "Clean & Sweet",
         "scale_end": "Bold & Intense",
+        "show_product_banner": true,
+        "product_banner_image": "shopify://shop_images/AEUMF15_125g_1.webp",
+        "product_banner_image_alt": "MGO 829+ Honig",
+        "product_banner_title": "Spend AED 350 & get a free UMF™ 15+ 125g jar.",
+        "product_banner_subtitle": "Limited time only.",
+        "product_banner_background": "#feafaa",
+        "product_banner_text_color": "#da1e15",
+        "product_banner_image_background": "#ffffff",
         "product_content": "short"
       }
     },

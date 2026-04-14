@@ -2,92 +2,437 @@
 <script src="{{ 'jarallax-video.min.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'hero.js' | asset_url }}" defer="defer"></script>
 {{ 'hero.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign hero_image = section.settings.image
+  assign uploaded_video = section.settings.video
+  assign external_video = section.settings.external_video
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --hero-text-color: {{ section.settings.text_color }};
+    --hero-button-background: {{ section.settings.button_background_color }};
+    --hero-button-text-color: {{ section.settings.button_text_color }};
+    --hero-button-border-color: {{ section.settings.button_border_color }};
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: {{ section.settings.desktop_height }}px;
+    overflow: hidden;
+    background-color: #000000;
+    isolation: isolate;
+  }
+
+  #shopify-section-{{ section.id }}::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-color: {{ section.settings.overlay_color }};
+    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .c-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .c-hero__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: {{ section.settings.content_width }}px;
+    margin: 0 auto;
+    transform: translateY({{ section.settings.content_offset }}px);
+  }
+
+  #shopify-section-{{ section.id }} .c-hero__content,
+  #shopify-section-{{ section.id }} .c-hero__content h2,
+  #shopify-section-{{ section.id }} .c-hero__content p {
+    color: var(--hero-text-color);
+  }
+
+  #shopify-section-{{ section.id }} .c-hero__content h2 {
+    margin: 0;
+    max-width: 100%;
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: normal;
+    overflow-wrap: break-word;
+  }
+
+  #shopify-section-{{ section.id }} .c-hero__content p {
+    margin: {{ section.settings.paragraph_spacing_top }}px 0 0;
+    max-width: 100%;
+    font-size: {{ section.settings.paragraph_size }}px;
+    line-height: 1.4;
+    letter-spacing: normal;
+    overflow-wrap: break-word;
+  }
+
+  #shopify-section-{{ section.id }} .c-hero__content .c-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    margin-top: {{ section.settings.button_spacing_top }}px;
+    padding: 0 24px;
+    background-color: var(--hero-button-background);
+    border: 1px solid var(--hero-button-border-color);
+    border-radius: {{ section.settings.button_radius }}px;
+    border-color: var(--hero-button-border-color);
+    color: var(--hero-button-text-color);
+    font-size: {{ section.settings.button_size }}px;
+    
+    line-height: 1;
+    letter-spacing: 0.16em;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    white-space: normal;
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  #shopify-section-{{ section.id }} .c-hero__video,
+  #shopify-section-{{ section.id }} .c-hero__image {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .c-hero__video-element {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      min-height: {{ section.settings.mobile_height }}px;
+    }
+
+    #shopify-section-{{ section.id }} .c-container {
+      padding: 0 20px;
+    }
+
+    #shopify-section-{{ section.id }} .c-hero__content h2 {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+    }
+
+    #shopify-section-{{ section.id }} .c-hero__content {
+      transform: translateY({{ section.settings.mobile_content_offset }}px);
+    }
+
+    #shopify-section-{{ section.id }} .c-hero__content p {
+      margin-top: {{ section.settings.mobile_paragraph_spacing_top }}px;
+      font-size: {{ section.settings.mobile_paragraph_size }}px;
+    }
+  }
+{%- endstyle -%}
+
 <div class="c-container">
   <div class="c-hero__content">
     {%- if section.settings.heading != blank -%}
       <h2>{{ section.settings.heading | escape }}</h2>
     {%- endif -%}
+
     {%- if section.settings.paragraph != blank -%}
       <p>{{ section.settings.paragraph | escape }}</p>
     {%- endif -%}
-    {%- if section.settings.button_label != blank and section.settings.button_link -%}
+
+    {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
       <a href="{{ section.settings.button_link }}" class="c-button c-button--white" rel="bookmark">
         {{- section.settings.button_label | escape -}}
       </a>
     {%- endif -%}
   </div>
 </div>
-{% if section.settings.video %}
-  <div class="c-hero__video jarallax" data-url="{{ section.settings.video }}">
-    <img
-      class="c-hero__image u-absolute-fill jarallax-img"
-      srcset="{%- if section.settings.image.width >= 375 -%}{{ section.settings.image | image_url: width: 750 }} 375w,{%- endif -%} {%- if section.settings.image.width >= 550 -%}{{ section.settings.image | image_url: width: 1100 }} 550w,{%- endif -%} {%- if section.settings.image.width >= 750 -%}{{ section.settings.image | image_url: width: 1500 }} 750w,{%- endif -%} {%- if section.settings.image.width >= 1100 -%}{{ section.settings.image | image_url: width: 2200 }} 1100w,{%- endif -%} {%- if section.settings.image.width >= 1500 -%}{{ section.settings.image | image_url: width: 3000 }} 1500w,{%- endif -%} {%- if section.settings.image.width >= 1780 -%}{{ section.settings.image | image_url: width: 3540 }} 1780w,{%- endif -%} {%- if section.settings.image.width >= 2000 -%}{{ section.settings.image | image_url: width: 2000 }} 2000w,{%- endif -%} {%- if section.settings.image.width >= 3000 -%}{{ section.settings.image | image_url: width: 3000 }} 3000w,{%- endif -%} {%- if section.settings.image.width >= 3840 -%}{{ section.settings.image | image_url: width: 3840 }} 3840w,{%- endif -%} {{ section.settings.image | image_url }} {{ section.settings.image.width }}w"
-      sizes="100vw"
-      src="{{ section.settings.image | image_url: width: 1500 }}"
-      loading="lazy"
-      alt="{{ section.settings.image.alt | escape }}"
-      width="{{ section.settings.image.width }}"
-      height="{{ section.settings.image.width | divided_by: section.settings.image.aspect_ratio }}"
-    >
+
+{%- if uploaded_video != blank -%}
+  <div class="c-hero__video">
+    {{
+      uploaded_video
+      | video_tag:
+        autoplay: true,
+        loop: true,
+        muted: true,
+        controls: false,
+        playsinline: true,
+        image_size: '1500x',
+        class: 'c-hero__video-element u-absolute-fill'
+    }}
   </div>
-{% else %}
+{%- elsif external_video != blank -%}
+  <div class="c-hero__video jarallax" data-url="{{ external_video }}" data-jarallax-video="{{ external_video }}">
+    {%- if hero_image != blank -%}
+      <img
+        class="c-hero__image u-absolute-fill jarallax-img"
+        srcset="{%- if hero_image.width >= 375 -%}{{ hero_image | image_url: width: 750 }} 375w,{%- endif -%} {%- if hero_image.width >= 550 -%}{{ hero_image | image_url: width: 1100 }} 550w,{%- endif -%} {%- if hero_image.width >= 750 -%}{{ hero_image | image_url: width: 1500 }} 750w,{%- endif -%} {%- if hero_image.width >= 1100 -%}{{ hero_image | image_url: width: 2200 }} 1100w,{%- endif -%} {%- if hero_image.width >= 1500 -%}{{ hero_image | image_url: width: 3000 }} 1500w,{%- endif -%} {%- if hero_image.width >= 1780 -%}{{ hero_image | image_url: width: 3540 }} 1780w,{%- endif -%} {%- if hero_image.width >= 2000 -%}{{ hero_image | image_url: width: 2000 }} 2000w,{%- endif -%} {%- if hero_image.width >= 3000 -%}{{ hero_image | image_url: width: 3000 }} 3000w,{%- endif -%} {%- if hero_image.width >= 3840 -%}{{ hero_image | image_url: width: 3840 }} 3840w,{%- endif -%} {{ hero_image | image_url }} {{ hero_image.width }}w"
+        sizes="100vw"
+        src="{{ hero_image | image_url: width: 1500 }}"
+        loading="lazy"
+        alt="{{ hero_image.alt | escape }}"
+        width="{{ hero_image.width }}"
+        height="{{ hero_image.width | divided_by: hero_image.aspect_ratio }}"
+      >
+    {%- endif -%}
+  </div>
+{%- elsif hero_image != blank -%}
   <img
     class="c-hero__image u-absolute-fill"
-    srcset="{%- if section.settings.image.width >= 375 -%}{{ section.settings.image | image_url: width: 750 }} 375w,{%- endif -%} {%- if section.settings.image.width >= 550 -%}{{ section.settings.image | image_url: width: 1100 }} 550w,{%- endif -%} {%- if section.settings.image.width >= 750 -%}{{ section.settings.image | image_url: width: 1500 }} 750w,{%- endif -%} {%- if section.settings.image.width >= 1100 -%}{{ section.settings.image | image_url: width: 2200 }} 1100w,{%- endif -%} {%- if section.settings.image.width >= 1500 -%}{{ section.settings.image | image_url: width: 3000 }} 1500w,{%- endif -%} {%- if section.settings.image.width >= 1780 -%}{{ section.settings.image | image_url: width: 3540 }} 1780w,{%- endif -%} {%- if section.settings.image.width >= 2000 -%}{{ section.settings.image | image_url: width: 2000 }} 2000w,{%- endif -%} {%- if section.settings.image.width >= 3000 -%}{{ section.settings.image | image_url: width: 3000 }} 3000w,{%- endif -%} {%- if section.settings.image.width >= 3840 -%}{{ section.settings.image | image_url: width: 3840 }} 3840w,{%- endif -%} {{ section.settings.image | image_url }} {{ section.settings.image.width }}w"
+    srcset="{%- if hero_image.width >= 375 -%}{{ hero_image | image_url: width: 750 }} 375w,{%- endif -%} {%- if hero_image.width >= 550 -%}{{ hero_image | image_url: width: 1100 }} 550w,{%- endif -%} {%- if hero_image.width >= 750 -%}{{ hero_image | image_url: width: 1500 }} 750w,{%- endif -%} {%- if hero_image.width >= 1100 -%}{{ hero_image | image_url: width: 2200 }} 1100w,{%- endif -%} {%- if hero_image.width >= 1500 -%}{{ hero_image | image_url: width: 3000 }} 1500w,{%- endif -%} {%- if hero_image.width >= 1780 -%}{{ hero_image | image_url: width: 3540 }} 1780w,{%- endif -%} {%- if hero_image.width >= 2000 -%}{{ hero_image | image_url: width: 2000 }} 2000w,{%- endif -%} {%- if hero_image.width >= 3000 -%}{{ hero_image | image_url: width: 3000 }} 3000w,{%- endif -%} {%- if hero_image.width >= 3840 -%}{{ hero_image | image_url: width: 3840 }} 3840w,{%- endif -%} {{ hero_image | image_url }} {{ hero_image.width }}w"
     sizes="100vw"
-    src="{{ section.settings.image | image_url: width: 1500 }}"
+    src="{{ hero_image | image_url: width: 1500 }}"
     loading="lazy"
-    alt="{{ section.settings.image.alt | escape }}"
-    width="{{ section.settings.image.width }}"
-    height="{{ section.settings.image.width | divided_by: section.settings.image.aspect_ratio }}"
+    alt="{{ hero_image.alt | escape }}"
+    width="{{ hero_image.width }}"
+    height="{{ hero_image.width | divided_by: hero_image.aspect_ratio }}"
   >
-{% endif %}
+{%- endif -%}
 
 {% schema %}
 {
-  "name": "Hero",
+  "name": "Hero customizable",
   "tag": "section",
   "class": "c-hero",
   "settings": [
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Image"
+      "label": "Fallback image"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Shopify uploaded video"
     },
     {
       "type": "video_url",
-      "id": "video",
-      "label": "Background Video",
-      "default": "https://www.youtube.com/watch?v=r4wNFNe1k-s",
+      "id": "external_video",
+      "label": "YouTube or Vimeo video",
       "accept": ["youtube", "vimeo"]
     },
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Your authentic, certified NZ Manuka honey for beauty, immunity and vitality."
+      "default": "Liquid gold you can trust."
     },
     {
       "type": "text",
       "id": "paragraph",
       "label": "Paragraph",
-      "default": "Take the quiz"
+      "default": "Find the right Manuka honey for you"
     },
     {
       "type": "text",
       "id": "button_label",
-      "label": "Button Label",
-      "default": "WHICH HONEY IS FOR ME?"
+      "label": "Button label",
+      "default": "TAKE OUR QUIZ"
     },
     {
       "type": "url",
       "id": "button_link",
       "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 25
+    },
+    {
+      "type": "color",
+      "id": "button_background_color",
+      "label": "Button background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "desktop_height",
+      "label": "Desktop height",
+      "min": 420,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "default": 760
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "label": "Mobile height",
+      "min": 420,
+      "max": 760,
+      "step": 20,
+      "unit": "px",
+      "default": 620
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Content width",
+      "min": 420,
+      "max": 1100,
+      "step": 20,
+      "unit": "px",
+      "default": 900
+    },
+    {
+      "type": "range",
+      "id": "content_offset",
+      "label": "Content vertical offset",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_offset",
+      "label": "Mobile content vertical offset",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 32,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 28,
+      "max": 56,
+      "step": 1,
+      "unit": "px",
+      "default": 38
+    },
+    {
+      "type": "range",
+      "id": "paragraph_size",
+      "label": "Paragraph size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_paragraph_size",
+      "label": "Mobile paragraph size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "paragraph_spacing_top",
+      "label": "Paragraph top spacing",
+      "min": 12,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 156
+    },
+    {
+      "type": "range",
+      "id": "mobile_paragraph_spacing_top",
+      "label": "Mobile paragraph top spacing",
+      "min": 12,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "button_spacing_top",
+      "label": "Button top spacing",
+      "min": 4,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "label": "Button text size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button radius",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 24
     }
   ],
   "presets": [
     {
-      "name": "Hero"
+      "name": "Hero customizable"
     }
   ]
 }

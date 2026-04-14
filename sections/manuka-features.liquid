@@ -2,11 +2,12 @@
 {{ 'manuka-features.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'manuka-features.js' | asset_url }}" defer="defer"></script>
+{%- assign heading_color = product.metafields.custom.color.value | default: product.metafields.custom.color -%}
 <div class="c-container">
   <div class="c-manuka-features__content">
     <div class="c-manuka-features__left">
       {%- if section.settings.title != blank -%}
-        <h2>{{ section.settings.title | escape }}</h2>
+        <h2{% if heading_color != blank %} style="color: {{ heading_color | escape }};"{% endif %}>{{ section.settings.title | escape }}</h2>
       {%- endif -%}
       {%- if section.settings.description != blank -%}
         {{ section.settings.description }}

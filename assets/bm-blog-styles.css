@@ -1,0 +1,221 @@
+/*
+ * New Zealand Honey Co. — Blog Content Stylesheet
+ *
+ * Source of truth: src/lib/content/html.ts generateBlockStylesheet()
+ * Uses px units (not rem) because Shopify themes often set html { font-size: 10px }
+ *
+ * Usage:
+ *   1. Upload to Shopify: Online Store > Themes > Edit Code > Assets > Add new asset
+ *   2. In layout/theme.liquid, add before </head>:
+ *      {{ 'bm-blog-styles.css' | asset_url | stylesheet_tag }}
+ *   3. Wrap article body in: <div class="blog-content">...</div>
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&display=swap');
+
+/* ============================================
+   BASE CONTAINER + TYPOGRAPHY
+   ============================================ */
+.blog-content {
+  --brand-primary: #f1b434;
+  --brand-accent: #c8922a;
+  --brand-text: #313131;
+  --brand-text-secondary: #475569;
+  --brand-text-muted: #64748b;
+  --brand-font-heading: 'Assistant', sans-serif;
+  --brand-font-body: 'Assistant', sans-serif;
+  --brand-border: #e5e2dc;
+
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  font-family: var(--brand-font-body);
+  line-height: 1.8;
+  color: var(--brand-text);
+  font-size: 17px;
+}
+
+/* Typography */
+.blog-content h1 { font-family: var(--brand-font-heading); font-size: 36px; font-weight: 700; line-height: 1.2; margin-bottom: 24px; letter-spacing: -0.025em; color: var(--brand-text); }
+.blog-content h2 { font-family: var(--brand-font-heading); font-size: 26px; font-weight: 600; margin-top: 40px; margin-bottom: 16px; letter-spacing: -0.015em; color: var(--brand-text); }
+.blog-content h3 { font-family: var(--brand-font-heading); font-size: 22px; font-weight: 600; margin-top: 32px; margin-bottom: 12px; color: var(--brand-text); }
+.blog-content h4 { font-family: var(--brand-font-heading); font-size: 18px; font-weight: 600; margin-top: 24px; margin-bottom: 8px; color: var(--brand-text); }
+.blog-content p { margin-bottom: 20px; }
+.blog-content a { color: var(--brand-text); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--brand-primary); text-decoration-thickness: 2px; transition: text-decoration-color 0.2s ease; }
+.blog-content a:hover { text-decoration-color: var(--brand-accent); }
+.blog-content strong, .blog-content b { font-weight: 700; }
+
+/* Lists */
+.blog-content ul, .blog-content ol { margin-bottom: 20px; padding-left: 24px; }
+.blog-content li { margin-bottom: 8px; }
+.blog-content ul li::marker { color: var(--brand-primary); }
+.blog-content ol li::marker { color: var(--brand-primary); font-weight: 600; }
+
+/* ============================================
+   EXCERPT
+   ============================================ */
+.blog-excerpt { font-size: 19px; color: var(--brand-text-secondary); border-left: 3px solid var(--brand-primary); padding-left: 20px; margin-bottom: 40px; font-style: italic; line-height: 1.7; }
+
+/* ============================================
+   BLOCKQUOTE
+   ============================================ */
+.blog-content blockquote {
+  border-left: 3px solid var(--brand-primary);
+  padding: 20px 24px;
+  margin: 32px 0;
+  background: #f9f8f6;
+  border-radius: 0 8px 8px 0;
+  position: relative;
+}
+.blog-content blockquote::before { content: '\201C'; font-size: 56px; font-family: Georgia, serif; color: var(--brand-primary); opacity: 0.3; position: absolute; top: -4px; left: 12px; line-height: 1; }
+.blog-content blockquote p { margin-left: 24px; font-size: 18px; font-style: italic; color: var(--brand-text-secondary); }
+.blog-content blockquote cite { font-style: normal; color: var(--brand-text-muted); font-size: 14px; margin-left: 24px; display: block; margin-top: 8px; }
+
+/* ============================================
+   CALLOUT BOXES (5 styles)
+   ============================================ */
+.blog-content .callout { padding: 20px 24px; border-radius: 8px; margin: 28px 0; border-left: 3px solid; }
+.blog-content .callout h4 { margin: 0 0 12px 0; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 8px; }
+.blog-content .callout h4 svg { flex-shrink: 0; }
+.blog-content .callout ul { margin: 0; padding-left: 20px; }
+.blog-content .callout li { margin-bottom: 6px; font-size: 15px; }
+.blog-content .callout-tip { background: #eff6ff; border-left-color: #3b82f6; }
+.blog-content .callout-tip h4 { color: #1d4ed8; }
+.blog-content .callout-info { background: #f5f3ef; border-left-color: #94a3b8; }
+.blog-content .callout-info h4 { color: var(--brand-text-secondary); }
+.blog-content .callout-warning { background: #fef9ee; border-left-color: #f59e0b; }
+.blog-content .callout-warning h4 { color: #b45309; }
+.blog-content .callout-success { background: #f2f8f0; border-left-color: #22c55e; }
+.blog-content .callout-success h4 { color: #15803d; }
+.blog-content .callout-key_points { background: #f8f5f0; border-left-color: #8b5cf6; }
+.blog-content .callout-key_points h4 { color: #6d28d9; }
+
+/* ============================================
+   FAQ SECTION
+   ============================================ */
+.blog-content .faq-section { margin: 40px 0; }
+.blog-content .faq-item { margin-bottom: 0; border-bottom: 1px solid var(--brand-border); padding: 20px 0; }
+.blog-content .faq-item:first-child { border-top: 1px solid var(--brand-border); }
+.blog-content .faq-item h4 { margin: 0 0 8px 0; color: var(--brand-text); font-size: 17px; font-weight: 600; }
+.blog-content .faq-item p { color: var(--brand-text-secondary); margin: 0; line-height: 1.7; }
+
+/* ============================================
+   CTA BLOCK
+   ============================================ */
+.blog-content .cta-block { text-align: center; padding: 40px 32px; background: #f9f8f6; border-radius: 8px; margin: 40px 0; border: 1px solid var(--brand-border); }
+.blog-content .cta-block h3 { margin: 0 0 8px 0; font-size: 22px; color: var(--brand-text); }
+.blog-content .cta-block p { color: var(--brand-text-secondary); margin-bottom: 20px; max-width: 480px; margin-left: auto; margin-right: auto; }
+.blog-content .cta-button { display: inline-block; padding: 12px 32px; background: var(--brand-primary); color: #ffffff; text-decoration: none; border-radius: 9999px; font-weight: 600; font-size: 15px; border: 1px solid var(--brand-primary); transition: background 0.2s ease, color 0.2s ease; }
+.blog-content .cta-button:hover { background: transparent; color: var(--brand-primary); }
+
+/* ============================================
+   FEATURE CARD
+   ============================================ */
+.blog-content .feature-card { border: 1px solid var(--brand-border); border-radius: 8px; padding: 24px; margin: 28px 0; background: #ffffff; }
+.blog-content .feature-card h4 { margin: 0 0 8px 0; color: var(--brand-text); }
+.blog-content .feature-card p { color: var(--brand-text-secondary); margin-bottom: 12px; }
+.blog-content .feature-card ul { margin-bottom: 12px; }
+.blog-content .feature-card a { font-size: 14px; font-weight: 600; color: var(--brand-primary); }
+
+/* ============================================
+   INFO BOX
+   ============================================ */
+.blog-content .info-box { background: #f9f8f6; border-left: 3px solid var(--brand-primary); padding: 20px 24px; margin: 28px 0; border-radius: 0 8px 8px 0; }
+.blog-content .info-box h4 { margin: 0 0 6px 0; color: var(--brand-text); font-size: 16px; }
+.blog-content .info-box p { margin: 0; font-size: 15px; color: var(--brand-text-secondary); }
+.blog-content .info-box .source { margin-top: 12px; font-size: 13px; color: var(--brand-text-muted); }
+
+/* ============================================
+   STEPS (How-To)
+   ============================================ */
+.blog-content .steps-section { margin: 32px 0; }
+.blog-content .steps-section > h4 { margin: 0 0 20px 0; }
+.blog-content .steps-section ol.steps { counter-reset: step; list-style: none; padding-left: 0; position: relative; }
+.blog-content .steps-section ol.steps::before { content: ''; position: absolute; left: 14px; top: 28px; bottom: 12px; width: 2px; background: var(--brand-border); }
+.blog-content .steps-section ol.steps li { counter-increment: step; position: relative; padding-left: 52px; margin-bottom: 24px; padding-bottom: 4px; }
+.blog-content .steps-section ol.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  background: var(--brand-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 13px;
+  z-index: 1;
+}
+.blog-content .steps-section ol.steps li strong { display: block; margin-bottom: 4px; color: var(--brand-text); }
+.blog-content .steps-section ol.steps li p { font-size: 15px; color: var(--brand-text-secondary); margin: 0; }
+
+/* ============================================
+   CHECKLIST
+   ============================================ */
+.blog-content .checklist { list-style: none; padding-left: 0; }
+.blog-content .checklist li { position: relative; padding-left: 28px; margin-bottom: 10px; }
+.blog-content .checklist li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 18px;
+  height: 18px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2322c55e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 11.08V12a10 10 0 1 1-5.93-9.14'/%3E%3Cpath d='m9 11 3 3L22 4'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* ============================================
+   PRODUCT CARD
+   ============================================ */
+.blog-content .product-card { display: flex; flex-direction: row; border: 1px solid var(--brand-border); border-radius: 8px; overflow: hidden; margin: 28px 0; background: #ffffff; }
+.blog-content .product-card-image { width: 192px; flex-shrink: 0; background: #f8f8f6; }
+.blog-content .product-card-image img { width: 100%; height: 100%; object-fit: cover; }
+.blog-content .product-card-content { flex: 1; padding: 24px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+.blog-content .product-card-content h4 { margin: 0; color: var(--brand-text); font-size: 18px; }
+.blog-content .product-card-content p { color: var(--brand-text-secondary); margin: 0; font-size: 15px; }
+.blog-content .product-card-button { display: inline-block; padding: 10px 24px; background: var(--brand-primary); color: #ffffff; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 14px; margin-top: 8px; align-self: flex-start; }
+.blog-content .product-card-button:hover { opacity: 0.9; }
+.blog-content .product-card-featured { flex-direction: column; }
+.blog-content .product-card-featured .product-card-image { width: 100%; height: 320px; }
+@media (max-width: 640px) {
+  .blog-content .product-card { flex-direction: column; }
+  .blog-content .product-card-image { width: 100%; height: 192px; }
+}
+
+/* ============================================
+   IMAGES (figure/figcaption)
+   ============================================ */
+.blog-content figure { margin: 32px 0; width: fit-content; }
+.blog-content figure img { max-width: 100%; height: auto; border-radius: 4px; }
+.blog-content figcaption { text-align: center; font-size: 14px; color: var(--brand-text-muted); margin-top: 8px; }
+
+/* ============================================
+   DIVIDER
+   ============================================ */
+.blog-content hr { border: none; height: 1px; background: linear-gradient(to right, transparent, var(--brand-border), transparent); margin: 40px 0; }
+
+/* ============================================
+   REFERENCES (citations)
+   ============================================ */
+.blog-content .references { list-style: none; padding-left: 0; margin-top: 16px; border-top: 1px solid var(--brand-border); padding-top: 16px; }
+.blog-content .references li { font-size: 14px; color: var(--brand-text-secondary); margin-bottom: 10px; padding-left: 0; line-height: 1.5; scroll-margin-top: 80px; }
+.blog-content .references li a { color: var(--brand-primary); }
+.blog-content sup { font-size: 0.75em; line-height: 0; }
+.blog-content sup a { text-decoration: none; color: var(--brand-primary); font-weight: 500; }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 640px) {
+  .blog-content { padding: 24px 16px; font-size: 16px; }
+  .blog-content h1 { font-size: 28px; }
+  .blog-content h2 { font-size: 22px; }
+  .blog-content h3 { font-size: 20px; }
+  .blog-content .cta-block { padding: 28px 20px; }
+  .blog-content .steps-section ol.steps li { padding-left: 44px; }
+}

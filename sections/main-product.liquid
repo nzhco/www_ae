@@ -88,16 +88,16 @@
                         <div class="product-badge">
                           {% if badge_link != blank %}
                             <a href="{{ badge_link }}" target="_blank" rel="noopener">
-                              <img 
-                                src="{{ badge_image }}" 
-                                alt="Badge" 
+                              <img
+                                src="{{ badge_image }}"
+                                alt="Badge"
                                 loading="lazy"
                               >
                             </a>
                           {% else %}
-                            <img 
-                              src="{{ badge_image }}" 
-                              alt="Badge" 
+                            <img
+                              src="{{ badge_image }}"
+                              alt="Badge"
                               loading="lazy"
                             >
                           {% endif %}
@@ -324,66 +324,73 @@
 
   </div>
 </section>
-        <div class="c-product__title">
+         <div class="c-product__title">
   {%- if product.metafields.custom.product_name != blank -%}
-    <h1>
-      {{ product.metafields.custom.product_name | escape }}
-      {%- if product.metafields.custom.umf_score != blank -%}
-        <span class="c-product__score c-product__score--umf">
-          <span class="c-product__score__name">{{ 'sections.main_product.umf_html' | t }}</span>
-          <span class="c-product__score__value">{{ product.metafields.custom.umf_score | escape }}</span>
-        </span>
-      {%- endif -%}
-      {%- if product.metafields.custom.mgo_score != blank -%}
-        <span class="c-product__score c-product__score--mgo">
-          <span class="c-product__score__name">{{ 'sections.main_product.mgo' | t }}</span>
-          <span class="c-product__score__value">{{ product.metafields.custom.mgo_score | escape }}</span>
-        </span>
-      {%- endif -%}
-    </h1>
-    {% if product.metafields.custom.sale_badges != blank %}
-      <div class="sale-badge">{{ product.metafields.custom.sale_badges }}</div>
-    {% endif %}
+    {%- assign _title = product.metafields.custom.product_name -%}
   {%- elsif product.title != blank -%}
-    <h1>
-      {{ product.title | escape }}
-      {%- if product.metafields.custom.umf_score != blank -%}
-        <span class="c-product__score c-product__score--umf">
-          <span class="c-product__score__name">{{ 'sections.main_product.umf_html' | t }}</span>
-          <span class="c-product__score__value">{{ product.metafields.custom.umf_score | escape }}</span>
-        </span>
-      {%- endif -%}
-      {%- if product.metafields.custom.mgo_score != blank -%}
-        <span class="c-product__score c-product__score--mgo">
-          <span class="c-product__score__name">{{ 'sections.main_product.mgo' | t }}</span>
-          <span class="c-product__score__value">{{ product.metafields.custom.mgo_score | escape }}</span>
-        </span>
-      {%- endif -%}
-    </h1>
-    {% if product.metafields.custom.sale_badges != blank %}
-      <div class="sale-badge">{{ product.metafields.custom.sale_badges }}</div>
-    {% endif %}
+    {%- assign _title = product.title -%}
   {%- else -%}
-    <h1>
-      {{ 'sections.main_product.manuka_honey' | t }}
-      {%- if product.metafields.custom.umf_score != blank -%}
-        <span class="c-product__score c-product__score--umf">
-          <span class="c-product__score__name">{{ 'sections.main_product.umf_html' | t }}</span>
-          <span class="c-product__score__value">{{ product.metafields.custom.umf_score | escape }}</span>
-        </span>
-      {%- endif -%}
-      {%- if product.metafields.custom.mgo_score != blank -%}
-        <span class="c-product__score c-product__score--mgo">
-          <span class="c-product__score__name">{{ 'sections.main_product.mgo' | t }}</span>
-          <span class="c-product__score__value">{{ product.metafields.custom.mgo_score | escape }}</span>
-        </span>
-      {%- endif -%}
-    </h1>
-    {% if product.metafields.custom.sale_badges != blank %}
-      <div class="sale-badge">{{ product.metafields.custom.sale_badges }}</div>
-    {% endif %}
+    {%- assign _title = 'sections.main_product.manuka_honey' | t -%}
   {%- endif -%}
+
+  <h1>
+    <span class="c-product__title__name">{{ _title | escape }}</span>
+    {%- if product.metafields.custom.umf_score != blank or product.metafields.custom.mgo_score != blank -%}
+      <span class="c-product__scores">
+        {%- if product.metafields.custom.umf_score != blank -%}
+          <span class="c-product__score c-product__score--umf">
+            <span class="c-product__score__name">{{ 'sections.main_product.umf_html' | t }}</span>
+            <span class="c-product__score__value">{{ product.metafields.custom.umf_score | escape }}</span>
+          </span>
+        {%- endif -%}
+        {%- if product.metafields.custom.umf_score != blank and product.metafields.custom.mgo_score != blank -%}
+          <span class="c-product__scores__sep" aria-hidden="true">|</span>
+        {%- endif -%}
+        {%- if product.metafields.custom.mgo_score != blank -%}
+          <span class="c-product__score c-product__score--mgo">
+            <span class="c-product__score__name">{{ 'sections.main_product.mgo' | t }}</span>
+            <span class="c-product__score__value">{{ product.metafields.custom.mgo_score | escape }}</span>
+          </span>
+        {%- endif -%}
+      </span>
+    {%- endif -%}
+  </h1>
+
+  {% if product.metafields.custom.sale_badges != blank %}
+    <div class="sale-badge">{{ product.metafields.custom.sale_badges }}</div>
+  {% endif %}
 </div>
+
+<style>
+  .c-product__title h1 { display: block; }
+  .c-product__title__name { display: block; }
+  .c-product__scores {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    gap: 0.3em;
+    margin-top: 0.15em;
+    font-size: 0.75em;
+    white-space: nowrap;
+  }
+  .c-product__scores .c-product__score {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.2em;
+  }
+  .c-product__scores__sep {
+    display: inline-block;
+    opacity: 0.6;
+    font-weight: 400;
+    margin: 0 0.1em;
+  }
+  .c-product__score__name { font-size: 30px; }
+  .c-product__score__value { font-size: 40px; font-weight: 500; }
+  @media (max-width: 767px) {
+    .c-product__scores { font-size: 0.45em; gap: 0.2em; }
+    .c-product__scores__sep { margin: 0 0.05em; font-size: 30px; }
+  }
+</style>
         {% if product.metafields.custom.help_me_pick %}
           <div class="product-help-me-pick">
           {{ product.metafields.custom.help_me_pick.value }}
@@ -695,15 +702,15 @@
 {% if product.metafields.custom.pure_trace_image_mobile or product.metafields.custom.pure_trace_image_desktop %}
   <!-- Mobile Image -->
   {% if product.metafields.custom.pure_trace_image_mobile != blank %}
-    <img class="pureTrace_honey_mobile" 
-         src="{{ product.metafields.custom.pure_trace_image_mobile | img_url: 'master' }}" 
+    <img class="pureTrace_honey_mobile"
+         src="{{ product.metafields.custom.pure_trace_image_mobile | img_url: 'master' }}"
          alt="Pure Trace Honey Mobile" />
   {% endif %}
 
   <!-- Desktop Image -->
   {% if product.metafields.custom.pure_trace_image_desktop != blank %}
-    <img class="pureTrace_honey_desktop" 
-         src="{{ product.metafields.custom.pure_trace_image_desktop | img_url: 'master' }}" 
+    <img class="pureTrace_honey_desktop"
+         src="{{ product.metafields.custom.pure_trace_image_desktop | img_url: 'master' }}"
          alt="Pure Trace Honey Desktop" />
   {% endif %}
 {% endif %}
@@ -713,7 +720,7 @@
             {% endif %}
           </div>
         {%- endif -%}
-      </div>                    
+      </div>
       <div id="productPage" class="c-product__page">
   <div id="productForm" class="c-product__form--wrapper">
     {% form 'product', product, class: 'c-product__form' %}
@@ -746,6 +753,128 @@
           </div>
         {%- endfor -%}
       {%- endunless -%}
+      {% if section.settings.show_product_banner %}
+        {% liquid
+          assign product_banner_image_alt = section.settings.product_banner_image_alt
+          assign default_product_banner_image = 'https://cdn.shopify.com/s/files/1/0730/0608/8505/files/manuka-honey-nz-umf20-125g-148642.webp'
+
+          if product_banner_image_alt == blank
+            assign product_banner_image_alt = section.settings.product_banner_title
+          endif
+        %}
+        <style>
+          #shopify-section-{{ section.id }} .de-eu-product-banner {
+            display: block;
+            margin: 20px 0;
+          }
+
+          #shopify-section-{{ section.id }} .de-eu-product-banner__inner {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: var(--de-eu-product-banner-background);
+            padding: 16px 24px;
+            border-radius: 12px;
+            color: var(--de-eu-product-banner-text);
+            font-family: "GT Walsheim Pro", "BrownStd-Regular", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          }
+
+          #shopify-section-{{ section.id }} .de-eu-product-banner__product {
+            background: var(--de-eu-product-banner-image-background);
+            border-radius: 10px;
+            padding: 8px;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+          }
+
+          #shopify-section-{{ section.id }} .de-eu-product-banner__product img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+          }
+
+          #shopify-section-{{ section.id }} .de-eu-product-banner__content {
+            line-height: 1.3;
+          }
+
+          #shopify-section-{{ section.id }} .de-eu-product-banner__title {
+            font-size: 18px;
+            font-weight: 700;
+          }
+
+          #shopify-section-{{ section.id }} .de-eu-product-banner__subtitle {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-top: 2px;
+          }
+
+          @media (max-width: 749px) {
+            #shopify-section-{{ section.id }} .de-eu-product-banner__inner {
+              gap: 14px;
+              padding: 14px 16px;
+            }
+
+            #shopify-section-{{ section.id }} .de-eu-product-banner__product {
+              width: 60px;
+              height: 60px;
+            }
+
+            #shopify-section-{{ section.id }} .de-eu-product-banner__title {
+              font-size: 16px;
+            }
+
+            #shopify-section-{{ section.id }} .de-eu-product-banner__subtitle {
+              font-size: 12px;
+            }
+          }
+        </style>
+        <div
+          class="de-eu-product-banner"
+          style="
+            --de-eu-product-banner-background: {{ section.settings.product_banner_background }};
+            --de-eu-product-banner-text: {{ section.settings.product_banner_text_color }};
+            --de-eu-product-banner-image-background: {{ section.settings.product_banner_image_background }};
+          "
+        >
+          <div class="de-eu-product-banner__inner">
+            <div class="de-eu-product-banner__product">
+              {% if section.settings.product_banner_image != blank %}
+                {{
+                  section.settings.product_banner_image
+                  | image_url: width: 160
+                  | image_tag:
+                    alt: product_banner_image_alt,
+                    loading: 'lazy'
+                }}
+              {% else %}
+                <img
+                  src="{{ default_product_banner_image }}"
+                  alt="{{ product_banner_image_alt | escape }}"
+                  loading="lazy"
+                >
+              {% endif %}
+            </div>
+
+            <div class="de-eu-product-banner__content">
+              {% if section.settings.product_banner_title != blank %}
+                <div class="de-eu-product-banner__title">
+                  {{ section.settings.product_banner_title | escape }}
+                </div>
+              {% endif %}
+              {% if section.settings.product_banner_subtitle != blank %}
+                <div class="de-eu-product-banner__subtitle">
+                  {{ section.settings.product_banner_subtitle | escape | newline_to_br }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
  {% assign special_product_ids = "8722287886609,10236514369809" | split: "," %}
 
 {% assign current_product_id = product.id | append: "" %}
@@ -866,7 +995,7 @@ document.addEventListener("DOMContentLoaded", function () {
             {%- if section.settings.umf_title -%}
               <div class="c-product__form__label">{{ section.settings.umf_title | escape }}</div>
             {%- endif -%}
-            
+
              {% if template == 'product.mgo-variant-swatches' or template == 'product.lozenges-mgo' %}
    <ul class="c-product__umf__nav u-list-reset">
               {% comment %}theme-check-disable{% endcomment %}
@@ -946,12 +1075,12 @@ document.addEventListener("DOMContentLoaded", function () {
               {% endfor %}
             </ul>
   {% endif %}
-            
+
             {%- if section.settings.scale_title -%}
               <div class="c-product__form__label">{{ section.settings.scale_title | escape }}</div>
             {%- endif -%}
-            
-            
+
+
                <div class="c-product__umf__slider">
               <input
                 type="range"
@@ -1050,7 +1179,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     })
   })
-                </script>                
+                </script>
       {% if product.metafields.custom.default_variant_select.value != blank %}
         <script>
         function d4UpdateSwatchDetails() {
@@ -1059,12 +1188,55 @@ document.addEventListener("DOMContentLoaded", function () {
             d4SelectedVariant.click();
           })
         }
-    
+
         d4UpdateSwatchDetails();
       </script>
     {% endif %}
     </div>
   </div>
+  {%- liquid
+    if product.selected_or_first_available_variant.featured_media
+      assign seo_media = product.selected_or_first_available_variant.featured_media
+    else
+      assign seo_media = product.featured_media
+    endif
+  -%}
+
+  {% assign current_variant = product.selected_or_first_available_variant %}
+  <script type="application/ld+json">
+    {
+           "@context": "http://schema.org/",
+           "@type": "Product",
+             "url": "{{ shop.secure_url | escape }}{{ product.url | escape }}",
+             "name": "{{ product.title | escape }}",
+           "image": "https:{{ product.featured_image.src | img_url: 'master' }}",
+           "description": "{{ product.description | escape }}",
+           "brand": {
+               "name": "{{ product.vendor }}"
+           },
+           "sku": "{{ product.variants.first.sku }}",
+           "mpn": "{{ product.variants.first.sku }}",
+           "offers": {
+               "@type": "Offer",
+               "priceCurrency": "{{ shop.currency }}",
+               "price": "{{ current_variant.price | money_without_currency }}",
+               "availability": "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+               "seller": {
+                   "@type": "Organization",
+                    "name": "{{ shop.name }}"
+               },
+               "url": "{{ shop.secure_url | escape }}{{ product.url | escape }}"
+           }
+     {% if product.metafields.stamped.reviews_count and product.metafields.stamped.reviews_count != "0" %},"aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": {{ product.metafields.stamped.reviews_average | round: 2 }},
+    "reviewCount": {{ product.metafields.stamped.reviews_count }},
+    "bestRating": 5,
+    "worstRating": 1
+    }
+    {% endif %}
+    }
+  </script>
 
  </div>
 
@@ -1127,7 +1299,57 @@ document.addEventListener("DOMContentLoaded", function () {
       "label": "Scale end",
       "default": "Bold & Intense"
     },
-
+    {
+      "type": "header",
+      "content": "Product Banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_banner",
+      "label": "Show product banner",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "product_banner_image",
+      "label": "Banner image"
+    },
+    {
+      "type": "text",
+      "id": "product_banner_image_alt",
+      "label": "Banner image alt text",
+      "default": "MGO 829+ Honig"
+    },
+    {
+      "type": "text",
+      "id": "product_banner_title",
+      "label": "Banner title",
+      "default": "Ab 100 € Einkaufswert: MGO 829+ (125 g) gratis"
+    },
+    {
+      "type": "textarea",
+      "id": "product_banner_subtitle",
+      "label": "Banner subtitle",
+      "default": "Gratis MGO 829+ (125 g) bei Bestellungen ab 100 €. Nur für kurze Zeit."
+    },
+    {
+      "type": "color",
+      "id": "product_banner_background",
+      "label": "Banner background color",
+      "default": "#B9E2FF"
+    },
+    {
+      "type": "color",
+      "id": "product_banner_text_color",
+      "label": "Banner text color",
+      "default": "#313131"
+    },
+    {
+      "type": "color",
+      "id": "product_banner_image_background",
+      "label": "Banner image background color",
+      "default": "#FFFFFF"
+    },
     {
       "type": "select",
       "id": "product_content",

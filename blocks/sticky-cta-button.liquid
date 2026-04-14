@@ -1,0 +1,288 @@
+{% assign gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .sticky-button-{{ gen_id }} {
+    display: none;
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    transform: translateY(100%);
+  }
+
+  .sticky-button-{{ gen_id }}.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .sticky-button-link-{{ gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: {{ block.settings.button_padding }}px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    font-size: {{ block.settings.font_size }}px;
+    font-weight: {{ block.settings.font_weight }};
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: {{ block.settings.border_radius }}px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, {{ block.settings.shadow_opacity }});
+    transition: background-color 0.3s ease;
+  }
+
+  .sticky-button-link-{{ gen_id }}:active {
+    background-color: {{ block.settings.button_hover_bg_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .sticky-button-{{ gen_id }} {
+      display: block;
+    }
+  }
+
+  body.sticky-cta-visible .uwy.userway_p5 .userway_buttons_wrapper {
+    bottom: 70px !important;
+    transition: bottom 0.3s ease;
+  }
+
+  body.sticky-cta-visible iframe#chat-button {
+    bottom: 60px !important;
+    transition: bottom 0.3s ease;
+  }
+{% endstyle %}
+
+<sticky-button-{{ gen_id }}
+  class="sticky-button-{{ gen_id }}"
+  data-start-after-sections="{{ block.settings.start_after_sections }}"
+  data-hide-after-sections="{{ block.settings.hide_after_sections }}"
+  {{ block.shopify_attributes }}
+>
+  <a
+    href="{{ block.settings.button_link }}"
+    class="sticky-button-link-{{ gen_id }}"
+  >
+    {{ block.settings.button_text }}
+  </a>
+</sticky-button-{{ gen_id }}>
+
+<script>
+  (function() {
+    class StickyButton{{ gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.startAfterSections = parseInt(this.dataset.startAfterSections) || 1;
+        this.hideAfterSections = parseInt(this.dataset.hideAfterSections) || 4;
+        this.isVisible = false;
+      }
+
+      connectedCallback() {
+        this.setupScrollListener();
+      }
+
+      setupScrollListener() {
+        let ticking = false;
+
+        window.addEventListener('scroll', () => {
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              this.handleScroll();
+              ticking = false;
+            });
+            ticking = true;
+          }
+        });
+
+        this.handleScroll();
+      }
+
+      handleScroll() {
+        const scrollPosition = window.scrollY;
+        const windowHeight = window.innerHeight;
+
+        const mainContent = document.querySelector('main') || document.body;
+        const sections = mainContent.querySelectorAll('.shopify-section');
+
+        if (sections.length === 0) {
+          return;
+        }
+
+        let startPosition = 0;
+        if (this.startAfterSections > 0) {
+          const startSectionIndex = Math.min(this.startAfterSections - 1, sections.length - 1);
+          const startSection = sections[startSectionIndex];
+          if (startSection) {
+            startPosition = startSection.offsetTop + startSection.offsetHeight;
+          }
+        }
+
+        let endPosition = Infinity;
+        if (this.hideAfterSections > 0) {
+          const endSectionIndex = Math.min(this.hideAfterSections - 1, sections.length - 1);
+          const endSection = sections[endSectionIndex];
+          if (endSection) {
+            endPosition = endSection.offsetTop + endSection.offsetHeight;
+          }
+        }
+
+        const shouldShow = scrollPosition > startPosition && scrollPosition < (endPosition - windowHeight);
+
+        if (shouldShow && !this.isVisible) {
+          this.classList.add('visible');
+          document.body.classList.add('sticky-cta-visible');
+          this.isVisible = true;
+        } else if (!shouldShow && this.isVisible) {
+          this.classList.remove('visible');
+          document.body.classList.remove('sticky-cta-visible');
+          this.isVisible = false;
+        }
+      }
+    }
+
+    customElements.define('sticky-button-{{ gen_id }}', StickyButton{{ gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Sticky button",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Button content"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "EXPLORE OUR RANGE"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Visibility control"
+    },
+    {
+      "type": "range",
+      "id": "start_after_sections",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "label": "Show after sections",
+      "info": "Button appears after scrolling past this many sections",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "hide_after_sections",
+      "min": 1,
+      "max": 15,
+      "step": 1,
+      "label": "Hide after sections",
+      "info": "Button disappears after scrolling past this many sections",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Background color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Active background color",
+      "default": "#f1b434"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "button_padding",
+      "min": 12,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "shadow_opacity",
+      "min": 0,
+      "max": 0.5,
+      "step": 0.1,
+      "label": "Shadow opacity",
+      "default": 0.2
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sticky button"
+    }
+  ]
+}
+{% endschema %}

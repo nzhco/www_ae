@@ -16,7 +16,7 @@
   .c-product__right {
     flex: 1 !important;
     min-height: 100vh !important;
-    overflow-y: auto !important;
+    overflow-y: auto;
   }
 }
 .c-product {
