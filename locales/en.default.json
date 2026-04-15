@@ -271,5 +271,15 @@
       "confirm": "Confirm password",
       "reset": "Reset password"
     }
+  },
+  "blogs": {
+    "article": {
+      "back_to_blog": "Back to {{ title }}"
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "remaining_html": "Remaining balance: {{ balance }}"
+    }
   }
 }

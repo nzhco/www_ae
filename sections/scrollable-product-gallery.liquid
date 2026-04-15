@@ -200,7 +200,7 @@
             {% if first_image %}
               <img src="{{ first_image | image_url: width: 100 }}" alt="{{ product.title | escape }}" class="card-image" />
             {% endif %}
-            <div class="label1">{{ label | raw }}</div>
+            <div class="label1">{{ label }}</div>
           </a>
         {% endif %}
       {% endfor %}
